@@ -5,7 +5,7 @@ const dbconnection = mongoClient.connect(url, function(err, db){
     if(err){
         throw err
     } else {
-        console.log("Data base conected");
+        console.log("Database connected");
     }
 });
 
