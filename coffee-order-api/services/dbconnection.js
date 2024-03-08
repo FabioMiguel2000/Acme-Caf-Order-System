@@ -1,12 +1,19 @@
-const mongoClient = require("mongodb").MongoClient;
-var url = "mongodb+srv://coffe-order-admin:VT71aM9o4MI8gorK@coffe-order-server.q8zaut2.mongodb.net/?retryWrites=true&w=majority&appName=coffe-order-server";
+const { MongoClient } = require("mongodb");
+const url = "mongodb://mongo:27017/acme-coffee";
 
-const dbconnection = mongoClient.connect(url, function(err, db){
-    if(err){
-        throw err
-    } else {
-        console.log("Database connected");
-    }
-});
+let db = null;
+
+async function dbconnection() {
+  if (db) return db; // Reuse existing connection if already connected
+  try {
+    const client = await MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+    db = client.db();
+    console.log("Database connected!");
+    return db;
+  } catch (err) {
+    console.log("Error in connecting to database", err);
+    throw err;
+  }
+}
 
 module.exports = dbconnection;
