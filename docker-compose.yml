@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: api
+    depends_on:
+      - mongo
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/acme-coffee
+    build:
+      context: ./coffee-order-api
+      dockerfile: Dockerfile
+    volumes:
+      - ./coffee-order-api:/app/
+      - /app/node_modules
+    ports:
+      - 3000:3000
+
+
+  mongo: 
+    container_name: mongodb
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  mongo-express:
+    image: mongo-express
+    depends_on:
+      - mongo
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_BASICAUTH_USERNAME=root
+      - ME_CONFIG_BASICAUTH_PASSWORD=root
+
+volumes:
+  mongodb_data:
