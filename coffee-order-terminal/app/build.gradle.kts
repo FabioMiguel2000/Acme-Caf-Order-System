@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.feup.coffe_order_terminal"
+    namespace = "com.feup.coffee_order_terminal"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.feup.coffe_order_terminal"
+        applicationId = "com.feup.coffee_order_terminal"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

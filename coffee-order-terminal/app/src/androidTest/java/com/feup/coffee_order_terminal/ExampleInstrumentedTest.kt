@@ -1,4 +1,4 @@
-package com.feup.coffe_order_terminal
+package com.feup.coffee_order_terminal
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.feup.coffe_order_terminal", appContext.packageName)
+        assertEquals("com.feup.coffee_order_terminal", appContext.packageName)
     }
 }

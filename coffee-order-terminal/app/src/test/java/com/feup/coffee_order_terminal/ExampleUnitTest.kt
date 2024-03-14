@@ -1,4 +1,4 @@
-package com.feup.coffe_order_terminal
+package com.feup.coffee_order_terminal
 
 import org.junit.Test
 

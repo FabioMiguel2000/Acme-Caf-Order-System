@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "coffe-order-terminal"
+rootProject.name = "coffee-order-terminal"
 include(":app")
  
