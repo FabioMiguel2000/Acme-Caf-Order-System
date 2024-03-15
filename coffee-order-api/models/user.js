@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 
-export const userSchema = new mongoose.Schema({
-    uuid: {
-      type: String,
-      required: true,
-      unique: true,
+const userSchema = new mongoose.Schema({
+    // uuid: {
+    //   type: String,
+    //   required: true,
+    //   unique: true,
+    // },
+    password: {
+        type: String,
+        required: true,
     },
     name: {
       type: String,
@@ -13,6 +17,7 @@ export const userSchema = new mongoose.Schema({
     nif: {
         type: String,
         required: true,
+        unique: true,
     },
     publicKey: {
         type: String,

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-export const voucherSchema = new mongoose.Schema({
+const voucherSchema = new mongoose.Schema({
     uuid: {
       type: String,
       required: true,

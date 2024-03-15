@@ -9,7 +9,7 @@ const productCategories = [
     "Mochas"
 ]
 
-export const productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
