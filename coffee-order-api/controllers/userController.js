@@ -1,22 +1,38 @@
-const getAllUsers = (req, res, next) => {
-    return res.status(200).json({
-        error: false,
-        data: `Here you can get all user`
-    });
-}
+const User = require("../models/user");
 
-const getSingleUser = (req, res, next) => {
-    if(req.params.id){
+const getAllUsers = async (req, res) => {
+    try {   
+        const users = await User.find().select('-password -publicKey');
         return res.status(200).json({
-            error: false,
-            message: `Here you can get a single user`
+            success: true,
+            message: `Retrieved ${users.length} users`,
+            data: users
         });
-    } else {
-        return res.status(400).json({
+    } catch (error) {
+        return res.status(500).json({
             error: true,
-            message:`You've to provide a user`
+            success: false,
+            message: "Failed to retrieve users"
         });
     }
 }
 
-module.exports = { getAllUsers,  getSingleUser};
+const getSingleUser = async (req, res) => {
+    try {   
+        const { id } = req.params;
+        const user = await User.find({_id: id}).select('-password -publicKey');
+        return res.status(200).json({
+            success: true,
+            message: `Retrieved user with id: ${id}`,
+            data: user
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: true,
+            success: false,
+            message: "Failed to retrieve users"
+        });
+    }
+}
+
+module.exports = { getAllUsers, getSingleUser};
