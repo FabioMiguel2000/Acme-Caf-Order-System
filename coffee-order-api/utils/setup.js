@@ -8,30 +8,53 @@ const encryptPasswords = require('./crypto/bcryptPassword');
 const productSeeders = JSON.parse(fs.readFileSync(path.join(__dirname, './seeders/productSeeders.json'), 'utf-8'));
 const userSeeders = JSON.parse(fs.readFileSync(path.join(__dirname, './seeders/userSeeders.json'), 'utf-8'));
 
+const Product = require("../models/product");
+const User = require("../models/user");
 
-const seedDB = async () => {
-  await dbconnection();
 
-  const Product = require("../models/product");
-  const User = require("../models/user");
+const importData = async () => {
 
-  const userSeedersEncrypted = await encryptPasswords(userSeeders);
+  try {
+    await dbconnection();
 
-  await Product.deleteMany();
-  await User.deleteMany();
+    const userSeedersEncrypted = await encryptPasswords(userSeeders);
+  
+    await Product.deleteMany();
+    await User.deleteMany();
+  
+    await Product.insertMany(productSeeders);
+    await User.insertMany(userSeedersEncrypted);
 
-  await Product.insertMany(productSeeders);
-  await User.insertMany(userSeedersEncrypted);
-
-  await mongoose.disconnect();
-};
-
-seedDB()
-  .then(() => {
-    console.log("Seeding Completed!");
-    process.exit(0);
-  })
-  .catch((err) => {
-    console.error("Error Seeding", err);
+    console.log("Data has been seeded!");
+  
+    process.exit();
+    
+  } catch (error) {
+    console.log("Failed to seed MongoDB:", error);
     process.exit(1);
-});
+  }
+
+}
+
+const destroyData = async () => {
+  try {
+    await dbconnection();
+
+    await Product.deleteMany();
+    await User.deleteMany();
+
+    console.log("Data has been destroyed!");
+
+    process.exit();
+
+  } catch (error) {
+    console.log("Failed to destroy MongoDB:", error);
+    process.exit(1);
+  }
+}
+
+if (process.argv[2] == "-d") {
+  destroyData();
+} else {
+  importData();
+}
