@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
+const generateUUID = require('../utils/crypto/generateId');
 
 const userSchema = new mongoose.Schema({
-    // uuid: {
-    //   type: String,
-    //   required: true,
-    //   unique: true,
-    // },
+    _id: {
+      type: String,
+      default: generateUUID,
+    },
     password: {
         type: String,
         required: true,

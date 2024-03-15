@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
+const generateUUID = require('../utils/crypto/generateId');
 
 const voucherSchema = new mongoose.Schema({
-    uuid: {
+    _id: {
       type: String,
-      required: true,
-      unique: true,
+      default: generateUUID,
     },
     discount: {
       type: Number,

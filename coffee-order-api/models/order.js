@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
+const generateUUID = require('../utils/crypto/generateId');
 
 const orderSchema = new mongoose.Schema({
-//   uuid: {
-//     type: String,
-//     required: true,
-//     unique: true,
-//   },
+  _id: {
+    type: String,
+    default: generateUUID,
+  },
   name: {
     type: String,
     required: true,
