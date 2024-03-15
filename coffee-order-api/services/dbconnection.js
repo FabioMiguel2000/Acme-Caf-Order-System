@@ -1,16 +1,13 @@
 const { connection } = require('mongoose');
 const mongoose = require('mongoose');
-
-const url = "mongodb://mongo:27017/acme-coffee";
+require('dotenv').config({ path: __dirname + "/.env" });
 
 const options = {
   useUnifiedTopology: true,
   useNewUrlParser: true
-}
+};
 
-// dotenv.config({ path: __dirname + "/.env" });
-
-// const DB_URI = process.env.MONGODB_URI;
+const DB_URI = process.env.MONGODB_URI;
 
 const dbconnection = async () => {
   try {
@@ -18,13 +15,12 @@ const dbconnection = async () => {
           console.log("Using existing connection");
           return;
       }
-      await mongoose.connect(url, options);
+      await mongoose.connect(DB_URI, options);
       console.log("Connected to database");
   } catch (error) {
       console.log(error);
       throw new Error("Error connecting to database");
   }
-}
-
+};
 
 module.exports = dbconnection;
