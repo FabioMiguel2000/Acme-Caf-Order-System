@@ -13,4 +13,11 @@ async function encryptPasswords(users) {
     return users;
 }
 
-module.exports = encryptPasswords;
+async function encryptPassword(password) {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    return hashedPassword;
+}
+
+module.exports = {encryptPasswords, encryptPassword};
