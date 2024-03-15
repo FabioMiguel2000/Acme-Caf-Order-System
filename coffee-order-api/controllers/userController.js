@@ -20,7 +20,15 @@ const getAllUsers = async (req, res) => {
 const getSingleUser = async (req, res) => {
     try {   
         const { id } = req.params;
-        const user = await User.find({_id: id}).select('-password -publicKey');
+        const user = await User.findById(id).select('-password -publicKey');
+
+        if (!user) {
+            return res.status(404).json({
+                error: true,
+                success: false,
+                message: `User with id: ${id} not found`
+            });
+        }
         return res.status(200).json({
             success: true,
             message: `Retrieved user with id: ${id}`,
