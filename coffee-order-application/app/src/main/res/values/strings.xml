@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">coffee-order-application</string>
+    <string name="app_name">ACME CAFÉ</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">This is Home page</string>
 </resources>
