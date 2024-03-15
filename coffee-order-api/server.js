@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 
-let userRoutes = require("./routers/userRoutes");
-let orderRoutes = require("./routers/orderRoutes");
-let productRoutes = require("./routers/productRoutes");
-let voucherRoutes = require("./routers/voucherRoutes");
+const userRoutes = require("./routers/userRoutes");
+const orderRoutes = require("./routers/orderRoutes");
+const productRoutes = require("./routers/productRoutes");
+const voucherRoutes = require("./routers/voucherRoutes");
+const authRoutes = require("./routers/authRoutes");
+
 const dbconnection = require("./services/dbconnection");
 
 const app = express();
@@ -18,6 +20,7 @@ app.use("/api/", userRoutes);
 app.use("/api/", orderRoutes);
 app.use("/api/", productRoutes);
 app.use("/api/", voucherRoutes);
+app.use("/api/auth/", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to coffee-order-api");
