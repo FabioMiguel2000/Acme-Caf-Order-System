@@ -10,16 +10,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar1))
 
         val home = Categories()
         val profile = Profile()
         val cart = Cart()
-        var bottomnav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        var bottom_nav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
         setCurrentPage(home)
 
-        bottomnav.setOnNavigationItemSelectedListener {
+        bottom_nav.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home->setCurrentPage(home)
                 R.id.cart->setCurrentPage(cart)
