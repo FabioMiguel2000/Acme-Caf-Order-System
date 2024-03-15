@@ -6,6 +6,11 @@ const userSchema = new mongoose.Schema({
       type: String,
       default: generateUUID,
     },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     password: {
         type: String,
         required: true,

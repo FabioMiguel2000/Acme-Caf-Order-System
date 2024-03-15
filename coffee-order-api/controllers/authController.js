@@ -5,13 +5,13 @@ const { encryptPassword } = require("../utils/crypto/bcryptPassword");
 const loginUser = async (req, res) => {
   try {
     const userInput = ({
-      nif: req.body.nif,
+      email: req.body.email,
       password: req.body.password,
       publicKey: req.body.publicKey,
     } = req.body);
 
     let user = await User.findOne({
-      nif: userInput.nif,
+      email: userInput.email,
     });
     if (!user) {
       return res.status(409).json({
@@ -33,7 +33,7 @@ const loginUser = async (req, res) => {
     }
 
     user = await User.findOneAndUpdate(
-      { nif: userInput.nif },
+      { _id: user._id },
       { $set: { publicKey: userInput.publicKey } },
       {
         new: true,
@@ -60,6 +60,7 @@ const registerUser = async (req, res) => {
     const userInput = ({
       name: req.body.name,
       password: req.body.password,
+      email: req.body.email,
       confirmPassword: req.body.confirmPassword,
       nif: req.body.nif,
       publicKey: req.body.publicKey,
@@ -68,7 +69,7 @@ const registerUser = async (req, res) => {
     console.log(userInput);
 
     const usernameExists = await User.findOne({
-      nif: userInput.nif,
+      email: userInput.email,
     });
     if (usernameExists) {
       return res
@@ -81,6 +82,7 @@ const registerUser = async (req, res) => {
     const newUser = new User({
       name: userInput.name,
       password: encryptedPassword,
+      email: userInput.email,
       nif: userInput.nif,
       publicKey: userInput.publicKey,
     });
