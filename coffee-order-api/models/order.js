@@ -6,39 +6,22 @@ const orderSchema = new mongoose.Schema({
     type: String,
     default: generateUUID,
   },
-  name: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-  imgURL: {
-    type: String,
-    required: true,
-  },
-  productCategory: {
-    type: String,
-    enum: productCategories,
-  },
   products: [
     {
-      product: { type: Schema.Types.ObjectId, ref: "Product", autopopulate: true },
+      product: { type: mongoose.Schema.Types.ObjectId, ref: "Product", autopopulate: true },
       quantity: { type: Number, default: 1 },
     },
   ],
-  client: { type: Schema.Types.ObjectId, ref: "User", autopopulate: true },
+  client: { type: mongoose.Schema.Types.String, ref: "User", autopopulate: true },
   status: {
     type: String,
     enum: ["Verified", "Pending"],
     default: "Pending",
   },
-  discountVoucher: {
-    type: Schema.Types.ObjectId, ref: "DiscountVoucher", default: null, autopopulate: true
-  },
-  freeCoffeeVoucher: {
-    type: Schema.Types.ObjectId, ref: "FreeCoffeeVoucher", default: null, autopopulate: true
+  date: {
+    type: Date,
+    default: Date.now,
+    required: true,
   },
 });
 
