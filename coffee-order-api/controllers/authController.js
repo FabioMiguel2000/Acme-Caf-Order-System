@@ -66,15 +66,37 @@ const registerUser = async (req, res) => {
       publicKey: req.body.publicKey,
     } = req.body);
 
-    console.log(userInput);
+    if (userInput.password !== userInput.confirmPassword) {
+      return res.status(409).json({
+        success: false,
+        message: "Passwords do not match",
+      });
+    }
 
     const usernameExists = await User.findOne({
       email: userInput.email,
     });
+
     if (usernameExists) {
       return res
         .status(409)
-        .json({ success: false, message: `User already exists ${user}` });
+        .json({
+          success: false,
+          message: `User already exists ${userInput.email}`,
+        });
+    }
+
+    const nifExists = await User.findOne({
+      nif: userInput.nif,
+    });
+
+    if (nifExists) {
+      return res
+        .status(409)
+        .json({
+          success: false,
+          message: `NIF already registered ${userInput.nif}`,
+        });
     }
 
     const encryptedPassword = await encryptPassword(userInput.password);
