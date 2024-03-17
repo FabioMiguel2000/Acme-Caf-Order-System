@@ -15,7 +15,7 @@ const voucherSchema = new mongoose.Schema({
       enum: ["Discount", "FreeCoffee"],
       required: true,
     },
-    client: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    client: { type: mongoose.Schema.Types.String, ref: "User" },
     used: {
       type: Boolean,
       default: false,

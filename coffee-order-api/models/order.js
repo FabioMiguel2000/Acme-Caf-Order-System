@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const generateUUID = require('../utils/crypto/generateId');
 const User = require('./user');
 const Product = require('./product');
+const Voucher = require('./voucher');
 
 const orderSchema = new mongoose.Schema({
   _id: {
@@ -25,6 +26,12 @@ const orderSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
     required: true,
+  },
+  discountVoucher: {
+    type: mongoose.Schema.Types.String, ref: "Voucher", default: null, autopopulate: true
+  },
+  freeCoffeeVoucher: {
+    type: mongoose.Schema.Types.String, ref: "Voucher", default: null, autopopulate: true
   },
 });
 
