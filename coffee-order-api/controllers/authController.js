@@ -2,6 +2,12 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const { encryptPassword } = require("../utils/crypto/bcryptPassword");
 
+const validEmailFormat = (email) => {
+  const emailRegex =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return emailRegex.test(email);
+};
+
 const loginUser = async (req, res) => {
   try {
     const userInput = ({
@@ -9,6 +15,13 @@ const loginUser = async (req, res) => {
       password: req.body.password,
       publicKey: req.body.publicKey,
     } = req.body);
+
+    if (!validEmailFormat(userInput.email)) {
+      return res.status(409).json({
+        success: false,
+        message: "Invalid email format",
+      });
+    }
 
     let user = await User.findOne({
       email: userInput.email,
@@ -66,6 +79,13 @@ const registerUser = async (req, res) => {
       publicKey: req.body.publicKey,
     } = req.body);
 
+    if (!validEmailFormat(userInput.email)) {
+      return res.status(409).json({
+        success: false,
+        message: "Invalid email format",
+      });
+    }
+
     if (userInput.password !== userInput.confirmPassword) {
       return res.status(409).json({
         success: false,
@@ -78,12 +98,10 @@ const registerUser = async (req, res) => {
     });
 
     if (usernameExists) {
-      return res
-        .status(409)
-        .json({
-          success: false,
-          message: `User already exists ${userInput.email}`,
-        });
+      return res.status(409).json({
+        success: false,
+        message: `User already exists ${userInput.email}`,
+      });
     }
 
     const nifExists = await User.findOne({
@@ -91,12 +109,10 @@ const registerUser = async (req, res) => {
     });
 
     if (nifExists) {
-      return res
-        .status(409)
-        .json({
-          success: false,
-          message: `NIF already registered ${userInput.nif}`,
-        });
+      return res.status(409).json({
+        success: false,
+        message: `NIF already registered ${userInput.nif}`,
+      });
     }
 
     const encryptedPassword = await encryptPassword(userInput.password);
