@@ -20,11 +20,11 @@ const createOrderByNifAndProductNames = async (order) => {
   const user = await User.findOne({ nif: order.client }).exec();
   const productPromises = order.products.map(async (p) => {
     const product = await Product.findOne({ name: p.product_name }).exec();
-    return { _id: product._id, quantity: p.quantity };
+    return { product: product._id, quantity: p.quantity };
   });
   const products = await Promise.all(productPromises);
 
-  await new Order({ client: user._id, products }).save();
+  await new Order({ client: user._id, products: products }).save();
 };
 
 const importData = async () => {
