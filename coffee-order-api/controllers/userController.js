@@ -38,7 +38,7 @@ const getSingleUser = async (req, res) => {
         return res.status(500).json({
             error: true,
             success: false,
-            message: "Failed to retrieve users"
+            message: "Failed to retrieve user"
         });
     }
 }
