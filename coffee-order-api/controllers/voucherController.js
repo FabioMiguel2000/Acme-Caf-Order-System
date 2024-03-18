@@ -1,3 +1,5 @@
+// const Voucher = require('../models/voucherModel');
+
 const getAllVouchers = (req, res, next) => {
     return res.status(200).json({
         error: false,
@@ -18,5 +20,9 @@ const getSingleVoucher = (req, res, next) => {
         });
     }
 }
+
+// const createVoucher = async (userId)=>{
+
+// }
 
 module.exports = { getAllVouchers,  getSingleVoucher};

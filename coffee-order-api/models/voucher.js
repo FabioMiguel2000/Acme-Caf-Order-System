@@ -6,10 +6,6 @@ const voucherSchema = new mongoose.Schema({
       type: String,
       default: generateUUID,
     },
-    discount: {
-      type: Number,
-      required: true,
-    },
     type: {
       type: String,
       enum: ["Discount", "FreeCoffee"],

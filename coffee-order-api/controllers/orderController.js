@@ -1,6 +1,7 @@
 const Order = require("../models/order");
 const User = require("../models/user");
 const Product = require("../models/product");
+const { updateUserAccumulatedCoffeeBuys, updateUserAccumulatedExpenses } = require("./userController");
 
 const getAllOrders = async (req, res) => {
   try {
@@ -87,6 +88,17 @@ const calculatePrices = (products, discountVoucher) => {
   return { subtotal, promotionDiscount, total };
 };
 
+const countCups = (products, freeCoffeeVoucher) => {
+    let count = 0;
+    products.forEach((p) => {
+      count += p.quantity;
+    });
+    if(freeCoffeeVoucher) {
+      return count - 1;
+    }
+    return count;
+}
+
 const createOrder = async (req, res) => {
   try {
     const { client, products } = req.body;
@@ -110,13 +122,16 @@ const createOrder = async (req, res) => {
       clientExists.discountVoucher
     );
 
+    await updateUserAccumulatedCoffeeBuys(client, countCups(products));
+    await updateUserAccumulatedExpenses(client, total)
+
     const newOrder = await new Order({
-      client: clientExists._id,
-      products: productObjs,
-      subtotal,
-      promotionDiscount,
-      total,
-    }).save();
+        client: clientExists._id,
+        products: productObjs,
+        subtotal,
+        promotionDiscount,
+        total,
+      }).save();
 
     return res.status(201).json({
       success: true,

@@ -1,5 +1,27 @@
 const User = require("../models/user");
 
+
+const updateUserAccumulatedExpenses = async (userId, expenses) => {
+    try {
+        const user = await User.findById(userId);
+        user.accumulatedExpenses += expenses;
+        await user.save();
+    } catch (error) {
+        throw new Error("Failed to update user accumulated points");
+    }
+}
+
+const updateUserAccumulatedCoffeeBuys = async (userId, cupsNum) => {
+    try {
+        const user = await User.findById(userId);
+        user.accumulatedCoffeeBuys += cupsNum;
+        await user.save();
+    } catch (error) {
+        throw new Error("Failed to update user accumulated points");
+    }
+}
+
+
 const getAllUsers = async (req, res) => {
     try {   
         const users = await User.find().select('-password -publicKey');
@@ -43,4 +65,4 @@ const getSingleUser = async (req, res) => {
     }
 }
 
-module.exports = { getAllUsers, getSingleUser};
+module.exports = { getAllUsers, getSingleUser, updateUserAccumulatedExpenses, updateUserAccumulatedCoffeeBuys};
