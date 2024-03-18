@@ -36,6 +36,6 @@ docker-compose up -d
 docker exec -it api npm run data:import
 ```
 6. Install NodeJS dependencies
-```
+```bash
 docker exec -it api npm install
 ```
