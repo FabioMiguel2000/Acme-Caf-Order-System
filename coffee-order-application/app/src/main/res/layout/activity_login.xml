@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginFragment">
+    android:id="@+id/login_activity"
+    tools:context=".LoginActivity">
 
+    <!--  email field -->
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="184dp"
-        android:layout_height="186dp"
-        android:layout_marginTop="96dp"
+        android:id="@+id/logo"
+        android:layout_width="295dp"
+        android:layout_height="236dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
-    <!--  email field -->
+        tools:src="@drawable/logoshop" />
+
     <TextView
         android:id="@+id/email_text"
         android:layout_width="wrap_content"
@@ -27,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -47,13 +48,15 @@
 
 
     <!--  password field -->
+
     <TextView
         android:id="@+id/password_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
         android:text="Password"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-        tools:layout_editor_absoluteX="34dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
@@ -79,25 +82,27 @@
         android:layout_marginTop="16dp"
         android:text="Sign In"
         app:cornerRadius="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/password_forgot"
-        tools:layout_editor_absoluteX="30dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_forgot" />
 
     <TextView
         android:id="@+id/password_forgot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="28dp"
         android:text="Forgot your password?"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
-        tools:layout_editor_absoluteX="30dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
     <TextView
         android:id="@+id/register_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="2dp"
         android:text="Register"
-        android:textSize="20dp"
+        android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
