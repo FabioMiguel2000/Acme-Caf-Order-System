@@ -1,7 +1,10 @@
 const Order = require("../models/order");
 const User = require("../models/user");
 const Product = require("../models/product");
-const { updateUserAccumulatedCoffeeBuys, updateUserAccumulatedExpenses } = require("./userController");
+const {
+  updateUserAccumulatedCoffeeBuys,
+  updateUserAccumulatedExpenses,
+} = require("./userController");
 
 const getAllOrders = async (req, res) => {
   try {
@@ -65,7 +68,9 @@ const getOrderByUser = async (req, res) => {
 
 const getProductObjs = async (products, isName = false) => {
   const productPromises = products.map(async (p) => {
-    const product = await Product.findOne( isName? { name: p.product }: { _id: p.product });
+    const product = await Product.findOne(
+      isName ? { name: p.product } : { _id: p.product }
+    );
     return { product: product, quantity: p.quantity };
   });
   return await Promise.all(productPromises);
@@ -89,15 +94,15 @@ const calculatePrices = (products, discountVoucher) => {
 };
 
 const countCups = (products, freeCoffeeVoucher) => {
-    let count = 0;
-    products.forEach((p) => {
-      count += p.quantity;
-    });
-    if(freeCoffeeVoucher) {
-      return count - 1;
-    }
-    return count;
-}
+  let count = 0;
+  products.forEach((p) => {
+    count += p.quantity;
+  });
+  if (freeCoffeeVoucher) {
+    return count - 1;
+  }
+  return count;
+};
 
 const createOrder = async (req, res) => {
   try {
@@ -123,15 +128,15 @@ const createOrder = async (req, res) => {
     );
 
     await updateUserAccumulatedCoffeeBuys(client, countCups(products));
-    await updateUserAccumulatedExpenses(client, total)
+    await updateUserAccumulatedExpenses(client, total);
 
     const newOrder = await new Order({
-        client: clientExists._id,
-        products: productObjs,
-        subtotal,
-        promotionDiscount,
-        total,
-      }).save();
+      client: clientExists._id,
+      products: productObjs,
+      subtotal,
+      promotionDiscount,
+      total,
+    }).save();
 
     return res.status(201).json({
       success: true,
@@ -148,38 +153,43 @@ const createOrder = async (req, res) => {
 };
 
 const createOrderByProductNames = async (order) => {
-    try {
-        const { client, products } = order;
+  try {
+    const { client, products } = order;
 
-        const clientExists = await User.find({
-            nif: client,
-          });
-      
-          if (!clientExists) {
-            throw new Error(`Client with id: ${client} not found`);
-          }
+    const clientExists = await User.findOne({
+      nif: client,
+    });
 
-          const productObjs = await getProductObjs(products, true);
-      
-          const { subtotal, promotionDiscount, total } = calculatePrices(
-            productObjs,
-            clientExists.discountVoucher
-          );
-      
-          await updateUserAccumulatedCoffeeBuys(clientExists, countCups(products));
-          await updateUserAccumulatedExpenses(clientExists, total)
-      
-          await new Order({
-              client: clientExists._id,
-              products: productObjs,
-              subtotal,
-              promotionDiscount,
-              total,
-            }).save();
-    } catch (error) {
-        throw new Error(`Failed to create order: ${error}`);
+    if (!clientExists) {
+      throw new Error(`Client with id: ${client} not found`);
     }
-    
-}
 
-module.exports = { getAllOrders, getOrderByID, getOrderByUser, createOrder,createOrderByProductNames };
+    const productObjs = await getProductObjs(products, true);
+
+    const { subtotal, promotionDiscount, total } = calculatePrices(
+      productObjs,
+      clientExists.discountVoucher
+    );
+
+    await updateUserAccumulatedCoffeeBuys(clientExists, countCups(products));
+    await updateUserAccumulatedExpenses(clientExists, total);
+
+    await new Order({
+      client: clientExists._id,
+      products: productObjs,
+      subtotal,
+      promotionDiscount,
+      total,
+    }).save();
+  } catch (error) {
+    throw new Error(`Failed to create order: ${error}`);
+  }
+};
+
+module.exports = {
+  getAllOrders,
+  getOrderByID,
+  getOrderByUser,
+  createOrder,
+  createOrderByProductNames,
+};
