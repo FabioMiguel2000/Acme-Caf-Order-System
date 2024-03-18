@@ -16,9 +16,9 @@ class LoginActivity : AppCompatActivity() {
         val imageView: ImageView = findViewById(R.id.logo)
         imageView.setBackgroundResource(R.drawable.logoshop)
 
-        val http_hand =  HttpHandlerClass.getInstance()
-        var url = http_hand._baseUrl
-        http_hand.testApiConnection(http_hand._baseUrl)
+        //val http_hand =  HttpHandlerClass.getInstance()
+        //var url = http_hand._baseUrl
+        //http_hand.testApiConnection(http_hand._baseUrl)
         var teste = "Ola"
     }
 }

@@ -35,7 +35,7 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
     }
     companion object {
         @Volatile private var instance: HttpHandlerClass? = null
-        //http://localhost:3000/
+        //http://192.168.1.97:3000/
         //https://myfakeapi.com/api/cars/1
         fun getInstance() = instance ?: synchronized(this) {
             instance?:HttpHandlerClass("https://myfakeapi.com/api/cars/1").also {
