@@ -7,7 +7,7 @@ const updateUserAccumulatedExpenses = async (userId, expenses) => {
         const user = await User.findById(userId);
         user.accumulatedExpenses += expenses;
         
-        for (let i = 0; i < Math.floor(expenses / 100); i++) {
+        for (let i = 0; i < Math.floor(user.accumulatedExpenses / 100); i++) {
             await createVoucher(user, "Discount");
             user.accumulatedExpenses -= 100;
         }
@@ -23,7 +23,7 @@ const updateUserAccumulatedCoffeeBuys = async (userId, cupsNum) => {
         const user = await User.findById(userId);
         user.accumulatedCoffeeBuys += cupsNum;
 
-        for (let i = 0; i < Math.floor(cupsNum / 3); i++) {
+        for (let i = 0; i < Math.floor(user.accumulatedCoffeeBuys / 3); i++) {
             await createVoucher(user, "FreeCoffee");
             user.accumulatedCoffeeBuys -= 3;
         }

@@ -63,9 +63,9 @@ const getOrderByUser = async (req, res) => {
   }
 };
 
-const getProductObjs = async (products) => {
+const getProductObjs = async (products, isName = false) => {
   const productPromises = products.map(async (p) => {
-    const product = await Product.findOne({ _id: p.product });
+    const product = await Product.findOne( isName? { name: p.product }: { _id: p.product });
     return { product: product, quantity: p.quantity };
   });
   return await Promise.all(productPromises);
@@ -147,4 +147,39 @@ const createOrder = async (req, res) => {
   }
 };
 
-module.exports = { getAllOrders, getOrderByID, getOrderByUser, createOrder };
+const createOrderByProductNames = async (order) => {
+    try {
+        const { client, products } = order;
+
+        const clientExists = await User.find({
+            nif: client,
+          });
+      
+          if (!clientExists) {
+            throw new Error(`Client with id: ${client} not found`);
+          }
+
+          const productObjs = await getProductObjs(products, true);
+      
+          const { subtotal, promotionDiscount, total } = calculatePrices(
+            productObjs,
+            clientExists.discountVoucher
+          );
+      
+          await updateUserAccumulatedCoffeeBuys(clientExists, countCups(products));
+          await updateUserAccumulatedExpenses(clientExists, total)
+      
+          await new Order({
+              client: clientExists._id,
+              products: productObjs,
+              subtotal,
+              promotionDiscount,
+              total,
+            }).save();
+    } catch (error) {
+        throw new Error(`Failed to create order: ${error}`);
+    }
+    
+}
+
+module.exports = { getAllOrders, getOrderByID, getOrderByUser, createOrder,createOrderByProductNames };
