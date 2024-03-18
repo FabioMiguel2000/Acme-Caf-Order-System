@@ -1,18 +1,26 @@
 const express = require("express");
-const app = express();
-const port = process.env.PORT || 3000;
-let userRoutes = require("./routers/userRoutes");
-let orderRoutes = require("./routers/orderRoutes");
-let productRoutes = require("./routers/productRoutes");
-let voucherRoutes = require("./routers/voucherRoutes");
-let receiptRoutes = require("./routers/receiptRoutes");
+const cors = require("cors");
+
+const userRoutes = require("./routers/userRoutes");
+const orderRoutes = require("./routers/orderRoutes");
+const productRoutes = require("./routers/productRoutes");
+const voucherRoutes = require("./routers/voucherRoutes");
+const authRoutes = require("./routers/authRoutes");
+
 const dbconnection = require("./services/dbconnection");
 
-app.use("/", userRoutes);
-app.use("/", orderRoutes);
-app.use("/", productRoutes);
-app.use("/", voucherRoutes);
-app.use("/", receiptRoutes);
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.use("/api/", userRoutes);
+app.use("/api/", orderRoutes);
+app.use("/api/", productRoutes);
+app.use("/api/", voucherRoutes);
+app.use("/api/auth/", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to coffee-order-api");
