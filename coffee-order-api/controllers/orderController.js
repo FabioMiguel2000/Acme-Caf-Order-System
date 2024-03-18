@@ -127,8 +127,8 @@ const createOrder = async (req, res) => {
       clientExists.discountVoucher
     );
 
-    await updateUserAccumulatedCoffeeBuys(client, countCups(products));
-    await updateUserAccumulatedExpenses(client, total);
+    await updateUserAccumulatedCoffeeBuys(clientExists._id, countCups(products));
+    await updateUserAccumulatedExpenses(clientExists._id, total);
 
     const newOrder = await new Order({
       client: clientExists._id,
@@ -171,8 +171,8 @@ const createOrderByProductNames = async (order) => {
       clientExists.discountVoucher
     );
 
-    await updateUserAccumulatedCoffeeBuys(clientExists, countCups(products));
-    await updateUserAccumulatedExpenses(clientExists, total);
+    await updateUserAccumulatedCoffeeBuys(clientExists._id, countCups(products));
+    await updateUserAccumulatedExpenses(clientExists._id, total);
 
     await new Order({
       client: clientExists._id,

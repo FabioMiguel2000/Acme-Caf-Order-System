@@ -48,7 +48,7 @@ const createVoucher = async (user, voucherType)=>{
             throw new Error("Invalid voucher type");
         }
         const voucher = new Voucher({
-            user,
+            client: user._id,
             type: voucherType
         });
         await voucher.save();
