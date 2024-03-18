@@ -65,7 +65,7 @@ const getOrderByUser = async (req, res) => {
 const getProductObjs = async (products) => {
   const productPromises = products.map(async (p) => {
     const product = await Product.findOne({ _id: p.product });
-    return { product: product._id, quantity: p.quantity };
+    return { product: product, quantity: p.quantity };
   });
   return await Promise.all(productPromises);
 };
@@ -105,25 +105,23 @@ const createOrder = async (req, res) => {
 
     const productObjs = await getProductObjs(products);
 
-    const newOrder = await new Order({
-      client: clientExists._id,
-      products: productObjs,
-    }).save();
-
     const { subtotal, promotionDiscount, total } = calculatePrices(
-      newOrder.products,
+      productObjs,
       clientExists.discountVoucher
     );
 
-    let orderObject = newOrder.toObject();
-    orderObject.subtotal = subtotal;
-    orderObject.promotionDiscount = promotionDiscount;
-    orderObject.total = total;
+    const newOrder = await new Order({
+      client: clientExists._id,
+      products: productObjs,
+      subtotal,
+      promotionDiscount,
+      total,
+    }).save();
 
     return res.status(201).json({
       success: true,
       message: `Order created with id: ${newOrder._id}`,
-      data: orderObject,
+      data: newOrder,
     });
   } catch (error) {
     return res.status(500).json({
