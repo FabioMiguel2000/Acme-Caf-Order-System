@@ -1,0 +1,33 @@
+[
+    {
+        "name": "Caffe Americano",
+        "price": 1.99,
+        "imgURL": "https://www.starbucks.com/images/products/caffe-americano.jpg",
+        "productCategory": "Hot Coffees"
+    },
+
+    {
+        "name": "Dark Roast",
+        "price": 1.99,
+        "imgURL": "https://www.starbucks.com/images/products/caffe-americano.jpg",
+        "productCategory": "Hot Coffees"
+    },
+    {
+        "name": "Veranda Blend",
+        "price": 1.99,
+        "imgURL": "https://www.starbucks.com/images/products/caffe-americano.jpg",
+        "productCategory": "Hot Coffees"
+    },
+    {
+        "name": "Decaf Blend",
+        "price": 1.99,
+        "imgURL": "https://www.starbucks.com/images/products/caffe-americano.jpg",
+        "productCategory": "Hot Coffees"
+    },
+    {
+        "name": "Clover Blend",
+        "price": 1.99,
+        "imgURL": "https://www.starbucks.com/images/products/caffe-americano.jpg",
+        "productCategory": "Hot Coffees"
+    }
+]

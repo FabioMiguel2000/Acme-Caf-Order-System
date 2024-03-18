@@ -1,0 +1,29 @@
+[
+    {
+        "name": "John Doe",
+        "nif": "222333444",
+        "email": "johndoe@gmail.com",
+        "password": "password",
+        "publicKey": "0x123456789",
+        "accumulatedExpenses": 0,
+        "accumulatedCoffeeBuys": 0
+    },
+    {
+        "name": "John Wick",
+        "nif": "222333440",
+        "email": "johnwick@gmail.com",
+        "password": "password",
+        "publicKey": "0x123456789",
+        "accumulatedExpenses": 0,
+        "accumulatedCoffeeBuys": 0
+    },
+    {
+        "name": "Admiral Ackbar",
+        "nif": "222333441",
+        "email": "admiralackbar@gmail.com",
+        "password": "password",
+        "publicKey": "0x123456789",
+        "accumulatedExpenses": 0,
+        "accumulatedCoffeeBuys": 0
+    }
+]
