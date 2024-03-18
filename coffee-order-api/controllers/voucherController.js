@@ -1,22 +1,43 @@
 const Voucher = require('../models/voucher');
 
-const getAllVouchers = (req, res, next) => {
-    return res.status(200).json({
-        error: false,
-        data: `Here you can get all vouchers`
-    });
+const getAllVouchers = async (req, res) => {
+    try {
+        const vouchers = await Voucher.find();
+        return res.status(200).json({
+            success: true,
+            message: `Retrieved ${vouchers.length} vouchers`,
+            data: vouchers
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: true,
+            success: false,
+            message: "Failed to retrieve vouchers"
+        });
+    }
 }
 
-const getSingleVoucher = (req, res, next) => {
-    if(req.params.id){
+const getVoucherById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const voucher = await Voucher.findById(id);
+        if (!voucher) {
+            return res.status(404).json({
+                error: true,
+                success: false,
+                message: `Voucher with id: ${id} not found`
+            });
+        }
         return res.status(200).json({
-            error: false,
-            message: `Here you can get a voucher`
+            success: true,
+            message: `Retrieved voucher with id: ${id}`,
+            data: voucher
         });
-    } else {
-        return res.status(400).json({
+    } catch (error) {
+        return res.status(500).json({
             error: true,
-            message:`You've to provide a voucher`
+            success: false,
+            message: "Failed to retrieve voucher"
         });
     }
 }
@@ -36,4 +57,4 @@ const createVoucher = async (user, voucherType)=>{
     }
 }
 
-module.exports = { getAllVouchers,  getSingleVoucher, createVoucher};
+module.exports = { getAllVouchers,  getVoucherById, createVoucher};
