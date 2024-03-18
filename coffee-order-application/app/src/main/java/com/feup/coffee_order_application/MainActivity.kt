@@ -1,20 +1,50 @@
 package com.feup.coffee_order_application
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        setSupportActionBar(findViewById(R.id.toolbar1))
+
+        val home = Categories()
+        val profile = Profile()
+        val cart = Cart()
+        var bottom_nav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+
+        setCurrentPage(home)
+
+        bottom_nav.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.home->setCurrentPage(home)
+                R.id.cart->setCurrentPage(cart)
+                R.id.person->setCurrentPage(profile)
+            }
+            true
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+            //implement some code here
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setCurrentPage(fragment: Fragment){
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fLayout, fragment)
+            commit()
         }
     }
 }
