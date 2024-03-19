@@ -5,6 +5,7 @@ const {
   updateUserAccumulatedCoffeeBuys,
   updateUserAccumulatedExpenses,
 } = require("./userController");
+const { validateVoucher, useVoucher } = require("./voucherController");
 
 const getAllOrders = async (req, res) => {
   try {
@@ -83,7 +84,7 @@ const calculatePrices = (products, discountVoucher) => {
     subtotal += p.product.price * p.quantity;
   });
   if (discountVoucher) {
-    total = subtotal * (1 - discountVoucher.discount);
+    total = subtotal * 0.95;
   } else {
     total = subtotal;
   }
@@ -106,7 +107,7 @@ const countCups = (products, freeCoffeeVoucher) => {
 
 const createOrder = async (req, res) => {
   try {
-    const { client, products } = req.body;
+    const { client, products, discountVoucher, freeCoffeeVoucher } = req.body;
 
     const clientExists = await User.findById({
       _id: client,
@@ -122,12 +123,26 @@ const createOrder = async (req, res) => {
 
     const productObjs = await getProductObjs(products);
 
+    const vDiscountVoucher = await validateVoucher(discountVoucher, client);
+    const vFreeCoffeeVoucher = await validateVoucher(freeCoffeeVoucher, client);
+
     const { subtotal, promotionDiscount, total } = calculatePrices(
       productObjs,
-      clientExists.discountVoucher
+      vDiscountVoucher
     );
 
-    await updateUserAccumulatedCoffeeBuys(clientExists._id, countCups(products));
+    // Order Execution and Database Update
+    if (vDiscountVoucher){
+        await useVoucher(vDiscountVoucher);
+    }
+    if (vFreeCoffeeVoucher){
+        await useVoucher(vFreeCoffeeVoucher);
+    }
+
+    await updateUserAccumulatedCoffeeBuys(
+      clientExists._id,
+      countCups(products, vFreeCoffeeVoucher)
+    );
     await updateUserAccumulatedExpenses(clientExists._id, total);
 
     const newOrder = await new Order({
@@ -136,6 +151,8 @@ const createOrder = async (req, res) => {
       subtotal,
       promotionDiscount,
       total,
+      discountVoucher: vDiscountVoucher,
+      freeCoffeeVoucher: vFreeCoffeeVoucher,
     }).save();
 
     return res.status(201).json({
@@ -171,7 +188,10 @@ const createOrderByProductNames = async (order) => {
       clientExists.discountVoucher
     );
 
-    await updateUserAccumulatedCoffeeBuys(clientExists._id, countCups(products, false));
+    await updateUserAccumulatedCoffeeBuys(
+      clientExists._id,
+      countCups(products, false)
+    );
     await updateUserAccumulatedExpenses(clientExists._id, total);
 
     await new Order({

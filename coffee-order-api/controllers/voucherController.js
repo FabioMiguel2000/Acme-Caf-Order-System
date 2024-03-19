@@ -75,6 +75,35 @@ const createVoucher = async (user, voucherType)=>{
     }
 }
 
+
+const validateVoucher = async (voucherId, userId)=>{
+    try{
+        if (!voucherId ){
+            return null;
+        }
+
+        const voucher = await Voucher.findById(voucherId);
+
+        if (!voucher) {
+            throw new Error(`Voucher with id: ${voucherId} not found`);
+        }
+    
+        if (voucher.client._id !== userId) {
+            throw new Error(`Voucher with id: ${voucherId} does not belong to client with id: ${userId}`);
+        }
+
+        if (voucher.used){
+            console.log(voucher)
+
+            throw new Error(`Voucher with id ${voucherId} already used`);
+        }
+
+        return voucher;
+    }catch(error){
+        throw new Error(error.message);
+    }
+}
+
 const useVoucher = async (voucherId)=>{
     try{
         const voucher = await Voucher.findById(voucherId);
@@ -91,4 +120,4 @@ const useVoucher = async (voucherId)=>{
     }
 }
 
-module.exports = { getAllVouchers,  getVoucherById, createVoucher, getVoucherByUser, useVoucher};
+module.exports = { getAllVouchers,  getVoucherById, createVoucher, getVoucherByUser, useVoucher, validateVoucher};
