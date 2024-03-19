@@ -15,7 +15,7 @@ const voucherSchema = new mongoose.Schema({
   client: {
     type: mongoose.Schema.Types.String,
     ref: "User",
-    autopopulate: { select: "-password" },
+    autopopulate: { select: "-password -publicKey" },
   },
   used: {
     type: Boolean,
