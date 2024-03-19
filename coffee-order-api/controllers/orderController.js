@@ -105,9 +105,70 @@ const countCups = (products, freeCoffeeVoucher) => {
   return count;
 };
 
+const validateOrder = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const order = await Order.findById(id);
+
+        if (!order) {
+            return res.status(404).json({
+                error: true,
+                success: false,
+                message: `Order with id: ${id} not found`,
+            });
+        }
+
+        if (order.status !== "Pending") {
+            return res.status(400).json({
+                error: true,
+                success: false,
+                message: `Order with id: ${id} is not pending`,
+            });
+        }
+
+        if (order.discountVoucher){
+            console.log(order.discountVoucher)
+            await useVoucher(order.discountVoucher);
+        }
+        if (order.freeCoffeeVoucher){
+            console.log(order.freeCoffeeVoucher)
+            await useVoucher(order.freeCoffeeVoucher);
+        }
+    
+        await updateUserAccumulatedCoffeeBuys(
+          order.client,
+          countCups(order.products, order.freeCoffeeVoucher)
+        );
+        await updateUserAccumulatedExpenses(order.client, order.total);
+
+        order.status = "Verified";
+        await order.save();
+
+        return res.status(200).json({
+            success: true,
+            message: `Order with id: ${id} verified`,
+            data: order,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: true,
+            success: false,
+            message: `Failed to validate order: ${error}`,
+        });
+    }
+}
+
 const createOrder = async (req, res) => {
   try {
-    const { client, products, discountVoucher, freeCoffeeVoucher } = req.body;
+    const { client, products, discountVoucher, freeCoffeeVoucher, status } = req.body;
+
+    if (status !== "Pending") {
+        return res.status(400).json({
+            error: true,
+            success: false,
+            message: `Invalid status: ${status}`,
+        });
+    }
 
     const clientExists = await User.findById({
       _id: client,
@@ -140,20 +201,6 @@ const createOrder = async (req, res) => {
       productObjs,
       vDiscountVoucher
     );
-
-    // Order Execution and Database Update
-    if (vDiscountVoucher){
-        await useVoucher(vDiscountVoucher);
-    }
-    if (vFreeCoffeeVoucher){
-        await useVoucher(vFreeCoffeeVoucher);
-    }
-
-    await updateUserAccumulatedCoffeeBuys(
-      clientExists._id,
-      countCups(products, vFreeCoffeeVoucher)
-    );
-    await updateUserAccumulatedExpenses(clientExists._id, total);
 
     const newOrder = await new Order({
       client: clientExists._id,
@@ -216,10 +263,13 @@ const createOrderByProductNames = async (order) => {
   }
 };
 
+
+
 module.exports = {
   getAllOrders,
   getOrderByID,
   getOrderByUser,
   createOrder,
   createOrderByProductNames,
+  validateOrder
 };
