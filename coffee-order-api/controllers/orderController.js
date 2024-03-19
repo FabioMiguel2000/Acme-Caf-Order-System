@@ -126,6 +126,16 @@ const createOrder = async (req, res) => {
     const vDiscountVoucher = await validateVoucher(discountVoucher, client);
     const vFreeCoffeeVoucher = await validateVoucher(freeCoffeeVoucher, client);
 
+    const freeCoffeeProductExist = productObjs.map((p) => p.product.name).includes("Free Coffee");
+
+    if ((vFreeCoffeeVoucher && !freeCoffeeProductExist)|| (!vFreeCoffeeVoucher && freeCoffeeProductExist)) {
+        return res.status(400).json({
+            error: true,
+            success: false,
+            message: `Free Coffee Voucher not valid or Free Coffee product not in order`,
+        });
+    }
+
     const { subtotal, promotionDiscount, total } = calculatePrices(
       productObjs,
       vDiscountVoucher

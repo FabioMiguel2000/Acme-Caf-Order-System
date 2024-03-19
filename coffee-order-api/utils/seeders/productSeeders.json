@@ -35,5 +35,11 @@
         "price": 100,
         "imgURL": "https://www.starbucks.com/images/products/caffe-americano.jpg",
         "productCategory": "Hot Coffees"
+    },
+    {
+        "name": "Free Coffee",
+        "price": 0,
+        "imgURL": "https://www.starbucks.com/images/products/caffe-americano.jpg",
+        "productCategory": "Promotions"
     }
 ]
