@@ -2,29 +2,27 @@
     {
         "products": [
             {
-                "product_name": "Caffe Americano",
+                "product": "Caffe Americano",
                 "quantity": 1
             },
             {
-                "product_name": "Dark Roast",
+                "product": "Dark Roast",
                 "quantity": 1
             }
         ],
-        "client": 222333444,
-        "status": "Verified"
+        "client": 222333444
     },
     {
         "products": [
             {
-                "product_name": "Caffe Americano",
+                "product": "Caffe Americano",
                 "quantity": 3
             },
             {
-                "product_name": "Dark Roast",
+                "product": "Dark Roast",
                 "quantity": 2
             }
         ],
-        "client": 222333444,
-        "status": "Verified"
+        "client": 222333444
     }
 ]

@@ -1,3 +1,5 @@
+const Voucher = require('../models/voucher');
+
 const getAllVouchers = (req, res, next) => {
     return res.status(200).json({
         error: false,
@@ -19,4 +21,19 @@ const getSingleVoucher = (req, res, next) => {
     }
 }
 
-module.exports = { getAllVouchers,  getSingleVoucher};
+const createVoucher = async (user, voucherType)=>{
+    try{
+        if (voucherType !== "Discount" && voucherType !== "FreeCoffee"){
+            throw new Error("Invalid voucher type");
+        }
+        const voucher = new Voucher({
+            user,
+            type: voucherType
+        });
+        await voucher.save();
+    }catch(error){
+        throw new Error("Failed to create voucher");
+    }
+}
+
+module.exports = { getAllVouchers,  getSingleVoucher, createVoucher};
