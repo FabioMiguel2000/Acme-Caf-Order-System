@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         val loginBtn: Button = findViewById(R.id.btn_login)
         val http_handler =  HttpHandlerClass.getInstance()
         loginBtn?.setOnClickListener{(
-            //Toast.makeText(this, username.toString() + " - "+password.toString(), Toast.LENGTH_LONG)
+            //passar para assync ao inves de thread
             thread {
                 var response = http_handler.login(this, http_handler._baseUrl, username.text.toString(), password.text.toString())
             }

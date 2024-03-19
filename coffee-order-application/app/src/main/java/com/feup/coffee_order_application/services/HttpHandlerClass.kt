@@ -77,6 +77,7 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
                 }
             }
         } catch (e: Exception){
+            //Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG)
             throw e
         } finally {
             if(urlConnection != null)

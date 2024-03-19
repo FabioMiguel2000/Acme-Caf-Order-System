@@ -42,5 +42,5 @@ docker exec -it api npm install
 
 7. Change to your IP address to make api calls work locally: to achieve that you must change to your ip address in the singleton HttpHandlerClass, method getInstance
 ```bash
-docker exec -it api npm install
+HttpHandlerClass("yourapiaddress")
 ```
