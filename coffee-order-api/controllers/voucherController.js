@@ -42,6 +42,24 @@ const getVoucherById = async (req, res) => {
     }
 }
 
+const getVoucherByUser = async (req, res) => {
+    try {
+        const { client } = req.query;
+        const vouchers = await Voucher.find({ client });
+        return res.status(200).json({
+            success: true,
+            message: `Retrieved ${vouchers.length} vouchers from client: ${client}`,
+            data: vouchers
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: true,
+            success: false,
+            message: "Failed to retrieve vouchers",
+        });
+    }
+}
+
 const createVoucher = async (user, voucherType)=>{
     try{
         if (voucherType !== "Discount" && voucherType !== "FreeCoffee"){
@@ -57,4 +75,4 @@ const createVoucher = async (user, voucherType)=>{
     }
 }
 
-module.exports = { getAllVouchers,  getVoucherById, createVoucher};
+module.exports = { getAllVouchers,  getVoucherById, createVoucher, getVoucherByUser};
