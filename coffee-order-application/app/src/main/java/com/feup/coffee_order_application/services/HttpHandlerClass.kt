@@ -48,7 +48,7 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
         _baseUrl = baseUrl + "api/auth/login"
         var url = URL(_baseUrl)
         var credentials: HashMap<String, String> = HashMap<String, String>()
-        credentials.put("username", username)
+        credentials.put("email", username)
         credentials.put("password", password)
         var params = credentials.toString()
 
