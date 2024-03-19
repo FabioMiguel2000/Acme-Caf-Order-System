@@ -75,4 +75,20 @@ const createVoucher = async (user, voucherType)=>{
     }
 }
 
-module.exports = { getAllVouchers,  getVoucherById, createVoucher, getVoucherByUser};
+const useVoucher = async (voucherId)=>{
+    try{
+        const voucher = await Voucher.findById(voucherId);
+        if (!voucher){
+            throw new Error("Voucher not found");
+        }
+        if (voucher.used){
+            throw new Error("Voucher already used");
+        }
+        voucher.used = true;
+        await voucher.save();
+    }catch(error){
+        throw new Error("Failed to use voucher");
+    }
+}
+
+module.exports = { getAllVouchers,  getVoucherById, createVoucher, getVoucherByUser, useVoucher};

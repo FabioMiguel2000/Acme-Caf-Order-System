@@ -26,7 +26,10 @@ const importData = async () => {
 
     await Promise.all([Product.deleteMany(), User.deleteMany(), Order.deleteMany(), Voucher.deleteMany()]);
     await Promise.all([Product.insertMany(productSeeders), User.insertMany(userSeedersEncrypted)]);
-    await Promise.all(orderSeeders.map(createOrderByProductNames));
+
+    for (let order of orderSeeders) {
+      await createOrderByProductNames(order)
+    }
 
     console.log("Data has been seeded!");
     gracefulExit();

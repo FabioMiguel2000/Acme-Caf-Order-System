@@ -171,7 +171,7 @@ const createOrderByProductNames = async (order) => {
       clientExists.discountVoucher
     );
 
-    await updateUserAccumulatedCoffeeBuys(clientExists._id, countCups(products));
+    await updateUserAccumulatedCoffeeBuys(clientExists._id, countCups(products, false));
     await updateUserAccumulatedExpenses(clientExists._id, total);
 
     await new Order({

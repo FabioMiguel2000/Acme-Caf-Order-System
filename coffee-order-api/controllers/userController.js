@@ -5,13 +5,15 @@ const { createVoucher } = require("./voucherController");
 const updateUserAccumulatedExpenses = async (userId, expenses) => {
     try {
         const user = await User.findById(userId);
-        user.accumulatedExpenses += expenses;
-        
-        for (let i = 0; i < Math.floor(user.accumulatedExpenses / 100); i++) {
-            await createVoucher(user, "Discount");
-            user.accumulatedExpenses -= 100;
-        }
 
+        let accumulatedExpenses = user.accumulatedExpenses + expenses;
+        const num = Math.floor(accumulatedExpenses / 100);
+
+        for (let i = 0; i < num; i++) {
+            await createVoucher(user, "Discount");
+            accumulatedExpenses -= 100;
+        }
+        user.accumulatedExpenses = accumulatedExpenses;
         await user.save();
     } catch (error) {
         throw new Error("Failed to update user accumulated expenses");
@@ -21,13 +23,17 @@ const updateUserAccumulatedExpenses = async (userId, expenses) => {
 const updateUserAccumulatedCoffeeBuys = async (userId, cupsNum) => {
     try {
         const user = await User.findById(userId);
-        user.accumulatedCoffeeBuys += cupsNum;
 
-        for (let i = 0; i < Math.floor(user.accumulatedCoffeeBuys / 3); i++) {
+        let accumulatedCoffeeBuys = user.accumulatedCoffeeBuys + cupsNum;
+        const num = Math.floor(accumulatedCoffeeBuys / 3);
+
+        for (let i = 0; i < num; i++) {
             await createVoucher(user, "FreeCoffee");
-            user.accumulatedCoffeeBuys -= 3;
+            accumulatedCoffeeBuys -= 3;
         }
+        user.accumulatedCoffeeBuys = accumulatedCoffeeBuys;
         await user.save();
+
     } catch (error) {
         throw new Error("Failed to update user accumulated coffee buys");
     }
