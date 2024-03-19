@@ -2,13 +2,17 @@ package com.feup.coffee_order_application.services
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import com.google.gson.Gson
 import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
+import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import org.json.JSONObject
+//mport kotlinx.seria
 
 class HttpHandlerClass private  constructor(baseUrl : String ){
     var _baseUrl: String = baseUrl
@@ -47,10 +51,11 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
     fun login(context: Context, baseUrl: String, username: String, password: String): Boolean{
         _baseUrl = baseUrl + "api/auth/login"
         var url = URL(_baseUrl)
-        var credentials: HashMap<String, String> = HashMap<String, String>()
-        credentials.put("email", username)
-        credentials.put("password", password)
-        var params = credentials.toString()
+
+        val jsonObj =  JSONObject();
+        jsonObj.put("email", username)
+        jsonObj.put("password", password)
+        val jsonString = jsonObj.toString()
 
         var urlConnection: HttpURLConnection ? = null
         try {
@@ -59,16 +64,20 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
                 doOutput = true
                 requestMethod = "POST"
                 setRequestProperty("Content-Type", "application/json")
+                setRequestProperty("Accept", "application/json")
                 useCaches = false
                 connectTimeout = 5000
+
+
                 with(outputStream) {
-                    write(params.toByteArray())
+                    write(jsonString.toByteArray())
                     flush()
                     close()
                 }
 
                 if(responseCode == 200) {
                     val response = readStream(inputStream)
+                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG)
                     return true
                 } else{
                     Log.e("message", "NOK")

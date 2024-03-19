@@ -24,8 +24,9 @@ class LoginActivity : AppCompatActivity() {
         val loginBtn: Button = findViewById(R.id.btn_login)
         val http_handler =  HttpHandlerClass.getInstance()
         loginBtn?.setOnClickListener{(
-            //passar para assync ao inves de thread
+            //passar para assync ao invés de thread
             thread {
+                //http_handler.testApiConnection(http_handler._baseUrl)
                 var response = http_handler.login(this, http_handler._baseUrl, username.text.toString(), password.text.toString())
             }
         )}
