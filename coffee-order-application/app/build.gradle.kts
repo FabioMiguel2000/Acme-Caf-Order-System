@@ -57,5 +57,12 @@ dependencies {
     implementation("androidx.compose.material:material:1.6.3")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
-    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("com.google.code.gson:gson:2.8.9")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // Okhttp3 for the POST requests
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
 }
