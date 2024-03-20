@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import com.feup.coffee_order_application.services.HttpHandlerClass
+import kotlin.concurrent.thread
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -26,6 +28,15 @@ class RegisterActivity : AppCompatActivity() {
         var password = findViewById<EditText>(R.id.password_value)
         var passwordConfirmation = findViewById<EditText>(R.id.passwordconfirmation_value)
         val btnRegister: Button = findViewById(R.id.btn_register)
+
+        val http_handler =  HttpHandlerClass.getInstance()
+        btnRegister?.setOnClickListener{(
+                //passar para assync ao invés de thread
+                thread {
+                    //http_handler.testApiConnection(http_handler._baseUrl)
+                    var response = http_handler.login(this, http_handler._baseUrl, username.text.toString(), password.text.toString())
+                }
+                )}
 
     }
 

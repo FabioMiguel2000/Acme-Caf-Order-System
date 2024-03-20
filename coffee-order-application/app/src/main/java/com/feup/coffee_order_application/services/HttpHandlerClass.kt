@@ -94,6 +94,53 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
         }
     }
 
+    fun register(context: Context, baseUrl: String, name: String, email: String, password: String): Boolean{
+        _baseUrl = baseUrl + "api/auth/login"
+        var url = URL(_baseUrl)
+
+        val jsonObj =  JSONObject();
+        jsonObj.put("email", username)
+        jsonObj.put("password", password)
+        val jsonString = jsonObj.toString()
+
+        var urlConnection: HttpURLConnection ? = null
+        try {
+            urlConnection = (url.openConnection() as HttpURLConnection).apply {
+                doInput = true
+                doOutput = true
+                requestMethod = "POST"
+                setRequestProperty("Content-Type", "application/json")
+                setRequestProperty("Accept", "application/json")
+                useCaches = false
+                connectTimeout = 5000
+
+
+                with(outputStream) {
+                    write(jsonString.toByteArray())
+                    flush()
+                    close()
+                }
+
+                if(responseCode == 200) {
+                    val response = readStream(inputStream)
+                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG)
+                    return true
+                } else{
+                    Log.e("message", "NOK")
+                    val response = readStream(inputStream)
+                    return false
+                }
+            }
+        } catch (e: Exception){
+            //Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG)
+            throw e
+        } finally {
+            if(urlConnection != null)
+                urlConnection.disconnect()
+        }
+    }
+
+
     fun readStream(input: InputStream): String {
         var reader: BufferedReader? = null
         var line: String?
