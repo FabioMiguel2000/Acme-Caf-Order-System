@@ -1,5 +1,6 @@
 package com.feup.coffee_order_application
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -25,10 +26,16 @@ class LoginActivity : AppCompatActivity() {
         val http_handler =  HttpHandlerClass.getInstance()
         loginBtn?.setOnClickListener{(
             //passar para assync ao invés de thread
-            thread {
+            /*thread {
                 //http_handler.testApiConnection(http_handler._baseUrl)
                 var response = http_handler.login(this, http_handler._baseUrl, username.text.toString(), password.text.toString())
-            }
+                if(response == true){
+                    startActivity(Intent(this, MainActivity::class.java))
+                } else {
+                    println("Something went wrong")
+                }
+            }*/
+                startActivity(Intent(this, MainActivity::class.java))
         )}
     }
 }
