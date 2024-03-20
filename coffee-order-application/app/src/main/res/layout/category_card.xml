@@ -24,6 +24,7 @@
             android:src="@color/material_dynamic_tertiary90"/>
 
         <TextView
+            android:id="@+id/tv_category_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -32,7 +33,6 @@
             app:layout_constraintEnd_toEndOf="@+id/img_category"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="7dp"
-            android:text="Oreo"
             android:layout_marginBottom="10dp"
              />
 
