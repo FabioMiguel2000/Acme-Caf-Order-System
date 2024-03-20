@@ -5,7 +5,7 @@
  * @param sucessStatus if sucess or not 
  * @param message response description
  */
-function returnResponse(res, code, sucessStatus, message){
+function returnResponse(res, code, sucessStatus, message, data){
     if(!sucessStatus){
         sucessStatus = false
     }
@@ -22,9 +22,14 @@ function returnResponse(res, code, sucessStatus, message){
         message = "Something went wrong"
     }
 
+    if(!data){
+        data  = null
+    }
+
     return res.status(code).json({
         success: sucessStatus,
-        message: message
+        message: message,
+        data: data
     });
 }
 

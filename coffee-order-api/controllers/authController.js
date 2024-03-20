@@ -10,7 +10,6 @@ const validEmailFormat = (email) => {
 };
 
 const loginUser = async (req, res) => {
-  //try {
     const userInput = ({
       email: req.body.email,
       password: req.body.password,
@@ -35,48 +34,6 @@ const loginUser = async (req, res) => {
     }).catch((error) => {
       general.returnResponse(res, 409, false, "Something when wrong")
     });
-    /*if (!user) {
-      console.log("AQUI 2");
-      return res.status(409).json({
-        success: false,
-        message: `Authentication Failed: The username that you've entered doesn't match any account.`,
-      });
-    }
-
-    const isPasswordCorrect = await bcrypt.compare(
-      userInput.password,
-      user.password
-    );
-
-    if (!isPasswordCorrect) {
-      console.log("AQUI 3");
-      return res.status(409).json({
-        success: false,
-        message: `Authentication Failed: Invalid logid name or password.`,
-      });
-    }
-
-    user = await User.findOneAndUpdate(
-      { _id: user._id },
-      { $set: { publicKey: userInput.publicKey } },
-      {
-        new: true,
-        runValidators: true,
-      }
-    ).select("-password -publicKey");
-
-    return res.status(200).json({
-      success: true,
-      message: `User authenticated ${user}`,
-      data: user,
-    });*/
-  /*} catch (error) {
-    return res.status(500).json({
-      error: true,
-      success: false,
-      message: `Failed to retrieve users ${error}`,
-    });
-  }*/
 };
 
 const registerUser = async (req, res) => {
@@ -97,6 +54,7 @@ const registerUser = async (req, res) => {
       });
     }
 
+    //TODO: remove it later becouse the android applcation will be responsible for this
     if (userInput.password !== userInput.confirmPassword) {
       return res.status(409).json({
         success: false,
@@ -104,48 +62,30 @@ const registerUser = async (req, res) => {
       });
     }
 
-    const usernameExists = await User.findOne({
-      email: userInput.email,
-    });
-
-    if (usernameExists) {
-      return res.status(409).json({
-        success: false,
-        message: `User already exists ${userInput.email}`,
-      });
-    }
-
-    const nifExists = await User.findOne({
-      nif: userInput.nif,
-    });
-
-    if (nifExists) {
-      return res.status(409).json({
-        success: false,
-        message: `NIF already registered ${userInput.nif}`,
-      });
-    }
-
-    const encryptedPassword = await encryptPassword(userInput.password);
-
-    const newUser = new User({
-      name: userInput.name,
-      password: encryptedPassword,
-      email: userInput.email,
-      nif: userInput.nif,
-      publicKey: userInput.publicKey,
-    });
-
-    await newUser.save();
-
-    const filteredUser = await User.findById(newUser._id).select(
-      "-password -publicKey"
-    );
-
-    return res.status(201).json({
-      success: true,
-      message: `User created ${filteredUser}`,
-      data: filteredUser,
+    await User.find({
+      $or: [{email: userInput.email}, {nif: userInput.nif}]
+    }).then( result => {
+      if(result.length > 0){
+        general.returnResponse(res, 409, false, "Email or nif provide already userd in the system")
+      } else {
+        const encryptedPassword = encryptPassword(userInput.password);
+        const newUser = new User({
+          name: userInput.name,
+          password: encryptedPassword,
+          email: userInput.email,
+          nif: userInput.nif,
+          publicKey: userInput.publicKey,
+        });
+        newUser.save().then(result => {
+          if(result){
+            general.returnResponse(res, 201, true,  `User created ${result}`, result)
+          } else {
+            general.returnResponse(res, 409, true,  `Something went wrong, user not created`)
+          }
+        }).catch((error) => {
+          general.returnResponse(res, 409, true,  `Something went wrong ${error}`)
+        })
+      }
     });
   } catch (error) {
     return res.status(500).json({

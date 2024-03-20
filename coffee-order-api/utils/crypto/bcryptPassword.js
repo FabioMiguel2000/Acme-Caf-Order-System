@@ -13,9 +13,9 @@ async function encryptPasswords(users) {
     return users;
 }
 
-async function encryptPassword(password) {
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hashedPassword = await bcrypt.hash(password, salt);
+function encryptPassword(password) {
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hashedPassword =  bcrypt.hashSync(password, salt);
 
     return hashedPassword;
 }
