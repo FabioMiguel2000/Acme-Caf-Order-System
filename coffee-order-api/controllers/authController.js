@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const { encryptPassword } = require("../utils/crypto/bcryptPassword");
+const general = require("../services/general")
 
 const validEmailFormat = (email) => {
   const emailRegex =
@@ -9,24 +10,33 @@ const validEmailFormat = (email) => {
 };
 
 const loginUser = async (req, res) => {
-  try {
+  //try {
     const userInput = ({
       email: req.body.email,
       password: req.body.password,
       publicKey: req.body.publicKey,
     } = req.body);
-
     if (!validEmailFormat(userInput.email)) {
-      return res.status(409).json({
-        success: false,
-        message: "Invalid email format",
-      });
+      general.returnResponse(res, 409, false, "Invalid email format")
     }
-
     let user = await User.findOne({
       email: userInput.email,
+    }).then(result => {
+      if(result){
+        let passwordIsCorrect = bcrypt.compareSync(userInput.password, result.password)//to avoid asycn one
+        if(passwordIsCorrect){
+          general.returnResponse(res, 200, true, "User authenticated")
+        }else {
+          general.returnResponse(res, 409, false, "Email or password are incorrect")
+        }
+      } else {
+        general.returnResponse(res, 409, false, "User not found")
+      }
+    }).catch((error) => {
+      general.returnResponse(res, 409, false, "Something when wrong")
     });
-    if (!user) {
+    /*if (!user) {
+      console.log("AQUI 2");
       return res.status(409).json({
         success: false,
         message: `Authentication Failed: The username that you've entered doesn't match any account.`,
@@ -39,6 +49,7 @@ const loginUser = async (req, res) => {
     );
 
     if (!isPasswordCorrect) {
+      console.log("AQUI 3");
       return res.status(409).json({
         success: false,
         message: `Authentication Failed: Invalid logid name or password.`,
@@ -58,14 +69,14 @@ const loginUser = async (req, res) => {
       success: true,
       message: `User authenticated ${user}`,
       data: user,
-    });
-  } catch (error) {
+    });*/
+  /*} catch (error) {
     return res.status(500).json({
       error: true,
       success: false,
-      message: "Failed to retrieve users",
+      message: `Failed to retrieve users ${error}`,
     });
-  }
+  }*/
 };
 
 const registerUser = async (req, res) => {
