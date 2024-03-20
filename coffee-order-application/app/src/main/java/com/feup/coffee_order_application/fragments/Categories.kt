@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application
+package com.feup.coffee_order_application.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.models.Category
 
@@ -22,7 +22,7 @@ class Categories : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.categories_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_categories, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
