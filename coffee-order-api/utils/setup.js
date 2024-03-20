@@ -16,16 +16,7 @@ const Product = require("../models/product");
 const User = require("../models/user");
 const Order = require("../models/order");
 
-const createOrderByNifAndProductNames = async (order) => {
-  const user = await User.findOne({ nif: order.client }).exec();
-  const productPromises = order.products.map(async (p) => {
-    const product = await Product.findOne({ name: p.product_name }).exec();
-    return { product: product._id, quantity: p.quantity };
-  });
-  const products = await Promise.all(productPromises);
-
-  await new Order({ client: user._id, products: products }).save();
-};
+const { createOrderByProductNames } = require("../controllers/orderController");
 
 const importData = async () => {
   try {
@@ -34,7 +25,7 @@ const importData = async () => {
 
     await Promise.all([Product.deleteMany(), User.deleteMany(), Order.deleteMany()]);
     await Promise.all([Product.insertMany(productSeeders), User.insertMany(userSeedersEncrypted)]);
-    await Promise.all(orderSeeders.map(createOrderByNifAndProductNames));
+    await Promise.all(orderSeeders.map(createOrderByProductNames));
 
     console.log("Data has been seeded!");
     gracefulExit();
