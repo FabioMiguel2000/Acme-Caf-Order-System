@@ -21,9 +21,9 @@ class Categories : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val categories = listOf<Category>(
-            Category("Hot Coffee", R.drawable.hot_coffee),
-            Category("Cold Coffee", R.drawable.ice_coffee),
-            Category("Cappucino", R.drawable.cappuccino)
+            Category("Hot Coffee", R.drawable.hot_coffee, 10),
+            Category("Cold Coffee", R.drawable.ice_coffee, 12),
+            Category("Cappucino", R.drawable.cappuccino, 8)
         )
 
         val adapter = CategoriesAdapter(categories)

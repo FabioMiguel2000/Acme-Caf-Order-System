@@ -1,5 +1,6 @@
 package com.feup.coffee_order_application.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,8 @@ class CategoriesAdapter(private val categories: List<Category>) : RecyclerView.A
 
     class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.img_category)
-        val textView: TextView = view.findViewById(R.id.tv_category_name) // Assuming you've set an ID for the TextView
+        val nameTextView: TextView = view.findViewById(R.id.tv_category_name)
+        val sizeTextView: TextView = view.findViewById(R.id.tv_category_size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -21,9 +23,11 @@ class CategoriesAdapter(private val categories: List<Category>) : RecyclerView.A
         return CategoryViewHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categories[position]
-        holder.textView.text = category.name
+        holder.nameTextView.text = category.name
+        holder.sizeTextView.text = "(${category.size.toString()})"
         holder.imageView.setImageResource(category.imageSrc)
     }
 
