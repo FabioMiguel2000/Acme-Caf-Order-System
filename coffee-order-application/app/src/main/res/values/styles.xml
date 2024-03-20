@@ -3,4 +3,10 @@
     <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemIconSize">50dp</item>
     </style>
+    <style name="ToolbarTitleTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/dark_purple</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>
