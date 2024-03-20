@@ -6,8 +6,15 @@
     android:layout_height="match_parent"
     android:id="@+id/register_activity"
     android:parentActivityName=".MainActivity" >
-    >
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+
+        tools:layout_editor_absoluteX="1dp" />
 
     <!-- Name field -->
     <TextView
@@ -18,7 +25,8 @@
         android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.096"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name_inputlayout"
