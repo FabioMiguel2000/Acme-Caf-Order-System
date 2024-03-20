@@ -10,7 +10,7 @@ const validEmailFormat = (email) => {
 
 const loginUser = async (req, res) => {
   try {
-    //if(req.body.email && req.body.password){
+    if(req.body.email && req.body.password){
       const userInput = ({
         email: req.body.email,
         password: req.body.password,
@@ -61,12 +61,12 @@ const loginUser = async (req, res) => {
         data: user,
       });
 
-    /*} else {
+    } else {
       return res.status(500).json({
         success: false,
         message: "Bad request"
       })
-    }*/
+    }
     
   } catch (error) {
     return res.status(500).json({
