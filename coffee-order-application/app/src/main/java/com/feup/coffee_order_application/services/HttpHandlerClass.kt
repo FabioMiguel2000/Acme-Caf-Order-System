@@ -2,17 +2,13 @@ package com.feup.coffee_order_application.services
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import com.google.gson.Gson
 import java.io.BufferedReader
-import java.io.DataOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import org.json.JSONObject
-//mport kotlinx.seria
 
 class HttpHandlerClass private  constructor(baseUrl : String ){
     var _baseUrl: String = baseUrl
@@ -94,12 +90,14 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
         }
     }
 
-    fun register(context: Context, baseUrl: String, name: String, email: String, password: String): Boolean{
-        _baseUrl = baseUrl + "api/auth/login"
+    fun register(context: Context, baseUrl: String, name: String, email: String, password: String, nif: String): Boolean{
+        _baseUrl = baseUrl + "api/auth/register"
         var url = URL(_baseUrl)
 
         val jsonObj =  JSONObject();
-        jsonObj.put("email", username)
+        jsonObj.put("name", name)
+        jsonObj.put("email", email)
+        jsonObj.put("nif", nif)
         jsonObj.put("password", password)
         val jsonString = jsonObj.toString()
 

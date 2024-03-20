@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.feup.coffee_order_application.services.HttpHandlerClass
@@ -31,13 +32,10 @@ class RegisterActivity : AppCompatActivity() {
 
         val http_handler =  HttpHandlerClass.getInstance()
         btnRegister?.setOnClickListener{(
-                //passar para assync ao invés de thread
                 thread {
-                    //http_handler.testApiConnection(http_handler._baseUrl)
-                    var response = http_handler.login(this, http_handler._baseUrl, username.text.toString(), password.text.toString())
+                    var response = http_handler.register(this, http_handler._baseUrl, name.text.toString(), email.text.toString(), password.text.toString(), nif.text.toString())
                 }
-                )}
-
+        )}
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
