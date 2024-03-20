@@ -31,10 +31,7 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
+           //implement back button code
         }
         return super.onContextItemSelected(item)
     }
