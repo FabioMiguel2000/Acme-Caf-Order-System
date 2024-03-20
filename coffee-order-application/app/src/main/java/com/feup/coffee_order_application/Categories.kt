@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.adapters.CategoriesAdapter
@@ -28,7 +29,7 @@ class Categories : Fragment() {
         val adapter = CategoriesAdapter(categories)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_categories)
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         recyclerView.adapter = adapter
     }
 
