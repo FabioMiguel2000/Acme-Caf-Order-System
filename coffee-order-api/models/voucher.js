@@ -12,7 +12,11 @@ const voucherSchema = new mongoose.Schema({
     enum: ["Discount", "FreeCoffee"],
     required: true,
   },
-  client: { type: mongoose.Schema.Types.String, ref: "User" },
+  client: {
+    type: mongoose.Schema.Types.String,
+    ref: "User",
+    autopopulate: { select: "-password -publicKey" },
+  },
   used: {
     type: Boolean,
     default: false,

@@ -5,6 +5,7 @@ const {
   updateUserAccumulatedCoffeeBuys,
   updateUserAccumulatedExpenses,
 } = require("./userController");
+const { validateVoucher, useVoucher } = require("./voucherController");
 
 const getAllOrders = async (req, res) => {
   try {
@@ -83,12 +84,15 @@ const calculatePrices = (products, discountVoucher) => {
     subtotal += p.product.price * p.quantity;
   });
   if (discountVoucher) {
-    total = subtotal * (1 - discountVoucher.discount);
+    total = subtotal * 0.95;
   } else {
     total = subtotal;
   }
 
-  const promotionDiscount = total - subtotal;
+  const promotionDiscount = Math.round((total - subtotal) * 100) / 100;
+
+  subtotal = Math.round(subtotal * 100) / 100;
+  total = Math.round(total * 100) / 100;
 
   return { subtotal, promotionDiscount, total };
 };
@@ -104,9 +108,71 @@ const countCups = (products, freeCoffeeVoucher) => {
   return count;
 };
 
+const validateOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const order = await Order.findById(id);
+
+    if (!order) {
+      return res.status(404).json({
+        error: true,
+        success: false,
+        message: `Order with id: ${id} not found`,
+      });
+    }
+
+    if (order.status !== "Pending") {
+      return res.status(400).json({
+        error: true,
+        success: false,
+        message: `Order with id: ${id} is not pending`,
+      });
+    }
+
+    if (order.discountVoucher) {
+      console.log(order.discountVoucher);
+      await useVoucher(order.discountVoucher);
+    }
+    if (order.freeCoffeeVoucher) {
+      console.log(order.freeCoffeeVoucher);
+      await useVoucher(order.freeCoffeeVoucher);
+    }
+
+    await updateUserAccumulatedCoffeeBuys(
+      order.client,
+      countCups(order.products, order.freeCoffeeVoucher)
+    );
+    await updateUserAccumulatedExpenses(order.client, order.total);
+
+    order.status = "Verified";
+    await order.save();
+
+    return res.status(200).json({
+      success: true,
+      message: `Order with id: ${id} verified`,
+      data: order,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      success: false,
+      message: `Failed to validate order: ${error}`,
+    });
+  }
+};
+
 const createOrder = async (req, res) => {
   try {
-    const { client, products } = req.body;
+    const { client, products, discountVoucher, freeCoffeeVoucher, status } =
+      req.body;
+
+    if (status !== "Pending") {
+      return res.status(400).json({
+        error: true,
+        success: false,
+        message: `Invalid status: ${status}`,
+      });
+    }
 
     const clientExists = await User.findById({
       _id: client,
@@ -122,13 +188,28 @@ const createOrder = async (req, res) => {
 
     const productObjs = await getProductObjs(products);
 
+    const vDiscountVoucher = await validateVoucher(discountVoucher, client);
+    const vFreeCoffeeVoucher = await validateVoucher(freeCoffeeVoucher, client);
+
+    const freeCoffeeProductExist = productObjs
+      .map((p) => p.product.name)
+      .includes("Free Coffee");
+
+    if (
+      (vFreeCoffeeVoucher && !freeCoffeeProductExist) ||
+      (!vFreeCoffeeVoucher && freeCoffeeProductExist)
+    ) {
+      return res.status(400).json({
+        error: true,
+        success: false,
+        message: `Free Coffee Voucher not valid or Free Coffee product not in order`,
+      });
+    }
+
     const { subtotal, promotionDiscount, total } = calculatePrices(
       productObjs,
-      clientExists.discountVoucher
+      vDiscountVoucher
     );
-
-    await updateUserAccumulatedCoffeeBuys(client, countCups(products));
-    await updateUserAccumulatedExpenses(client, total);
 
     const newOrder = await new Order({
       client: clientExists._id,
@@ -136,6 +217,8 @@ const createOrder = async (req, res) => {
       subtotal,
       promotionDiscount,
       total,
+      discountVoucher: vDiscountVoucher,
+      freeCoffeeVoucher: vFreeCoffeeVoucher,
     }).save();
 
     return res.status(201).json({
@@ -171,8 +254,11 @@ const createOrderByProductNames = async (order) => {
       clientExists.discountVoucher
     );
 
-    await updateUserAccumulatedCoffeeBuys(clientExists, countCups(products));
-    await updateUserAccumulatedExpenses(clientExists, total);
+    await updateUserAccumulatedCoffeeBuys(
+      clientExists._id,
+      countCups(products, false)
+    );
+    await updateUserAccumulatedExpenses(clientExists._id, total);
 
     await new Order({
       client: clientExists._id,
@@ -192,4 +278,5 @@ module.exports = {
   getOrderByUser,
   createOrder,
   createOrderByProductNames,
+  validateOrder,
 };
