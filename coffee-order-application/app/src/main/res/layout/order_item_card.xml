@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="0dp"
+    app:cardUseCompatPadding="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_purple"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/img_order"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@color/dark_purple"
+            app:layout_constraintBottom_toTopOf="@id/tv_order_quantity"
+            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="centerCrop"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_name"
+            app:layout_constraintStart_toEndOf="@id/img_order"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:text="1.1EUR / piece"/>
+
+        <TextView
+            android:id="@+id/tv_order_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Caffe Americanno"
+            app:layout_constraintTop_toTopOf="@+id/img_order"
+            app:layout_constraintStart_toEndOf="@id/img_order" />
+
+        <ImageView
+            android:id="@+id/minus_btn_order"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/home_foreground"
+            app:layout_constraintStart_toStartOf="@id/img_order"
+            app:layout_constraintTop_toBottomOf="@id/img_order"
+            app:layout_constraintBottom_toBottomOf="@id/line"/>
+
+        <TextView
+            android:id="@+id/tv_order_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            app:layout_constraintTop_toTopOf="@id/minus_btn_order"
+            app:layout_constraintBottom_toBottomOf="@id/minus_btn_order"
+            app:layout_constraintStart_toEndOf="@id/minus_btn_order"
+            app:layout_constraintEnd_toStartOf="@id/plus_btn_order"
+
+            />
+
+        <ImageView
+            android:id="@+id/plus_btn_order"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/home_foreground"
+
+            app:layout_constraintTop_toTopOf="@id/minus_btn_order"
+            app:layout_constraintBottom_toBottomOf="@id/minus_btn_order"
+            app:layout_constraintEnd_toEndOf="@id/img_order"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12.00"
+            app:layout_constraintBottom_toTopOf="@+id/line"
+            app:layout_constraintEnd_toEndOf="@+id/line" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
