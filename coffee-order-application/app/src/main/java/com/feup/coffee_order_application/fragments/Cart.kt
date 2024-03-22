@@ -13,15 +13,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CartAdapter
+import com.feup.coffee_order_application.adapters.CartQuantityChangeListener
 import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.models.Category
+import kotlin.math.round
 
 val cartProducts = listOf<CartProduct>(
     CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-    CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "",12),
+    CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "", 12),
     CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "",2),
+    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 2),
 )
 
 class Cart : Fragment() {
@@ -50,14 +52,25 @@ class Cart : Fragment() {
         recyclerView.adapter = adapter
 
         val subtotalTextView: TextView = view.findViewById(R.id.tv_subtotal_price)
-        val promotionDiscountTextView : TextView = view.findViewById(R.id.tv_promotion_discount)
+        val promotionDiscountTextView: TextView = view.findViewById(R.id.tv_promotion_discount)
         val totalTextView: TextView = view.findViewById(R.id.tv_total)
 
-        val subtotalPrice = cartProducts.sumOf { it.price * it.quantity }
+        val subtotalPrice = round(cartProducts.sumOf { it.price * it.quantity } * 100) / 100
 
-        subtotalTextView.text = "${subtotalPrice.toString()} €"
+        subtotalTextView.text = "$subtotalPrice €"
         promotionDiscountTextView.text = "- 0.00 €"
-        totalTextView.text = "${subtotalPrice.toString()} €"
+        totalTextView.text = "$subtotalPrice €"
+
+        adapter.setCartQuantityChangeListener(object : CartQuantityChangeListener {
+            override fun onQuantityChanged() {
+                val subtotalPrice = round(cartProducts.sumOf { it.price * it.quantity } * 100) / 100
+
+                subtotalTextView.text = "$subtotalPrice €"
+                promotionDiscountTextView.text = "- 0.00 €"
+                totalTextView.text = "$subtotalPrice €"
+
+            }
+        })
     }
 
 

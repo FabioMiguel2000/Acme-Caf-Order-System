@@ -13,6 +13,11 @@ import kotlin.math.round
 
 class CartAdapter(private val products: List<CartProduct>) :
     RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+    var quantityChangeListener: CartQuantityChangeListener? = null
+
+    fun setCartQuantityChangeListener(listener: CartQuantityChangeListener) {
+        quantityChangeListener = listener
+    }
     class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.img_order)
         val nameTextView: TextView = view.findViewById(R.id.tv_order_name)
@@ -45,6 +50,7 @@ class CartAdapter(private val products: List<CartProduct>) :
             holder.quantityTextView.text = product.quantity.toString()
             holder.totalPricePerItemTextView.text =
                 "${round(product.price * product.quantity * 100) / 100} €"
+            quantityChangeListener?.onQuantityChanged()
             notifyItemChanged(position)
         }
         holder.minusButton.setOnClickListener {
@@ -53,12 +59,16 @@ class CartAdapter(private val products: List<CartProduct>) :
                 holder.quantityTextView.text = product.quantity.toString()
                 holder.totalPricePerItemTextView.text =
                     "${round(product.price * product.quantity * 100) / 100} €"
+                quantityChangeListener?.onQuantityChanged()
                 notifyItemChanged(position)
-
             }
         }
     }
 
     override fun getItemCount() = products.size
 
+}
+
+interface CartQuantityChangeListener {
+    fun onQuantityChanged()
 }
