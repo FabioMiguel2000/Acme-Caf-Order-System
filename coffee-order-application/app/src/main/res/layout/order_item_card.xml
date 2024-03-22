@@ -80,13 +80,13 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_add"
-
             app:layout_constraintTop_toTopOf="@id/minus_btn_order"
             app:layout_constraintBottom_toBottomOf="@id/minus_btn_order"
             app:layout_constraintEnd_toEndOf="@id/img_order"
             />
 
         <TextView
+            android:id="@+id/tv_order_total_price_per_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="12.00"

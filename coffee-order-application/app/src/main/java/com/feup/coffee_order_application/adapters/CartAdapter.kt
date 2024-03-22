@@ -11,12 +11,12 @@ import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.models.CartProduct
 
 class CartAdapter(private val products: List<CartProduct>) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
-
     class CartViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.img_order)
         val nameTextView: TextView = view.findViewById(R.id.tv_order_name)
         val quantityTextView: TextView = view.findViewById(R.id.tv_order_quantity)
         val priceTextView: TextView = view.findViewById(R.id.tv_order_price_per_piece)
+        val totalPricePerItemTextView: TextView = view.findViewById(R.id.tv_order_total_price_per_item)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -31,6 +31,7 @@ class CartAdapter(private val products: List<CartProduct>) : RecyclerView.Adapte
         holder.nameTextView.text = product.name
         holder.priceTextView.text = "${product.price} € / per piece"
         holder.imageView.setImageResource(product.imageUrl)
+        holder.totalPricePerItemTextView.text = "${product.price * product.quantity} €"
     }
 
     override fun getItemCount() = products.size

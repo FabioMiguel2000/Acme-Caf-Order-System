@@ -1,10 +1,12 @@
 package com.feup.coffee_order_application.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,10 +20,12 @@ import com.feup.coffee_order_application.models.Category
 val cartProducts = listOf<CartProduct>(
     CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),
     CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "",12),
-
+    CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
+    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "",2),
 )
 
 class Cart : Fragment() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -34,6 +38,7 @@ class Cart : Fragment() {
         return inflater.inflate(R.layout.fragment_cart, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Order"
@@ -43,6 +48,22 @@ class Cart : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_cart)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+
+        val subtotalTextView: TextView = view.findViewById(R.id.tv_subtotal_price)
+        val promotionDiscountTextView : TextView = view.findViewById(R.id.tv_promotion_discount)
+        val totalTextView: TextView = view.findViewById(R.id.tv_total)
+
+        val subtotalPrice = cartProducts.sumOf { it.price * it.quantity }
+
+        subtotalTextView.text = "${subtotalPrice.toString()} €"
+        promotionDiscountTextView.text = "- 0.00 €"
+        totalTextView.text = "${subtotalPrice.toString()} €"
     }
+
+//    fun updatePrices(){
+//        val subtotalTextView: TextView = View.findViewById(R.id.tv_subtotal_price)
+//
+//
+//    }
 
 }
