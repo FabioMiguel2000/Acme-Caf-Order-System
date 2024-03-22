@@ -1,8 +1,10 @@
 package com.feup.coffee_order_application.services
 import android.content.Context
+import android.util.JsonReader
 import android.util.Log
 import android.widget.Toast
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.IOException
@@ -22,6 +24,7 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
     fun testApiConnection(address: String){
         var url: URL? = null
         var urlConnection: HttpURLConnection? = null
+        var gson = Gson()
 
         try {
             url = URL(address)
@@ -35,13 +38,13 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
                 if(responseCode == 200){
                     val resonse = readStream(inputStream)
                     Log.e("response-message", "OK")
-                } else {
+                } else if (responseCode == 409) {
                     Log.e("response-message", "NOK")
                 }
             }
         } catch (e: Exception){
-            Log.e("response-message", e.toString())
-            throw e
+            val reader = JsonReader(InputStreamReader(urlConnection?.errorStream))
+            var test = "";
         } finally {
             if(urlConnection != null)
                 urlConnection.disconnect()
