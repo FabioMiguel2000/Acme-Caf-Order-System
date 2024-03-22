@@ -1,7 +1,10 @@
 package com.feup.coffee_order_application.fragments
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
+import android.nfc.Tag
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +22,7 @@ import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.models.Category
 import kotlin.math.round
 
-val cartProducts = listOf<CartProduct>(
+val cartProducts = mutableListOf<CartProduct>(
     CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),
     CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "", 12),
     CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
@@ -63,6 +66,7 @@ class Cart : Fragment() {
 
         adapter.setCartQuantityChangeListener(object : CartQuantityChangeListener {
             override fun onQuantityChanged() {
+                Log.d(TAG, "Quantity changed")
                 val subtotalPrice = round(cartProducts.sumOf { it.price * it.quantity } * 100) / 100
 
                 subtotalTextView.text = "$subtotalPrice €"

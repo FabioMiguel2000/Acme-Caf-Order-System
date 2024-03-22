@@ -11,9 +11,9 @@ import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.models.CartProduct
 import kotlin.math.round
 
-class CartAdapter(private val products: List<CartProduct>) :
+class CartAdapter(private val products: MutableList<CartProduct>) :
     RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
-    var quantityChangeListener: CartQuantityChangeListener? = null
+    private var quantityChangeListener: CartQuantityChangeListener? = null
 
     fun setCartQuantityChangeListener(listener: CartQuantityChangeListener) {
         quantityChangeListener = listener
@@ -61,6 +61,13 @@ class CartAdapter(private val products: List<CartProduct>) :
                     "${round(product.price * product.quantity * 100) / 100} €"
                 quantityChangeListener?.onQuantityChanged()
                 notifyItemChanged(position)
+            }
+            else{
+                products.removeAt(position)
+                notifyItemRemoved(position)
+                notifyItemRangeChanged(position, itemCount)
+                quantityChangeListener?.onQuantityChanged()
+
             }
         }
     }
