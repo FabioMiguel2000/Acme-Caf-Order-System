@@ -159,7 +159,7 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
     companion object {
         @Volatile private var instance: HttpHandlerClass? = null
         fun getInstance() = instance ?: synchronized(this) {
-            instance?:HttpHandlerClass("http://192.168.1.97:3000/").also {
+            instance?:HttpHandlerClass("http://10.0.2.2:3000/").also {
                 instance = it
             }
         }
