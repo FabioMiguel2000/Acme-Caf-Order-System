@@ -204,6 +204,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:text="Subtotal"
+                android:textColor="@color/light_purple"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -213,6 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="10dp"
+                android:textColor="@color/light_purple"
                 android:text="12.00 EUR"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -223,6 +225,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:textColor="@color/button_color"
                 android:text="Promotion Discount"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_subtotal_price" />
@@ -233,6 +236,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
+                android:textColor="@color/button_color"
                 android:text="-2.00 EUR"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_subtotal_price" />
@@ -243,6 +247,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="15dp"
+                android:textColor="@color/dark_purple"
                 android:text="Total"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -255,6 +260,8 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="15dp"
+                android:textColor="@color/dark_purple"
+
                 android:text="10.00 EUR"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
