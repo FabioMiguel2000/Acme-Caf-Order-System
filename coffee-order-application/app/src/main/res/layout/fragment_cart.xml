@@ -8,13 +8,9 @@
     tools:context=".fragments.Cart">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         >
-
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/right_guideline"
             android:layout_width="match_parent"
@@ -51,44 +47,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="visible"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linear_vouchers"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/right_guideline"-->
-<!--            app:layout_constraintStart_toStartOf="@id/left_guideline"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/bottom_guideline">-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/linear_coffee_voucher"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal">-->
-
-
-<!--   -->
-
-<!--            </LinearLayout>-->
-
-<!--            <LinearLayout-->
-<!--                android:id="@+id/linear_discount_voucher"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:orientation="horizontal">-->
-
-
-
-<!--            </LinearLayout>-->
-
-<!--        </LinearLayout>-->
 
         <View
             android:id="@+id/line_1"
@@ -150,7 +112,6 @@
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
         <View
             android:id="@+id/line_2"
             android:layout_width="0dp"
@@ -299,8 +260,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_promotion_discount"
                 />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -313,6 +272,5 @@
             app:layout_constraintEnd_toEndOf="@id/right_guideline"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintTop_toBottomOf="@id/bottom_box_container" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
