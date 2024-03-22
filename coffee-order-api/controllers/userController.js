@@ -1,4 +1,38 @@
 const User = require("../models/user");
+const { createVoucher } = require("./voucherController");
+
+
+const updateUserAccumulatedExpenses = async (userId, expenses) => {
+    try {
+        const user = await User.findById(userId);
+        user.accumulatedExpenses += expenses;
+        
+        for (let i = 0; i < Math.floor(user.accumulatedExpenses / 100); i++) {
+            await createVoucher(user, "Discount");
+            user.accumulatedExpenses -= 100;
+        }
+
+        await user.save();
+    } catch (error) {
+        throw new Error("Failed to update user accumulated expenses");
+    }
+}
+
+const updateUserAccumulatedCoffeeBuys = async (userId, cupsNum) => {
+    try {
+        const user = await User.findById(userId);
+        user.accumulatedCoffeeBuys += cupsNum;
+
+        for (let i = 0; i < Math.floor(user.accumulatedCoffeeBuys / 3); i++) {
+            await createVoucher(user, "FreeCoffee");
+            user.accumulatedCoffeeBuys -= 3;
+        }
+        await user.save();
+    } catch (error) {
+        throw new Error("Failed to update user accumulated coffee buys");
+    }
+}
+
 
 const getAllUsers = async (req, res) => {
     try {   
@@ -38,9 +72,9 @@ const getSingleUser = async (req, res) => {
         return res.status(500).json({
             error: true,
             success: false,
-            message: "Failed to retrieve users"
+            message: "Failed to retrieve user"
         });
     }
 }
 
-module.exports = { getAllUsers, getSingleUser};
+module.exports = { getAllUsers, getSingleUser, updateUserAccumulatedExpenses, updateUserAccumulatedCoffeeBuys};

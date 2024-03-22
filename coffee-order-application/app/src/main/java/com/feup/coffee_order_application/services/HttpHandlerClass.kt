@@ -3,18 +3,14 @@ import android.content.Context
 import android.util.JsonReader
 import android.util.Log
 import android.widget.Toast
-import com.google.gson.Gson
 import com.google.gson.JsonObject
 import java.io.BufferedReader
-import java.io.DataOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import org.json.JSONObject
-//mport kotlinx.seria
 
 class HttpHandlerClass private  constructor(baseUrl : String ){
     var _baseUrl: String = baseUrl
@@ -97,6 +93,55 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
         }
     }
 
+    fun register(context: Context, baseUrl: String, name: String, email: String, password: String, nif: String): Boolean{
+        _baseUrl = baseUrl + "api/auth/register"
+        var url = URL(_baseUrl)
+
+        val jsonObj =  JSONObject();
+        jsonObj.put("name", name)
+        jsonObj.put("email", email)
+        jsonObj.put("nif", nif)
+        jsonObj.put("password", password)
+        val jsonString = jsonObj.toString()
+
+        var urlConnection: HttpURLConnection ? = null
+        try {
+            urlConnection = (url.openConnection() as HttpURLConnection).apply {
+                doInput = true
+                doOutput = true
+                requestMethod = "POST"
+                setRequestProperty("Content-Type", "application/json")
+                setRequestProperty("Accept", "application/json")
+                useCaches = false
+                connectTimeout = 5000
+
+
+                with(outputStream) {
+                    write(jsonString.toByteArray())
+                    flush()
+                    close()
+                }
+
+                if(responseCode == 200) {
+                    val response = readStream(inputStream)
+                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG)
+                    return true
+                } else{
+                    Log.e("message", "NOK")
+                    val response = readStream(inputStream)
+                    return false
+                }
+            }
+        } catch (e: Exception){
+            //Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG)
+            throw e
+        } finally {
+            if(urlConnection != null)
+                urlConnection.disconnect()
+        }
+    }
+
+
     fun readStream(input: InputStream): String {
         var reader: BufferedReader? = null
         var line: String?
@@ -117,7 +162,7 @@ class HttpHandlerClass private  constructor(baseUrl : String ){
     companion object {
         @Volatile private var instance: HttpHandlerClass? = null
         fun getInstance() = instance ?: synchronized(this) {
-            instance?:HttpHandlerClass("http://192.168.1.97:3000/").also {
+            instance?:HttpHandlerClass("http://10.0.2.2:3000/").also {
                 instance = it
             }
         }
