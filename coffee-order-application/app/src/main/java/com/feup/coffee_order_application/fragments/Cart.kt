@@ -60,10 +60,5 @@ class Cart : Fragment() {
         totalTextView.text = "${subtotalPrice.toString()} €"
     }
 
-//    fun updatePrices(){
-//        val subtotalTextView: TextView = View.findViewById(R.id.tv_subtotal_price)
-//
-//
-//    }
 
 }
