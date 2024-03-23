@@ -30,6 +30,7 @@ val cartProducts = mutableListOf<CartProduct>(
     CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
     CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 2),
 )
+
 //val cartProducts = mutableListOf<CartProduct>()
 class Cart : Fragment() {
 
@@ -66,25 +67,7 @@ class Cart : Fragment() {
         promotionDiscountTextView.text = "- 0.00 €"
         totalTextView.text = "$subtotalPrice €"
 
-        if (cartProducts.isEmpty()) {
-            view.findViewById<ConstraintLayout>(R.id.empty_cart_container).visibility = View.VISIBLE // Show "Cart is empty" message
-            view.findViewById<ConstraintLayout>(R.id.coffee_voucher_container).visibility = View.GONE
-            view.findViewById<ConstraintLayout>(R.id.discount_voucher_container).visibility = View.GONE
-            view.findViewById<ConstraintLayout>(R.id.bottom_box_container).visibility = View.GONE
-            view.findViewById<MaterialButton>(R.id.btn_checkout).visibility = View.GONE
-            view.findViewById<View>(R.id.line_1).visibility = View.GONE
-            view.findViewById<View>(R.id.line_2).visibility = View.GONE
-            view.findViewById<View>(R.id.line_3).visibility = View.GONE
-        } else {
-            view.findViewById<ConstraintLayout>(R.id.empty_cart_container).visibility = View.GONE // Show "Cart is empty" message
-            view.findViewById<ConstraintLayout>(R.id.coffee_voucher_container).visibility = View.VISIBLE
-            view.findViewById<ConstraintLayout>(R.id.discount_voucher_container).visibility = View.VISIBLE
-            view.findViewById<ConstraintLayout>(R.id.bottom_box_container).visibility = View.VISIBLE
-            view.findViewById<MaterialButton>(R.id.btn_checkout).visibility = View.VISIBLE
-            view.findViewById<View>(R.id.line_1).visibility = View.VISIBLE
-            view.findViewById<View>(R.id.line_2).visibility = View.VISIBLE
-            view.findViewById<View>(R.id.line_3).visibility = View.VISIBLE
-        }
+        updateCartRendering(view, cartProducts.isEmpty())
 
         adapter.setCartQuantityChangeListener(object : CartQuantityChangeListener {
             override fun onQuantityChanged() {
@@ -95,12 +78,29 @@ class Cart : Fragment() {
                 promotionDiscountTextView.text = "- 0.00 €"
                 totalTextView.text = "$subtotalPrice €"
 
+                updateCartRendering(view, cartProducts.isEmpty())
             }
         })
 
+    }
 
-
-
+    fun updateCartRendering(view:View , isCartEmpty: Boolean) {
+        view.findViewById<ConstraintLayout>(R.id.empty_cart_container).visibility =
+            if (isCartEmpty) View.VISIBLE else View.GONE
+        view.findViewById<ConstraintLayout>(R.id.coffee_voucher_container).visibility =
+            if (isCartEmpty) View.GONE else View.VISIBLE
+        view.findViewById<ConstraintLayout>(R.id.discount_voucher_container).visibility =
+            if (isCartEmpty) View.GONE else View.VISIBLE
+        view.findViewById<ConstraintLayout>(R.id.bottom_box_container).visibility =
+            if (isCartEmpty) View.GONE else View.VISIBLE
+        view.findViewById<MaterialButton>(R.id.btn_checkout).visibility =
+            if (isCartEmpty) View.GONE else View.VISIBLE
+        view.findViewById<View>(R.id.line_1).visibility =
+            if (isCartEmpty) View.GONE else View.VISIBLE
+        view.findViewById<View>(R.id.line_2).visibility =
+            if (isCartEmpty) View.GONE else View.VISIBLE
+        view.findViewById<View>(R.id.line_3).visibility =
+            if (isCartEmpty) View.GONE else View.VISIBLE
     }
 
 
