@@ -27,6 +27,7 @@ class CartAdapter(private val products: MutableList<CartProduct>) :
             view.findViewById(R.id.tv_order_total_price_per_item)
         val plusButton: ImageView = view.findViewById(R.id.plus_btn_order)
         val minusButton: ImageView = view.findViewById(R.id.minus_btn_order)
+        val removeButton: ImageView = view.findViewById(R.id.remove_btn_order)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
@@ -69,6 +70,13 @@ class CartAdapter(private val products: MutableList<CartProduct>) :
                 quantityChangeListener?.onQuantityChanged()
 
             }
+        }
+
+        holder.removeButton.setOnClickListener {
+            products.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, itemCount)
+            quantityChangeListener?.onQuantityChanged()
         }
     }
 

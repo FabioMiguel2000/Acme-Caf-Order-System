@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="0dp"
+    app:cardBackgroundColor="@android:color/transparent"
     app:cardUseCompatPadding="true"
-
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
