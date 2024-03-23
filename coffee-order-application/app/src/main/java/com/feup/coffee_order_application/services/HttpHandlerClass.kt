@@ -1,9 +1,8 @@
 package com.feup.coffee_order_application.services
 import android.content.Context
-import android.util.JsonReader
 import android.util.Log
 import android.widget.Toast
-import com.google.gson.JsonObject
+import com.feup.coffee_order_application.models.ResponseApi
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -11,160 +10,50 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class HttpHandlerClass private  constructor(baseUrl : String ){
     var _baseUrl: String = baseUrl
         get(){
             return field
         }
-    fun testApiConnection(address: String){
-        var url: URL? = null
-        var urlConnection: HttpURLConnection? = null
-        var gson = Gson()
 
-        try {
-            url = URL(address)
-            urlConnection = (url.openConnection() as HttpURLConnection).apply {
-                doInput = true
-                setRequestProperty("Content-Type", "application/json")
-                useCaches = false
-                requestMethod = "GET"
-                connectTimeout = 5000
-
-                if(responseCode == 200){
-                    val resonse = readStream(inputStream)
-                    Log.e("response-message", "OK")
-                } else if (responseCode == 409) {
-                    Log.e("response-message", "NOK")
-                }
-            }
-        } catch (e: Exception){
-            val reader = JsonReader(InputStreamReader(urlConnection?.errorStream))
-            var test = "";
-        } finally {
-            if(urlConnection != null)
-                urlConnection.disconnect()
-        }
-    }
-
-    fun login(context: Context, baseUrl: String, username: String, password: String): Boolean{
-        _baseUrl = baseUrl + "api/auth/login"
-        var url = URL(_baseUrl)
-
-        val jsonObj =  JSONObject();
-        jsonObj.put("email", username)
-        jsonObj.put("password", password)
-        val jsonString = jsonObj.toString()
-
-        var urlConnection: HttpURLConnection ? = null
-        try {
-            urlConnection = (url.openConnection() as HttpURLConnection).apply {
-                doInput = true
-                doOutput = true
-                requestMethod = "POST"
-                setRequestProperty("Content-Type", "application/json")
-                setRequestProperty("Accept", "application/json")
-                useCaches = false
-                connectTimeout = 5000
-
-
-                with(outputStream) {
-                    write(jsonString.toByteArray())
-                    flush()
-                    close()
-                }
-
-                if(responseCode == 200) {
-                    val response = readStream(inputStream)
-                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG)
-                    return true
-                } else{
-                    Log.e("message", "NOK")
-                    val response = readStream(inputStream)
-                    return false
-                }
-            }
-        } catch (e: Exception){
-            //Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG)
-            throw e
-        } finally {
-            if(urlConnection != null)
-                urlConnection.disconnect()
-        }
-    }
-
-    fun register(context: Context, baseUrl: String, name: String, email: String, password: String, nif: String): Boolean{
-        _baseUrl = baseUrl + "api/auth/register"
-        var url = URL(_baseUrl)
-
-        val jsonObj =  JSONObject();
-        jsonObj.put("name", name)
-        jsonObj.put("email", email)
-        jsonObj.put("nif", nif)
-        jsonObj.put("password", password)
-        val jsonString = jsonObj.toString()
-
-        var urlConnection: HttpURLConnection ? = null
-        try {
-            urlConnection = (url.openConnection() as HttpURLConnection).apply {
-                doInput = true
-                doOutput = true
-                requestMethod = "POST"
-                setRequestProperty("Content-Type", "application/json")
-                setRequestProperty("Accept", "application/json")
-                useCaches = false
-                connectTimeout = 5000
-
-
-                with(outputStream) {
-                    write(jsonString.toByteArray())
-                    flush()
-                    close()
-                }
-
-                if(responseCode == 200) {
-                    val response = readStream(inputStream)
-                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG)
-                    return true
-                } else{
-                    Log.e("message", "NOK")
-                    val response = readStream(inputStream)
-                    return false
-                }
-            }
-        } catch (e: Exception){
-            //Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG)
-            throw e
-        } finally {
-            if(urlConnection != null)
-                urlConnection.disconnect()
-        }
-    }
-
-
-    fun readStream(input: InputStream): String {
-        var reader: BufferedReader? = null
-        var line: String?
-        var response = StringBuilder()
-        try {
-            reader = BufferedReader(InputStreamReader(input))
-            while (reader.readLine().also { line = it } != null)
-                response.append(line)
-
-        }
-        catch (e: IOException){
-            response.clear()
-            response.append("readStream: ${e.message}")
-        }
-        reader?.close()
-        return response.toString()
-    }
     companion object {
         @Volatile private var instance: HttpHandlerClass? = null
         fun getInstance() = instance ?: synchronized(this) {
-            instance?:HttpHandlerClass("http://10.0.2.2:3000/").also {
+            instance?:HttpHandlerClass("http://192.168.1.97:3000/").also {
                 instance = it
             }
         }
+    }
+
+    //instance of retrofit
+    val refrofitBuilder = Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl("http://192.168.1.97:3000/api/").build().create(ApiInterface::class.java)
+    fun login(context: Context, username: String, password: String){
+        //preparing request body
+        val body = mapOf(
+            "email" to username,
+            "password" to password
+        )
+        //send the request
+        refrofitBuilder.login(body).enqueue(object : Callback<ResponseApi>{
+            override fun onResponse(
+                call: Call<ResponseApi>,
+                response: Response<ResponseApi>
+            ) {
+                if(response.code() == 200){
+                    Toast.makeText(context, "Login succeded", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, "Email or password is wrong", Toast.LENGTH_LONG).show()
+                }
+            }
+            override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
+                Log.d("error", "erro no login" + t.message)
+            }
+        })
     }
 }

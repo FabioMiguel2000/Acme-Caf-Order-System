@@ -7,10 +7,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.feup.coffee_order_application.services.HttpHandlerClass
 import kotlin.concurrent.thread
 
@@ -25,19 +22,10 @@ class LoginActivity : AppCompatActivity() {
         val loginBtn: Button = findViewById(R.id.btn_login)
         val registerBtn: TextView = findViewById(R.id.btn_register)
         val http_handler =  HttpHandlerClass.getInstance()
-        loginBtn?.setOnClickListener{(
-            //passar para assync ao invés de thread
-            thread {
-                //http_handler.testApiConnection(http_handler._baseUrl)
-                var response = http_handler.login(this, http_handler._baseUrl, username.text.toString(), password.text.toString())
-                if(response == true){
-                    startActivity(Intent(this, MainActivity::class.java))
-                } else {
-                    println("Something went wrong")
-                }
-            }
-                //startActivity(Intent(this, MainActivity::class.java))
-        )}
+        loginBtn?.setOnClickListener{
+            http_handler.login(this.baseContext, username.text.toString(), password.text.toString())
+            //start new activity here
+        }
 
         registerBtn?.setOnClickListener {
             var intent = Intent(this, RegisterActivity::class.java);
