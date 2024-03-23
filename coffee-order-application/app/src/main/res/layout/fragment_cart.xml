@@ -306,6 +306,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_go_shop_now"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:backgroundTint="@color/button_color"

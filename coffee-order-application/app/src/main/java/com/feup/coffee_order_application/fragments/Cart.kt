@@ -22,6 +22,7 @@ import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.models.Category
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import kotlin.math.round
 
@@ -58,6 +59,20 @@ class Cart : Fragment() {
 
         updatePrices()
         updateCartRendering(cartProducts.isEmpty())
+
+        binding.btnGoShopNow.setOnClickListener {
+            val fragmentManager = parentFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val categoriesFragment = Categories() // Replace HomeFragment() with your home page fragment's constructor
+
+            fragmentTransaction.replace(R.id.fLayout, categoriesFragment)
+            fragmentTransaction.addToBackStack(null) // Add this transaction to the back stack (optional)
+            fragmentTransaction.commit()
+
+            val activity = requireActivity() as AppCompatActivity
+            val bottomNavigationView: BottomNavigationView = activity.findViewById(R.id.bottom_nav)
+            bottomNavigationView.selectedItemId = R.id.home
+        }
 
         adapter.setCartQuantityChangeListener(object : CartQuantityChangeListener {
             override fun onQuantityChanged() {
