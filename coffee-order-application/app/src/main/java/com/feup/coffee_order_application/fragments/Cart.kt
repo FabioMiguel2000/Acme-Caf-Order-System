@@ -19,6 +19,7 @@ import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CartAdapter
 import com.feup.coffee_order_application.adapters.CartQuantityChangeListener
 import com.feup.coffee_order_application.adapters.CategoriesAdapter
+import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.models.Category
 import com.google.android.material.button.MaterialButton
@@ -33,17 +34,15 @@ val cartProducts = mutableListOf<CartProduct>(
 
 //val cartProducts = mutableListOf<CartProduct>()
 class Cart : Fragment() {
-
+    private var _binding: FragmentCartBinding? = null
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentCartBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @SuppressLint("SetTextI18n")
@@ -57,51 +56,43 @@ class Cart : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
-        val subtotalTextView: TextView = view.findViewById(R.id.tv_subtotal_price)
-        val promotionDiscountTextView: TextView = view.findViewById(R.id.tv_promotion_discount)
-        val totalTextView: TextView = view.findViewById(R.id.tv_total)
-
-        val subtotalPrice = round(cartProducts.sumOf { it.price * it.quantity } * 100) / 100
-
-        subtotalTextView.text = "$subtotalPrice €"
-        promotionDiscountTextView.text = "- 0.00 €"
-        totalTextView.text = "$subtotalPrice €"
-
-        updateCartRendering(view, cartProducts.isEmpty())
+        updatePrices()
+        updateCartRendering(cartProducts.isEmpty())
 
         adapter.setCartQuantityChangeListener(object : CartQuantityChangeListener {
             override fun onQuantityChanged() {
-                Log.d(TAG, "Quantity changed")
-                val subtotalPrice = round(cartProducts.sumOf { it.price * it.quantity } * 100) / 100
-
-                subtotalTextView.text = "$subtotalPrice €"
-                promotionDiscountTextView.text = "- 0.00 €"
-                totalTextView.text = "$subtotalPrice €"
-
-                updateCartRendering(view, cartProducts.isEmpty())
+                updatePrices()
+                updateCartRendering(cartProducts.isEmpty())
             }
         })
-
     }
 
-    fun updateCartRendering(view:View , isCartEmpty: Boolean) {
-        view.findViewById<ConstraintLayout>(R.id.empty_cart_container).visibility =
-            if (isCartEmpty) View.VISIBLE else View.GONE
-        view.findViewById<ConstraintLayout>(R.id.coffee_voucher_container).visibility =
-            if (isCartEmpty) View.GONE else View.VISIBLE
-        view.findViewById<ConstraintLayout>(R.id.discount_voucher_container).visibility =
-            if (isCartEmpty) View.GONE else View.VISIBLE
-        view.findViewById<ConstraintLayout>(R.id.bottom_box_container).visibility =
-            if (isCartEmpty) View.GONE else View.VISIBLE
-        view.findViewById<MaterialButton>(R.id.btn_checkout).visibility =
-            if (isCartEmpty) View.GONE else View.VISIBLE
-        view.findViewById<View>(R.id.line_1).visibility =
-            if (isCartEmpty) View.GONE else View.VISIBLE
-        view.findViewById<View>(R.id.line_2).visibility =
-            if (isCartEmpty) View.GONE else View.VISIBLE
-        view.findViewById<View>(R.id.line_3).visibility =
-            if (isCartEmpty) View.GONE else View.VISIBLE
+    private fun updateCartRendering(isCartEmpty: Boolean) {
+        with(binding){
+            emptyCartContainer.visibility = if (isCartEmpty) View.VISIBLE else View.GONE
+            coffeeVoucherContainer.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
+            discountVoucherContainer.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
+            bottomBoxContainer.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
+            btnCheckout.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
+            line1.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
+            line2.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
+            line3.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
+        }
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun updatePrices() {
+        val subtotalPrice = round(cartProducts.sumOf { it.price * it.quantity } * 100) / 100
+        with(binding){
+            tvSubtotalPrice.text = "$subtotalPrice €"
+            tvPromotionDiscount.text = "- 0.00 €"
+            tvTotal.text = "$subtotalPrice €"
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // To avoid memory leaks
+    }
 
 }
