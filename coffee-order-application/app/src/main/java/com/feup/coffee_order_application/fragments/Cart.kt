@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,7 @@ import com.feup.coffee_order_application.adapters.CartQuantityChangeListener
 import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.models.Category
+import com.google.android.material.button.MaterialButton
 import kotlin.math.round
 
 val cartProducts = mutableListOf<CartProduct>(
@@ -28,7 +30,7 @@ val cartProducts = mutableListOf<CartProduct>(
     CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
     CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 2),
 )
-
+//val cartProducts = mutableListOf<CartProduct>()
 class Cart : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,6 +66,26 @@ class Cart : Fragment() {
         promotionDiscountTextView.text = "- 0.00 €"
         totalTextView.text = "$subtotalPrice €"
 
+        if (cartProducts.isEmpty()) {
+            view.findViewById<ConstraintLayout>(R.id.empty_cart_container).visibility = View.VISIBLE // Show "Cart is empty" message
+            view.findViewById<ConstraintLayout>(R.id.coffee_voucher_container).visibility = View.GONE
+            view.findViewById<ConstraintLayout>(R.id.discount_voucher_container).visibility = View.GONE
+            view.findViewById<ConstraintLayout>(R.id.bottom_box_container).visibility = View.GONE
+            view.findViewById<MaterialButton>(R.id.btn_checkout).visibility = View.GONE
+            view.findViewById<View>(R.id.line_1).visibility = View.GONE
+            view.findViewById<View>(R.id.line_2).visibility = View.GONE
+            view.findViewById<View>(R.id.line_3).visibility = View.GONE
+        } else {
+            view.findViewById<ConstraintLayout>(R.id.empty_cart_container).visibility = View.GONE // Show "Cart is empty" message
+            view.findViewById<ConstraintLayout>(R.id.coffee_voucher_container).visibility = View.VISIBLE
+            view.findViewById<ConstraintLayout>(R.id.discount_voucher_container).visibility = View.VISIBLE
+            view.findViewById<ConstraintLayout>(R.id.bottom_box_container).visibility = View.VISIBLE
+            view.findViewById<MaterialButton>(R.id.btn_checkout).visibility = View.VISIBLE
+            view.findViewById<View>(R.id.line_1).visibility = View.VISIBLE
+            view.findViewById<View>(R.id.line_2).visibility = View.VISIBLE
+            view.findViewById<View>(R.id.line_3).visibility = View.VISIBLE
+        }
+
         adapter.setCartQuantityChangeListener(object : CartQuantityChangeListener {
             override fun onQuantityChanged() {
                 Log.d(TAG, "Quantity changed")
@@ -75,6 +97,10 @@ class Cart : Fragment() {
 
             }
         })
+
+
+
+
     }
 
 
