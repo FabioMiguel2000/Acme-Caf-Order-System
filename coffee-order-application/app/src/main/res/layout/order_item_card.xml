@@ -99,6 +99,15 @@
             app:layout_constraintBottom_toTopOf="@+id/line"
             app:layout_constraintEnd_toEndOf="@+id/line" />
 
+        <ImageView
+            android:id="@+id/remove_btn_order"
+            android:paddingHorizontal="5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_trash"
+            app:layout_constraintEnd_toEndOf="@+id/tv_order_total_price_per_item"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
