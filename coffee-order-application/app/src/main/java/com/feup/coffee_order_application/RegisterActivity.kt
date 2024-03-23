@@ -31,11 +31,7 @@ class RegisterActivity : AppCompatActivity() {
         val btnRegister: Button = findViewById(R.id.btn_register)
 
         val http_handler =  HttpHandlerClass.getInstance()
-        btnRegister?.setOnClickListener{(
-                thread {
-                    var response = http_handler.register(this, http_handler._baseUrl, name.text.toString(), email.text.toString(), password.text.toString(), nif.text.toString())
-                }
-        )}
+        btnRegister?.setOnClickListener{}
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

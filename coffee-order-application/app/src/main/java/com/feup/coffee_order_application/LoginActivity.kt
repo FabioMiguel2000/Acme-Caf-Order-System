@@ -6,10 +6,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.feup.coffee_order_application.models.AuthClass
 import com.feup.coffee_order_application.services.HttpHandlerClass
-import kotlin.concurrent.thread
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,10 +20,9 @@ class LoginActivity : AppCompatActivity() {
         var password = findViewById<EditText>(R.id.password_value)
         val loginBtn: Button = findViewById(R.id.btn_login)
         val registerBtn: TextView = findViewById(R.id.btn_register)
-        val http_handler =  HttpHandlerClass.getInstance()
         loginBtn?.setOnClickListener{
-            http_handler.login(this.baseContext, username.text.toString(), password.text.toString())
-            //start new activity here
+            val auth = AuthClass()
+            auth.login(this.baseContext, username.text.toString(), password.text.toString())
         }
 
         registerBtn?.setOnClickListener {
