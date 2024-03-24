@@ -4,5 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_purple">#2D0C57</color>
     <color name="light_purple">#9586A8</color>
+    <color name="button_color">#7203FF</color>
 
 </resources>
