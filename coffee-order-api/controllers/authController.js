@@ -82,7 +82,6 @@ const registerUser = async (req, res) => {
       name: req.body.name,
       password: req.body.password,
       email: req.body.email,
-      confirmPassword: req.body.confirmPassword,
       nif: req.body.nif,
       publicKey: req.body.publicKey,
     } = req.body);
@@ -91,13 +90,6 @@ const registerUser = async (req, res) => {
       return res.status(409).json({
         success: false,
         message: "Invalid email format",
-      });
-    }
-
-    if (userInput.password !== userInput.confirmPassword) {
-      return res.status(409).json({
-        success: false,
-        message: "Passwords do not match",
       });
     }
 
