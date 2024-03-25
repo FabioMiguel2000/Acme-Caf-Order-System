@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="Email"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:text="Password"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
@@ -79,6 +81,7 @@
             android:id="@+id/password_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="Password"
             android:lines="1"
             tools:layout_editor_absoluteX="-3dp"
