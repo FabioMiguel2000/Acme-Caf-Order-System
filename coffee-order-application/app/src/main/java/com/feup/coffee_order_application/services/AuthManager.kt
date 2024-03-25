@@ -1,14 +1,14 @@
-package com.feup.coffee_order_application.models
+package com.feup.coffee_order_application.services
 
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import com.feup.coffee_order_application.services.HttpHandlerClass
+import com.feup.coffee_order_application.models.ResponseApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AuthClass {
+class AuthManager {
     val http_handler =  HttpHandlerClass.getInstance()
     fun login(context: Context, username: String, password: String){
         //preparing request body
