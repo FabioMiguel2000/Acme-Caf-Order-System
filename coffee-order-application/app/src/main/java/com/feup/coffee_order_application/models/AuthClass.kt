@@ -23,13 +23,13 @@ class AuthClass {
                 response: Response<ResponseApi>
             ) {
                 if(response.code() == 200){
-                    Toast.makeText(context, "Login succeded", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Login succeeded", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(context, "Email or password is wrong", Toast.LENGTH_LONG).show()
                 }
             }
             override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
-                Log.d("error", "erro no login" + t.message)
+                Log.d("error", "Login Request Error: " + t.message)
             }
         })
     }
