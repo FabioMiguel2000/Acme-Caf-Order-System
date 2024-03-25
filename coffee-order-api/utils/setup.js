@@ -15,6 +15,7 @@ const orderSeeders = readJSONFile("orderSeeders");
 const Product = require("../models/product");
 const User = require("../models/user");
 const Order = require("../models/order");
+const Voucher = require("../models/voucher");
 
 const { createOrderByProductNames } = require("../controllers/orderController");
 
@@ -23,9 +24,12 @@ const importData = async () => {
     await dbconnection();
     const userSeedersEncrypted = await encryptPasswords(userSeeders);
 
-    await Promise.all([Product.deleteMany(), User.deleteMany(), Order.deleteMany()]);
+    await Promise.all([Product.deleteMany(), User.deleteMany(), Order.deleteMany(), Voucher.deleteMany()]);
     await Promise.all([Product.insertMany(productSeeders), User.insertMany(userSeedersEncrypted)]);
-    await Promise.all(orderSeeders.map(createOrderByProductNames));
+
+    for (let order of orderSeeders) {
+      await createOrderByProductNames(order)
+    }
 
     console.log("Data has been seeded!");
     gracefulExit();
@@ -38,7 +42,7 @@ const importData = async () => {
 const destroyData = async () => {
   try {
     await dbconnection();
-    await Promise.all([Product.deleteMany(), User.deleteMany(), Order.deleteMany()]);
+    await Promise.all([Product.deleteMany(), User.deleteMany(), Order.deleteMany(), Voucher.deleteMany()]);
 
     console.log("Data has been destroyed!");
     gracefulExit();

@@ -18,7 +18,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></androidx.appcompat.widget.Toolbar>
+            android:layout_height="wrap_content"
+            app:titleTextAppearance="@style/ToolbarTitleTextStyle" />
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
