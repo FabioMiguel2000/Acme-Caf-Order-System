@@ -51,6 +51,10 @@ class Cart : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Order"
 
+        val actionBar = (activity as? AppCompatActivity)?.supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(false)
+        actionBar?.setDisplayShowHomeEnabled(false)
+
         val adapter = CartAdapter(cartProducts)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_cart)

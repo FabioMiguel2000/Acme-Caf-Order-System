@@ -38,6 +38,10 @@ class VouchersApply : Fragment() {
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Vouchers"
 
+        val actionBar = (activity as? AppCompatActivity)?.supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayShowHomeEnabled(true)
+
         val adapter = VoucherAdapter(vouchers)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_vouchers)
