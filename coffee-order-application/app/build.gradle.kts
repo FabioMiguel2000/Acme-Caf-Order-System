@@ -56,4 +56,5 @@ dependencies {
     implementation("androidx.compose.material:material:1.6.3")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("com.google.android.material:material:1.6.0")
+    implementation("com.google.code.gson:gson:2.8.8")
 }

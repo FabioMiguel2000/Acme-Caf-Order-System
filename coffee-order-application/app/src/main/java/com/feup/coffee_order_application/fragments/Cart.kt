@@ -22,20 +22,26 @@ import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.models.Category
+import com.feup.coffee_order_application.utils.FileUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import kotlin.math.round
 
-val cartProducts = mutableListOf<CartProduct>(
-    CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-    CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "", 12),
-    CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 2),
-)
+//val cartProducts = mutableListOf<CartProduct>(
+//    CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),
+//    CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "", 12),
+//    CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
+//    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 2),
+//)
 
 //val cartProducts = mutableListOf<CartProduct>()
 class Cart : Fragment() {
     private var _binding: FragmentCartBinding? = null
+    private lateinit var cartProducts: MutableList<CartProduct>
+
+//    private var cartProducts = FileUtils.readCartFromFile(requireContext()).toMutableList()
+//    private var cartProducts = mutableListOf<CartProduct>()
+
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +61,8 @@ class Cart : Fragment() {
         actionBar?.setDisplayHomeAsUpEnabled(false)
         actionBar?.setDisplayShowHomeEnabled(false)
 
+        cartProducts = FileUtils.readCartFromFile(requireContext()).toMutableList()
+//        FileUtils.saveCartToFile(cartProducts, requireContext())
         val adapter = CartAdapter(cartProducts)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_cart)
@@ -136,6 +144,16 @@ class Cart : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // To avoid memory leaks
+    }
+
+    fun updateCart(cartProduct: CartProduct, isAdding: Boolean) {
+        if (isAdding) {
+            // Add or update cartProduct in your cartProducts list
+        } else {
+            // Remove or update cartProduct in your cartProducts list
+        }
+        // After updating the list, save it to the file
+        FileUtils.saveCartToFile(cartProducts, requireContext())
     }
 
 }
