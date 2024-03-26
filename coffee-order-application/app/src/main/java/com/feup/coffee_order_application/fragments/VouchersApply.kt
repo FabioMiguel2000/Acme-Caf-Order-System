@@ -14,6 +14,7 @@ import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.adapters.VoucherAdapter
 import com.feup.coffee_order_application.models.Category
 import com.feup.coffee_order_application.models.Voucher
+import com.google.android.material.button.MaterialButton
 
 val vouchers = mutableListOf<Voucher>(
     Voucher("ajkadshkfbhkadcbage13h", "discount", "dasdadasda", false, false),
@@ -47,6 +48,20 @@ class VouchersApply : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_vouchers)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+
+        var applyVoucherBtn: MaterialButton = view.findViewById(R.id.btn_apply_voucher)
+        applyVoucherBtn.setOnClickListener {
+            for (v in vouchers) {
+                if (v.isSelected) {
+                    val fragmentManager = parentFragmentManager
+                    val fragmentTransaction = fragmentManager.beginTransaction()
+                    val cartFragment = Cart()
+
+                    fragmentTransaction.replace(R.id.fLayout, cartFragment)
+                    fragmentTransaction.commit()
+                }
+            }
+        }
     }
 
 
