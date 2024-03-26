@@ -27,20 +27,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import kotlin.math.round
 
-//val cartProducts = mutableListOf<CartProduct>(
-//    CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-//    CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "", 12),
-//    CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-//    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 2),
-//)
-
-//val cartProducts = mutableListOf<CartProduct>()
 class Cart : Fragment() {
     private var _binding: FragmentCartBinding? = null
     private lateinit var cartProducts: MutableList<CartProduct>
-
-//    private var cartProducts = FileUtils.readCartFromFile(requireContext()).toMutableList()
-//    private var cartProducts = mutableListOf<CartProduct>()
 
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,6 +101,7 @@ class Cart : Fragment() {
 
         adapter.setCartQuantityChangeListener(object : CartQuantityChangeListener {
             override fun onQuantityChanged() {
+                FileUtils.saveCartToFile(cartProducts, requireContext())
                 updatePrices()
                 updateCartRendering(cartProducts.isEmpty())
             }
@@ -144,16 +134,6 @@ class Cart : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null // To avoid memory leaks
-    }
-
-    fun updateCart(cartProduct: CartProduct, isAdding: Boolean) {
-        if (isAdding) {
-            // Add or update cartProduct in your cartProducts list
-        } else {
-            // Remove or update cartProduct in your cartProducts list
-        }
-        // After updating the list, save it to the file
-        FileUtils.saveCartToFile(cartProducts, requireContext())
     }
 
 }
