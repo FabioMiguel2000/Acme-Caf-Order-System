@@ -37,6 +37,13 @@ class VoucherAdapter(private val vouchers: MutableList<Voucher>) :
         holder.voucherCode.text = voucher.uuid
         holder.radioBtnSelected.visibility = if (voucher.isSelected) View.VISIBLE else View.GONE
 
+        if (holder.radioBtnSelected.visibility == View.VISIBLE) {
+            holder.radioBtnSelected.setOnClickListener {
+                voucher.isSelected = false
+                notifyDataSetChanged()
+            }
+        }
+
         holder.radioBtn.setOnClickListener {
             for (v in vouchers) {
                 v.isSelected = false
