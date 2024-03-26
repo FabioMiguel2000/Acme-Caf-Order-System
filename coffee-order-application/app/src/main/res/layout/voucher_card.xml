@@ -27,6 +27,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.6" />
+
         <View
             android:id="@+id/line"
             android:layout_width="0dp"
