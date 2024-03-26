@@ -22,15 +22,23 @@ import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.models.Category
+import com.feup.coffee_order_application.models.Order
+import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.utils.FileUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import kotlin.math.round
 
+//val cartProducts = mutableListOf<CartProduct>(
+//    CartProduct("Cappuccino", 2.5, R.drawable.cappucino, "Coffee", 12),
+//    CartProduct("Mocha", 3.0, R.drawable.mocha, "Coffee", 12),
+//    CartProduct("Frappuccino", 3.5, R.drawable.frappuccino, "Coffee", 12),
+//    CartProduct("Oleato", 2.0, R.drawable.oleato, "Coffee", 12),
+//)
+
 class Cart : Fragment() {
     private var _binding: FragmentCartBinding? = null
-    private lateinit var cartProducts: MutableList<CartProduct>
-
+    private lateinit var cartOrder: Order
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,16 +58,16 @@ class Cart : Fragment() {
         actionBar?.setDisplayHomeAsUpEnabled(false)
         actionBar?.setDisplayShowHomeEnabled(false)
 
-        cartProducts = FileUtils.readCartFromFile(requireContext()).toMutableList()
-//        FileUtils.saveCartToFile(cartProducts, requireContext())
-        val adapter = CartAdapter(cartProducts)
+        cartOrder = FileUtils.readOrderFromFile(requireContext())
+//        FileUtils.saveOrderToFile(Order(cartProducts, null, null), requireContext())
+        val adapter = CartAdapter(cartOrder.cartProducts)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_cart)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
         updatePrices()
-        updateCartRendering(cartProducts.isEmpty())
+        updateCartRendering(cartOrder.cartProducts.isEmpty())
 
         binding.btnGoShopNow.setOnClickListener {
             val fragmentManager = parentFragmentManager
@@ -101,9 +109,9 @@ class Cart : Fragment() {
 
         adapter.setCartQuantityChangeListener(object : CartQuantityChangeListener {
             override fun onQuantityChanged() {
-                FileUtils.saveCartToFile(cartProducts, requireContext())
+                FileUtils.saveOrderToFile(cartOrder, requireContext())
                 updatePrices()
-                updateCartRendering(cartProducts.isEmpty())
+                updateCartRendering(cartOrder.cartProducts.isEmpty())
             }
         })
     }
@@ -123,7 +131,7 @@ class Cart : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun updatePrices() {
-        val subtotalPrice = round(cartProducts.sumOf { it.price * it.quantity } * 100) / 100
+        val subtotalPrice = round(cartOrder.cartProducts.sumOf { it.price * it.quantity } * 100) / 100
         with(binding){
             tvSubtotalPrice.text = "$subtotalPrice €"
             tvPromotionDiscount.text = "- 0.00 €"
