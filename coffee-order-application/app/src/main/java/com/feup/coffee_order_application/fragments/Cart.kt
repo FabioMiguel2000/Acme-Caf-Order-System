@@ -63,15 +63,39 @@ class Cart : Fragment() {
         binding.btnGoShopNow.setOnClickListener {
             val fragmentManager = parentFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            val categoriesFragment = Categories() // Replace HomeFragment() with your home page fragment's constructor
+            val vouchersApplyFragment = VouchersApply() // Replace HomeFragment() with your home page fragment's constructor
 
-            fragmentTransaction.replace(R.id.fLayout, categoriesFragment)
+            fragmentTransaction.replace(R.id.fLayout, vouchersApplyFragment)
             fragmentTransaction.addToBackStack(null) // Add this transaction to the back stack (optional)
             fragmentTransaction.commit()
 
             val activity = requireActivity() as AppCompatActivity
             val bottomNavigationView: BottomNavigationView = activity.findViewById(R.id.bottom_nav)
             bottomNavigationView.selectedItemId = R.id.home
+        }
+
+        binding.discountVoucherContainer.setOnClickListener {
+            Log.d(TAG, "Discount Voucher Clicked")
+            val fragmentManager = parentFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val vouchersApplyFragment = VouchersApply() // Replace HomeFragment() with your home page fragment's constructor
+
+            fragmentTransaction.replace(R.id.fLayout, vouchersApplyFragment)
+            fragmentTransaction.addToBackStack(null) // Add this transaction to the back stack (optional)
+            fragmentTransaction.commit()
+
+        }
+
+        binding.coffeeVoucherContainer.setOnClickListener {
+            Log.d(TAG, "Discount Voucher Clicked")
+            val fragmentManager = parentFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val categoriesFragment = VouchersApply() // Replace HomeFragment() with your home page fragment's constructor
+
+            fragmentTransaction.replace(R.id.fLayout, categoriesFragment)
+            fragmentTransaction.addToBackStack(null) // Add this transaction to the back stack (optional)
+            fragmentTransaction.commit()
+
         }
 
         adapter.setCartQuantityChangeListener(object : CartQuantityChangeListener {

@@ -14,13 +14,12 @@ import kotlin.math.round
 
 class VoucherAdapter(private val vouchers: MutableList<Voucher>) :
     RecyclerView.Adapter<VoucherAdapter.VoucherViewHolder>() {
-    private var quantityChangeListener: CartQuantityChangeListener? = null
 
     class VoucherViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val voucherName: TextView = view.findViewById(R.id.tv_voucher_name)
         val voucherCode: TextView = view.findViewById(R.id.tv_voucher_code)
-        val radioBtnSelected: TextView = view.findViewById(R.id.img_radio_btn_selected)
-        val radioBtn: TextView = view.findViewById(R.id.img_radio_btn)
+        val radioBtnSelected: ImageView = view.findViewById(R.id.img_radio_btn_selected)
+        val radioBtn: ImageView = view.findViewById(R.id.img_radio_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoucherViewHolder {
