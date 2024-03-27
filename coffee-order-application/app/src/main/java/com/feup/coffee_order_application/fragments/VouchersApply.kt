@@ -14,6 +14,7 @@ import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.adapters.VoucherAdapter
 import com.feup.coffee_order_application.models.Category
 import com.feup.coffee_order_application.models.Voucher
+import com.feup.coffee_order_application.utils.FileUtils
 import com.google.android.material.button.MaterialButton
 
 val vouchers = mutableListOf<Voucher>(
@@ -53,6 +54,15 @@ class VouchersApply : Fragment() {
         applyVoucherBtn.setOnClickListener {
             for (v in vouchers) {
                 if (v.isSelected) {
+                    var cartOrder = FileUtils.readOrderFromFile(requireContext())
+                    if (v.type == "discount") {
+                        cartOrder.discountVoucher = v
+                    }
+                    else {
+                        cartOrder.coffeeVoucher = v
+                    }
+                    FileUtils.saveOrderToFile(cartOrder, requireContext())
+
                     val fragmentManager = parentFragmentManager
                     val fragmentTransaction = fragmentManager.beginTransaction()
                     val cartFragment = Cart()

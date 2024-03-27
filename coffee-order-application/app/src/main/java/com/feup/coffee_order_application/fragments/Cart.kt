@@ -69,6 +69,9 @@ class Cart : Fragment() {
         updatePrices()
         updateCartRendering(cartOrder.cartProducts.isEmpty())
 
+        binding.tvSelectCoffeeVoucher.text = if (cartOrder.coffeeVoucher == null) "Not Selected" else "Selected"
+        binding.tvSelectDiscountVoucher.text = if (cartOrder.discountVoucher == null) "Not Selected" else "Selected"
+
         binding.btnGoShopNow.setOnClickListener {
             val fragmentManager = parentFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()

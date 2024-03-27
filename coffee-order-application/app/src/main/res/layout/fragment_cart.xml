@@ -92,7 +92,7 @@
                 />
 
             <TextView
-                android:id="@+id/tv_select_voucher"
+                android:id="@+id/tv_select_coffee_voucher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
