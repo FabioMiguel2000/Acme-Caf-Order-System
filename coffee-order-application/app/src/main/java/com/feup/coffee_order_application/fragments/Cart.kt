@@ -1,32 +1,20 @@
 package com.feup.coffee_order_application.fragments
 
-import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.nfc.Tag
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CartAdapter
 import com.feup.coffee_order_application.adapters.CartQuantityChangeListener
-import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.models.CartProduct
-import com.feup.coffee_order_application.models.Category
 import com.feup.coffee_order_application.models.Order
-import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.utils.FileUtils
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.button.MaterialButton
 import kotlin.math.round
 
 //val cartProducts = mutableListOf<CartProduct>(
@@ -40,76 +28,27 @@ val freeCoffee = CartProduct("Free Coffee", 0.0, R.drawable.cappucino, "Coffee",
 
 class Cart : Fragment() {
     private var _binding: FragmentCartBinding? = null
-    private lateinit var cartOrder: Order
+    private val cartOrder by lazy { FileUtils.readOrderFromFile(requireContext()) }
     private val binding get() = _binding!!
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root
     }
-
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Order"
+//        FileUtils.saveOrderToFile(Order(cartProducts,null, null), requireContext())
+        setupActionBar()
+        setupRecycleView()
+        updateUI()
+        setupListeners()
+    }
 
-        val actionBar = (activity as? AppCompatActivity)?.supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(false)
-        actionBar?.setDisplayShowHomeEnabled(false)
-
-        cartOrder = FileUtils.readOrderFromFile(requireContext())
-//        FileUtils.saveOrderToFile(Order(cartProducts, null, null), requireContext())
-
+    private fun setupRecycleView(){
         val adapter = CartAdapter(if (cartOrder.coffeeVoucher != null) (cartOrder.cartProducts + freeCoffee).toMutableList() else cartOrder.cartProducts)
 
-        val recyclerView: RecyclerView = view.findViewById(R.id.rv_cart)
+        val recyclerView: RecyclerView = binding.rvCart
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
-
-        updatePrices()
-        updateCartRendering(cartOrder.cartProducts.isEmpty())
-
-        binding.tvSelectCoffeeVoucher.text = if (cartOrder.coffeeVoucher == null) getString(R.string.voucher_not_selected) else getString(R.string.voucher_selected)
-        binding.tvSelectDiscountVoucher.text = if (cartOrder.discountVoucher == null) getString(R.string.voucher_not_selected) else getString(R.string.voucher_selected)
-
-        binding.btnGoShopNow.setOnClickListener {
-            val fragmentManager = parentFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val vouchersApplyFragment = VouchersApply()
-
-            fragmentTransaction.replace(R.id.fLayout, vouchersApplyFragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-
-            val activity = requireActivity() as AppCompatActivity
-            val bottomNavigationView: BottomNavigationView = activity.findViewById(R.id.bottom_nav)
-            bottomNavigationView.selectedItemId = R.id.home
-        }
-
-        binding.discountVoucherContainer.setOnClickListener {
-            val fragmentManager = parentFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val vouchersApplyFragment = VouchersApply.newInstance("discount")
-
-            fragmentTransaction.replace(R.id.fLayout, vouchersApplyFragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-
-        }
-
-        binding.coffeeVoucherContainer.setOnClickListener {
-            val fragmentManager = parentFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val categoriesFragment = VouchersApply.newInstance("coffee")
-
-            fragmentTransaction.replace(R.id.fLayout, categoriesFragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
-
-        }
 
         adapter.setCartQuantityChangeListener(object : CartQuantityChangeListener {
             override fun onQuantityChanged() {
@@ -120,33 +59,72 @@ class Cart : Fragment() {
         })
     }
 
-    private fun updateCartRendering(isCartEmpty: Boolean) {
-        with(binding){
-            emptyCartContainer.visibility = if (isCartEmpty) View.VISIBLE else View.GONE
-            coffeeVoucherContainer.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
-            discountVoucherContainer.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
-            bottomBoxContainer.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
-            btnCheckout.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
-            line1.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
-            line2.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
-            line3.visibility = if (isCartEmpty) View.GONE else View.VISIBLE
+    private fun updateUI() {
+        updatePrices()
+        updateCartRendering(cartOrder.cartProducts.isEmpty())
+        updateVoucherStatus()
+    }
+    private fun updateVoucherStatus() {
+        binding.tvSelectCoffeeVoucher.text = getString(
+            if (cartOrder.coffeeVoucher == null) R.string.voucher_not_selected else R.string.voucher_selected
+        )
+        binding.tvSelectDiscountVoucher.text = getString(
+            if (cartOrder.discountVoucher == null) R.string.voucher_not_selected else R.string.voucher_selected
+        )
+    }
+
+    private fun setupListeners() {
+        binding.btnGoShopNow.setOnClickListener { navigateToFragment(VouchersApply()) }
+        binding.discountVoucherContainer.setOnClickListener { navigateToFragment(VouchersApply.newInstance("discount")) }
+        binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApply.newInstance("coffee")) }
+    }
+
+    private fun navigateToFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction().apply {
+            replace(R.id.fLayout, fragment)
+            addToBackStack(null)
+            commit()
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun updatePrices() {
-        val subtotalPrice = round(cartOrder.cartProducts.sumOf { it.price * it.quantity } * 100) / 100
-        val discountPrice = if(cartOrder.discountVoucher == null) 0.0 else round((subtotalPrice * 0.05) * 100) / 100 // 5% discount
-        with(binding) {
-            tvSubtotalPrice.text = String.format(getString(R.string.price_format), subtotalPrice)
-            tvPromotionDiscount.text = String.format(getString(R.string.negative_price_format), discountPrice)
-            tvTotal.text = String.format(getString(R.string.price_format), subtotalPrice - discountPrice)
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            title = "Cart"
+            setDisplayHomeAsUpEnabled(false)
+            setDisplayShowHomeEnabled(false)
         }
     }
+    fun View.setVisible(isVisible: Boolean) {
+        visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+    private fun updateCartRendering(isCartEmpty: Boolean) {
+        binding.emptyCartContainer.setVisible(isCartEmpty)
+        listOf(binding.coffeeVoucherContainer, binding.discountVoucherContainer, binding.bottomBoxContainer, binding.btnCheckout, binding.line1, binding.line2, binding.line3)
+            .forEach { it.setVisible(!isCartEmpty) }
+    }
+
+    private fun updatePrices() {
+        val subtotalPrice = calculateSubtotalPrice()
+        val discountPrice = calculateDiscountPrice(subtotalPrice)
+        val totalPrice = calculateTotalPrice(subtotalPrice, discountPrice)
+
+        with(binding) {
+            tvSubtotalPrice.text = getString(R.string.price_format, subtotalPrice)
+            tvPromotionDiscount.text = getString(R.string.negative_price_format, discountPrice)
+            tvTotal.text = getString(R.string.price_format, totalPrice)
+        }
+    }
+
+    private fun calculateSubtotalPrice() = round(cartOrder.cartProducts.sumOf { it.price * it.quantity } * 100) / 100
+
+    private fun calculateDiscountPrice(subtotalPrice: Double) =
+        cartOrder.discountVoucher?.let { round(subtotalPrice * 0.05 * 100) / 100 } ?: 0.0
+
+    private fun calculateTotalPrice(subtotalPrice: Double, discountPrice: Double) = subtotalPrice - discountPrice
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null // To avoid memory leaks
+        _binding = null
     }
 
 }
