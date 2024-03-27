@@ -13,6 +13,7 @@ import com.feup.coffee_order_application.adapters.CartAdapter
 import com.feup.coffee_order_application.adapters.CartQuantityChangeListener
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.models.CartProduct
+import com.feup.coffee_order_application.models.Order
 import com.feup.coffee_order_application.utils.FileUtils
 import kotlin.math.round
 
@@ -23,7 +24,6 @@ import kotlin.math.round
 //    CartProduct("Oleato", 2.0, R.drawable.oleato, "Coffee", 12),
 //)
 
-val freeCoffee = CartProduct("Free Coffee", 0.0, R.drawable.cappucino, "Coffee", 1)
 
 class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
@@ -43,7 +43,7 @@ class CartFragment : Fragment() {
     }
 
     private fun setupRecycleView(){
-        val adapter = CartAdapter(if (cartOrder.coffeeVoucher != null) (cartOrder.cartProducts + freeCoffee).toMutableList() else cartOrder.cartProducts)
+        val adapter = CartAdapter(cartOrder.cartProducts)
 
         val recyclerView: RecyclerView = binding.rvCart
         recyclerView.layoutManager = LinearLayoutManager(context)

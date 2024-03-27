@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.VoucherAdapter
+import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.models.Order
 import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.utils.FileUtils
@@ -83,6 +84,7 @@ class VouchersApplyFragment : Fragment() {
                     }
                     else {
                         cartOrder.coffeeVoucher = v
+                        cartOrder.cartProducts.add(CartProduct("Free Coffee", 0.0, R.drawable.cappucino, "Coffee", 1))
                     }
                     FileUtils.saveOrderToFile(cartOrder, requireContext())
 
@@ -99,6 +101,7 @@ class VouchersApplyFragment : Fragment() {
             // No Voucher Selected
             cartOrder.coffeeVoucher = null
             cartOrder.discountVoucher = null
+            cartOrder.cartProducts.removeIf { it.name == "Free Coffee" }
 
             FileUtils.saveOrderToFile(cartOrder, requireContext())
 
