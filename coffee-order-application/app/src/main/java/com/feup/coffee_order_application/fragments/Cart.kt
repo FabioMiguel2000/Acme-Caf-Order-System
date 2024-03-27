@@ -135,10 +135,11 @@ class Cart : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun updatePrices() {
         val subtotalPrice = round(cartOrder.cartProducts.sumOf { it.price * it.quantity } * 100) / 100
-        with(binding){
-            tvSubtotalPrice.text = "$subtotalPrice €"
-            tvPromotionDiscount.text = "- 0.00 €"
-            tvTotal.text = "$subtotalPrice €"
+        val discountPrice = if(cartOrder.discountVoucher == null) 0.0 else round((subtotalPrice * 0.05) * 100) / 100 // 5% discount
+        with(binding) {
+            tvSubtotalPrice.text = String.format("%.2f €", subtotalPrice)
+            tvPromotionDiscount.text = String.format("- %.2f €", discountPrice)
+            tvTotal.text = String.format("%.2f €", subtotalPrice - discountPrice)
         }
     }
 
