@@ -13,7 +13,6 @@ import com.feup.coffee_order_application.adapters.CartAdapter
 import com.feup.coffee_order_application.adapters.CartQuantityChangeListener
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.models.CartProduct
-import com.feup.coffee_order_application.models.Order
 import com.feup.coffee_order_application.utils.FileUtils
 import kotlin.math.round
 
@@ -26,7 +25,7 @@ import kotlin.math.round
 
 val freeCoffee = CartProduct("Free Coffee", 0.0, R.drawable.cappucino, "Coffee", 1)
 
-class Cart : Fragment() {
+class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
     private val cartOrder by lazy { FileUtils.readOrderFromFile(requireContext()) }
     private val binding get() = _binding!!
@@ -74,9 +73,9 @@ class Cart : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.btnGoShopNow.setOnClickListener { navigateToFragment(VouchersApply()) }
-        binding.discountVoucherContainer.setOnClickListener { navigateToFragment(VouchersApply.newInstance("discount")) }
-        binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApply.newInstance("coffee")) }
+        binding.btnGoShopNow.setOnClickListener { navigateToFragment(VouchersApplyFragment()) }
+        binding.discountVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance("discount")) }
+        binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance("coffee")) }
     }
 
     private fun navigateToFragment(fragment: Fragment) {

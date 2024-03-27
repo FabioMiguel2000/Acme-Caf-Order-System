@@ -7,13 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.adapters.VoucherAdapter
-import com.feup.coffee_order_application.models.Category
 import com.feup.coffee_order_application.models.Order
 import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.utils.FileUtils
@@ -25,7 +22,7 @@ val vouchers = mutableListOf<Voucher>(
     Voucher("e3f63421c2da473da3a7838408613889", "coffee", "dasdadasda", false, false),
     Voucher("5f2af742faf4aec14441efa7fb31aa47", "coffee", "dasdadasda", false, false),
 )
-class VouchersApply : Fragment() {
+class VouchersApplyFragment : Fragment() {
     private lateinit var cartOrder: Order
     private var voucherType: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +88,7 @@ class VouchersApply : Fragment() {
 
                     val fragmentManager = parentFragmentManager
                     val fragmentTransaction = fragmentManager.beginTransaction()
-                    val cartFragment = Cart()
+                    val cartFragment = CartFragment()
 
                     fragmentTransaction.replace(R.id.fLayout, cartFragment)
                     fragmentTransaction.commit()
@@ -107,7 +104,7 @@ class VouchersApply : Fragment() {
 
             val fragmentManager = parentFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            val cartFragment = Cart()
+            val cartFragment = CartFragment()
 
             fragmentTransaction.replace(R.id.fLayout, cartFragment)
             fragmentTransaction.commit()
@@ -117,8 +114,8 @@ class VouchersApply : Fragment() {
     companion object {
         private const val ARG_VOUCHER_TYPE = "voucher_type"
 
-        fun newInstance(voucherType: String): VouchersApply {
-            val fragment = VouchersApply()
+        fun newInstance(voucherType: String): VouchersApplyFragment {
+            val fragment = VouchersApplyFragment()
             val args = Bundle().apply {
                 putString(ARG_VOUCHER_TYPE, voucherType)
             }
