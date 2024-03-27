@@ -86,8 +86,22 @@ class VouchersApply : Fragment() {
 
                     fragmentTransaction.replace(R.id.fLayout, cartFragment)
                     fragmentTransaction.commit()
+
+                    return@setOnClickListener
                 }
             }
+            // No Voucher Selected
+            cartOrder.coffeeVoucher = null
+            cartOrder.discountVoucher = null
+
+            FileUtils.saveOrderToFile(cartOrder, requireContext())
+
+            val fragmentManager = parentFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val cartFragment = Cart()
+
+            fragmentTransaction.replace(R.id.fLayout, cartFragment)
+            fragmentTransaction.commit()
         }
     }
 
