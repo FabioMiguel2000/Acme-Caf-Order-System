@@ -78,11 +78,11 @@ class VouchersApplyFragment : Fragment() {
         var applyVoucherBtn: MaterialButton = view.findViewById(R.id.btn_apply_voucher)
         applyVoucherBtn.setOnClickListener {
             for (v in vouchers) {
-                if (v.isSelected) {
-                    if (v.type == "discount") {
+                if (v.isSelected && v.type == voucherType){
+                    if (v.type == "discount"){
                         cartOrder.discountVoucher = v
                     }
-                    else {
+                    else if (v.type == "coffee") {
                         cartOrder.coffeeVoucher = v
                         cartOrder.cartProducts.add(CartProduct("Free Coffee", 0.0, R.drawable.cappucino, "Coffee", 1))
                     }
@@ -99,9 +99,11 @@ class VouchersApplyFragment : Fragment() {
                 }
             }
             // No Voucher Selected
-            cartOrder.coffeeVoucher = null
-            cartOrder.discountVoucher = null
-            cartOrder.cartProducts.removeIf { it.name == "Free Coffee" }
+            if(voucherType == "discount")
+                cartOrder.discountVoucher = null
+            else if(voucherType == "coffee")
+                cartOrder.coffeeVoucher = null
+                cartOrder.cartProducts.removeIf { it.name == "Free Coffee" }
 
             FileUtils.saveOrderToFile(cartOrder, requireContext())
 
