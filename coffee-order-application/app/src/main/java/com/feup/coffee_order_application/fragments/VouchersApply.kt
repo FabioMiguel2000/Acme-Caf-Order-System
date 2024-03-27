@@ -13,6 +13,7 @@ import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.adapters.VoucherAdapter
 import com.feup.coffee_order_application.models.Category
+import com.feup.coffee_order_application.models.Order
 import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.utils.FileUtils
 import com.google.android.material.button.MaterialButton
@@ -23,6 +24,7 @@ val vouchers = mutableListOf<Voucher>(
 
 )
 class VouchersApply : Fragment() {
+    private lateinit var cartOrder: Order
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -50,11 +52,26 @@ class VouchersApply : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
+        cartOrder = FileUtils.readOrderFromFile(requireContext())
+        if (cartOrder.discountVoucher != null) {
+            for (v in vouchers) {
+                if (v.uuid == cartOrder.discountVoucher!!.uuid) {
+                    v.isSelected = true
+                }
+            }
+        }
+        if (cartOrder.coffeeVoucher != null) {
+            for (v in vouchers) {
+                if (v.uuid == cartOrder.coffeeVoucher!!.uuid) {
+                    v.isSelected = true
+                }
+            }
+        }
+
         var applyVoucherBtn: MaterialButton = view.findViewById(R.id.btn_apply_voucher)
         applyVoucherBtn.setOnClickListener {
             for (v in vouchers) {
                 if (v.isSelected) {
-                    var cartOrder = FileUtils.readOrderFromFile(requireContext())
                     if (v.type == "discount") {
                         cartOrder.discountVoucher = v
                     }
