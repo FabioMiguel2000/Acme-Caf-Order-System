@@ -1,6 +1,7 @@
 package com.feup.coffee_order_application.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,14 +20,19 @@ import com.feup.coffee_order_application.utils.FileUtils
 import com.google.android.material.button.MaterialButton
 
 val vouchers = mutableListOf<Voucher>(
-    Voucher("ajkadshkfbhkadcbage13h", "discount", "dasdadasda", false, false),
-    Voucher("ajkadshfbhksadcbage13h", "discount", "dasdadasda", false, false),
-
+    Voucher("9768b993ae44ecea8dfde6439349f1c2", "discount", "dasdadasda", false, false),
+    Voucher("3813e7553135d09e6b993f39251e73ab", "discount", "dasdadasda", false, false),
+    Voucher("e3f63421c2da473da3a7838408613889", "coffee", "dasdadasda", false, false),
+    Voucher("5f2af742faf4aec14441efa7fb31aa47", "coffee", "dasdadasda", false, false),
 )
 class VouchersApply : Fragment() {
     private lateinit var cartOrder: Order
+    private var voucherType: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            voucherType = it.getString(ARG_VOUCHER_TYPE)
+        }
     }
 
     override fun onCreateView(
@@ -46,7 +52,9 @@ class VouchersApply : Fragment() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayShowHomeEnabled(true)
 
-        val adapter = VoucherAdapter(vouchers)
+        val filteredVouchers: MutableList<Voucher> = vouchers.filter { it.type == voucherType }.toMutableList()
+
+        val adapter = VoucherAdapter(filteredVouchers)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_vouchers)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -54,14 +62,15 @@ class VouchersApply : Fragment() {
 
         cartOrder = FileUtils.readOrderFromFile(requireContext())
         if (cartOrder.discountVoucher != null) {
-            for (v in vouchers) {
+            for (v in filteredVouchers) {
                 if (v.uuid == cartOrder.discountVoucher!!.uuid) {
                     v.isSelected = true
                 }
             }
         }
+        Log.d("Coffee Voucher", cartOrder.coffeeVoucher.toString())
         if (cartOrder.coffeeVoucher != null) {
-            for (v in vouchers) {
+            for (v in filteredVouchers) {
                 if (v.uuid == cartOrder.coffeeVoucher!!.uuid) {
                     v.isSelected = true
                 }
@@ -102,6 +111,19 @@ class VouchersApply : Fragment() {
 
             fragmentTransaction.replace(R.id.fLayout, cartFragment)
             fragmentTransaction.commit()
+        }
+    }
+
+    companion object {
+        private const val ARG_VOUCHER_TYPE = "voucher_type"
+
+        fun newInstance(voucherType: String): VouchersApply {
+            val fragment = VouchersApply()
+            val args = Bundle().apply {
+                putString(ARG_VOUCHER_TYPE, voucherType)
+            }
+            fragment.arguments = args
+            return fragment
         }
     }
 

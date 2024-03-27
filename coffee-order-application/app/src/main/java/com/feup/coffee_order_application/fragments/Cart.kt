@@ -75,10 +75,10 @@ class Cart : Fragment() {
         binding.btnGoShopNow.setOnClickListener {
             val fragmentManager = parentFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            val vouchersApplyFragment = VouchersApply() // Replace HomeFragment() with your home page fragment's constructor
+            val vouchersApplyFragment = VouchersApply()
 
             fragmentTransaction.replace(R.id.fLayout, vouchersApplyFragment)
-            fragmentTransaction.addToBackStack(null) // Add this transaction to the back stack (optional)
+            fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
 
             val activity = requireActivity() as AppCompatActivity
@@ -90,10 +90,10 @@ class Cart : Fragment() {
             Log.d(TAG, "Discount Voucher Clicked")
             val fragmentManager = parentFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            val vouchersApplyFragment = VouchersApply() // Replace HomeFragment() with your home page fragment's constructor
+            val vouchersApplyFragment = VouchersApply.newInstance("discount")
 
             fragmentTransaction.replace(R.id.fLayout, vouchersApplyFragment)
-            fragmentTransaction.addToBackStack(null) // Add this transaction to the back stack (optional)
+            fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
 
         }
@@ -102,7 +102,7 @@ class Cart : Fragment() {
             Log.d(TAG, "Discount Voucher Clicked")
             val fragmentManager = parentFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            val categoriesFragment = VouchersApply() // Replace HomeFragment() with your home page fragment's constructor
+            val categoriesFragment = VouchersApply.newInstance("coffee")
 
             fragmentTransaction.replace(R.id.fLayout, categoriesFragment)
             fragmentTransaction.addToBackStack(null) // Add this transaction to the back stack (optional)
