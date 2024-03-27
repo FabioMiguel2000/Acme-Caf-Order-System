@@ -7,14 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CartAdapter
-import com.feup.coffee_order_application.adapters.CartQuantityChangeListener
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
-import com.feup.coffee_order_application.models.CartProduct
-import com.feup.coffee_order_application.models.Order
 import com.feup.coffee_order_application.utils.FileUtils
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.round
 
 //val cartProducts = mutableListOf<CartProduct>(
@@ -37,25 +34,22 @@ class CartFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        FileUtils.saveOrderToFile(Order(cartProducts,null, null), requireContext())
         setupActionBar()
-        setupRecycleView()
+        setupRecyclerView()
         updateUI()
         setupListeners()
     }
 
-    private fun setupRecycleView(){
-        val adapter = CartAdapter(cartOrder.cartProducts)
+    private fun setupRecyclerView() {
+        val adapter = CartAdapter(cartOrder.cartProducts) {
+            FileUtils.saveOrderToFile(cartOrder, requireContext())
+            updatePrices()
+            updateCartRendering(cartOrder.cartProducts.isEmpty())
+        }
 
-        val recyclerView: RecyclerView = binding.rvCart
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
-
-        adapter.setCartQuantityChangeListener(object : CartQuantityChangeListener {
-            override fun onQuantityChanged() {
-                FileUtils.saveOrderToFile(cartOrder, requireContext())
-                updatePrices()
-                updateCartRendering(cartOrder.cartProducts.isEmpty())
-            }
-        })
+        binding.rvCart.apply {
+            layoutManager = LinearLayoutManager(context)
+            this.adapter = adapter
+        }
     }
 
     private fun updateUI() {
@@ -73,7 +67,13 @@ class CartFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.btnGoShopNow.setOnClickListener { navigateToFragment(VouchersApplyFragment()) }
+        binding.btnGoShopNow.setOnClickListener {
+            navigateToFragment(CategoriesFragment())
+
+            val activity = requireActivity() as AppCompatActivity
+            val bottomNavigationView: BottomNavigationView = activity.findViewById(R.id.bottom_nav)
+            bottomNavigationView.selectedItemId = R.id.home
+        }
         binding.discountVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance("discount")) }
         binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance("coffee")) }
     }
