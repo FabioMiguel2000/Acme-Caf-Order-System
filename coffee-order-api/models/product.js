@@ -6,7 +6,8 @@ const productCategories = [
     "Cold Coffees",
     "Cappuccinos",
     "Frapuccinos",
-    "Mochas"
+    "Mochas",
+    "Promotions"
 ]
 
 const productSchema = new mongoose.Schema({
