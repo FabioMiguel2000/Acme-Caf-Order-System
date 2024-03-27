@@ -46,6 +46,12 @@ class CartAdapter(private val products: MutableList<CartProduct>) :
         holder.totalPricePerItemTextView.text =
             "${round(product.price * product.quantity * 100) / 100} €"
 
+        if (product.name == "Free Coffee") {
+            holder.plusButton.visibility = View.GONE
+            holder.minusButton.visibility = View.GONE
+            holder.removeButton.visibility = View.GONE
+        }
+
         holder.plusButton.setOnClickListener {
             product.quantity += 1
             holder.quantityTextView.text = product.quantity.toString()
