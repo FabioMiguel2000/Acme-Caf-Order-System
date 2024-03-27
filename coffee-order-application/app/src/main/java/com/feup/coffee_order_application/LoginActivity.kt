@@ -7,8 +7,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.feup.coffee_order_application.models.AuthClass
-import com.feup.coffee_order_application.services.HttpHandlerClass
+import com.feup.coffee_order_application.services.AuthManager
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
         val loginBtn: Button = findViewById(R.id.btn_login)
         val registerBtn: TextView = findViewById(R.id.btn_register)
         loginBtn?.setOnClickListener{
-            val auth = AuthClass()
+            val auth = AuthManager()
             auth.login(this.baseContext, username.text.toString(), password.text.toString())
         }
 

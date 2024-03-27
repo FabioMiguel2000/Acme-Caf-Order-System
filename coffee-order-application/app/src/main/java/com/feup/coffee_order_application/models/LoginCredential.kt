@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.services
+package com.feup.coffee_order_application.models
 
 data class LoginCredential(
     val email: String,
