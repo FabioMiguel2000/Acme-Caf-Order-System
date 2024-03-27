@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ACME CAFÉ</string>
+    <string name="voucher_not_selected">Not Selected</string>
+    <string name="voucher_selected">Selected</string>
+    <string name="price_format">"%.2f €"</string>
+    <string name="negative_price_format">"- %.2f €"</string>
 </resources>

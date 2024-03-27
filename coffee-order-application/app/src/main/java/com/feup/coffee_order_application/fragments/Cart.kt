@@ -72,8 +72,8 @@ class Cart : Fragment() {
         updatePrices()
         updateCartRendering(cartOrder.cartProducts.isEmpty())
 
-        binding.tvSelectCoffeeVoucher.text = if (cartOrder.coffeeVoucher == null) "Not Selected" else "Selected"
-        binding.tvSelectDiscountVoucher.text = if (cartOrder.discountVoucher == null) "Not Selected" else "Selected"
+        binding.tvSelectCoffeeVoucher.text = if (cartOrder.coffeeVoucher == null) getString(R.string.voucher_not_selected) else getString(R.string.voucher_selected)
+        binding.tvSelectDiscountVoucher.text = if (cartOrder.discountVoucher == null) getString(R.string.voucher_not_selected) else getString(R.string.voucher_selected)
 
         binding.btnGoShopNow.setOnClickListener {
             val fragmentManager = parentFragmentManager
@@ -90,7 +90,6 @@ class Cart : Fragment() {
         }
 
         binding.discountVoucherContainer.setOnClickListener {
-            Log.d(TAG, "Discount Voucher Clicked")
             val fragmentManager = parentFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             val vouchersApplyFragment = VouchersApply.newInstance("discount")
@@ -102,13 +101,12 @@ class Cart : Fragment() {
         }
 
         binding.coffeeVoucherContainer.setOnClickListener {
-            Log.d(TAG, "Discount Voucher Clicked")
             val fragmentManager = parentFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             val categoriesFragment = VouchersApply.newInstance("coffee")
 
             fragmentTransaction.replace(R.id.fLayout, categoriesFragment)
-            fragmentTransaction.addToBackStack(null) // Add this transaction to the back stack (optional)
+            fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
 
         }
@@ -140,9 +138,9 @@ class Cart : Fragment() {
         val subtotalPrice = round(cartOrder.cartProducts.sumOf { it.price * it.quantity } * 100) / 100
         val discountPrice = if(cartOrder.discountVoucher == null) 0.0 else round((subtotalPrice * 0.05) * 100) / 100 // 5% discount
         with(binding) {
-            tvSubtotalPrice.text = String.format("%.2f €", subtotalPrice)
-            tvPromotionDiscount.text = String.format("- %.2f €", discountPrice)
-            tvTotal.text = String.format("%.2f €", subtotalPrice - discountPrice)
+            tvSubtotalPrice.text = String.format(getString(R.string.price_format), subtotalPrice)
+            tvPromotionDiscount.text = String.format(getString(R.string.negative_price_format), discountPrice)
+            tvTotal.text = String.format(getString(R.string.price_format), subtotalPrice - discountPrice)
         }
     }
 
