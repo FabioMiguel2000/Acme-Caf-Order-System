@@ -28,11 +28,6 @@ class AuthManager {
             ) {
                 if(response.code() == 200){
                     Toast.makeText(context, "Login succeeded", Toast.LENGTH_LONG).show()
-                    /*Thread(Runnable {
-                        run {
-                            return true
-                        }
-                    }).start()*/
                     Thread().run{
                         var intent = Intent(context, MainActivity::class.java);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
