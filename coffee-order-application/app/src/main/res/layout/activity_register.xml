@@ -106,6 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:inputType="textPassword"
             android:lines="1"
             tools:layout_editor_absoluteX="-3dp"
             tools:layout_editor_absoluteY="370dp" />
@@ -131,6 +132,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password confirmation"
+            android:inputType="textPassword"
             android:lines="1"
             tools:layout_editor_absoluteX="-3dp"
             tools:layout_editor_absoluteY="370dp" />
