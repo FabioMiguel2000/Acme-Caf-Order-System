@@ -5,6 +5,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.feup.coffee_order_application.fragments.Cart
+import com.feup.coffee_order_application.fragments.Categories
+import com.feup.coffee_order_application.fragments.Profile
 import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

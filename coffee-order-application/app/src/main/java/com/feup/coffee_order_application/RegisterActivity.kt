@@ -42,7 +42,7 @@ class RegisterActivity : AppCompatActivity() {
 
             (
                     thread {
-                    var response = http_handler.register(this, http_handler._baseUrl, name.text.toString(), email.text.toString(), password.text.toString(), nif.text.toString())
+                   // var response = http_handler.register(this, http_handler._baseUrl, name.text.toString(), email.text.toString(), password.text.toString(), nif.text.toString())
                 }
         )}
     }
