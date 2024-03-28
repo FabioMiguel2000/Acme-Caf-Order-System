@@ -7,6 +7,7 @@ import com.feup.coffee_order_application.models.ResponseApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.security.PublicKey
 
 class AuthManager {
     val http_handler =  HttpHandlerClass.getInstance()
@@ -34,14 +35,14 @@ class AuthManager {
         })
     }
 
-    fun register(context: Context, name: String, email: String, nif: String,  password: String){
+    fun register(context: Context, name: String, email: String, nif: String,  password: String, publicKey: String){
         //preparing request body
         val body = mapOf(
             "name" to name,
             "email" to email,
             "nif" to nif,
             "password" to password,
-            "publicKey" to "12345" //change to dynamic public key
+            "publicKey" to publicKey
         )
 
         http_handler.retrofitBuilder.register(body).enqueue(object : Callback<ResponseApi> {
