@@ -27,12 +27,12 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        val name = findViewById<EditText>(R.id.name_value)
-        val email = findViewById<EditText>(R.id.email_value)
-        val nif = findViewById<EditText>(R.id.nif_value)
-        val password = findViewById<EditText>(R.id.password_value)
-        val passwordConfirmation = findViewById<EditText>(R.id.passwordconfirmation_value)
-        val btnRegister: Button = findViewById(R.id.btn_register)
+        var name = findViewById<EditText>(R.id.name_value)
+        var email = findViewById<EditText>(R.id.email_value)
+        var nif = findViewById<EditText>(R.id.nif_value)
+        var password = findViewById<EditText>(R.id.password_value)
+        var passwordConfirmation = findViewById<EditText>(R.id.passwordconfirmation_value)
+        var btnRegister: Button = findViewById(R.id.btn_register)
 
         btnRegister?.setOnClickListener{
             if(!generated){
@@ -45,6 +45,11 @@ class RegisterActivity : AppCompatActivity() {
 
             val auth = AuthManager()
             auth.register(this.baseContext, name.text.toString(), email.text.toString(), nif.text.toString(), password.text.toString(), crypto.getPublicKeyBase64())
+            name.text.clear()
+            email.text.clear()
+            nif.text.clear()
+            password.text.clear()
+            passwordConfirmation.text.clear()
         }
     }
 
