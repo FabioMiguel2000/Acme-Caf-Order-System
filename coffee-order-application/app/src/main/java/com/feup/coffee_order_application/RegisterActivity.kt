@@ -3,14 +3,12 @@ package com.feup.coffee_order_application
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.MenuItem
-import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import com.feup.coffee_order_application.services.HttpHandlerClass
-import kotlin.concurrent.thread
+import com.feup.coffee_order_application.services.AuthManager
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -32,7 +30,6 @@ class RegisterActivity : AppCompatActivity() {
         var passwordConfirmation = findViewById<EditText>(R.id.passwordconfirmation_value)
         val btnRegister: Button = findViewById(R.id.btn_register)
 
-        val http_handler =  HttpHandlerClass.getInstance()
         btnRegister?.setOnClickListener{
 
             var isValid = validateForm(name.text.toString(), email.text.toString(), nif.text.toString(), password.text.toString(), passwordConfirmation.text.toString())
@@ -40,11 +37,9 @@ class RegisterActivity : AppCompatActivity() {
             if (!isValid)
                 return@setOnClickListener
 
-            (
-                    thread {
-                   // var response = http_handler.register(this, http_handler._baseUrl, name.text.toString(), email.text.toString(), password.text.toString(), nif.text.toString())
-                }
-        )}
+            val auth = AuthManager()
+            auth.register(this.baseContext, name.text.toString(), email.text.toString(), nif.text.toString(), password.text.toString())
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

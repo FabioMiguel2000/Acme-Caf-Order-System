@@ -33,4 +33,31 @@ class AuthManager {
             }
         })
     }
+
+    fun register(context: Context, name: String, email: String, nif: String,  password: String){
+        //preparing request body
+        val body = mapOf(
+            "name" to name,
+            "email" to email,
+            "nif" to nif,
+            "password" to password,
+            "publicKey" to "12345" //change to dynamic public key
+        )
+
+        http_handler.retrofitBuilder.register(body).enqueue(object : Callback<ResponseApi> {
+            override fun onResponse(
+                call: Call<ResponseApi>,
+                response: Response<ResponseApi>
+            ) {
+                if(response.code() == 201){
+                    Toast.makeText(context, "Register succeeded", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, "Verify your information", Toast.LENGTH_LONG).show()
+                }
+            }
+            override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
+                Log.d("error", "Register Request Error: " + t.message)
+            }
+        })
+    }
 }
