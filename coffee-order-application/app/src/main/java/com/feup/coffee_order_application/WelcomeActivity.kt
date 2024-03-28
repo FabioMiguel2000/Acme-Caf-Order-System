@@ -11,6 +11,9 @@ class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val prefs = getSharedPreferences("session", MODE_PRIVATE)
+        prefs.getString("status", "")
+
         var option = 1
         if(option == 1){
             startActivity(Intent(this, LoginActivity::class.java))
