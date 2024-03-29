@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const { returnResponse } = require('../services/general');
 
 const getAllProducts = async (req, res) => {
     try {
@@ -51,11 +52,7 @@ const getProductById = async (req, res) => {
             data: product
         });
     } catch (error) {
-        return res.status(500).json({
-            error: true,
-            success: false,
-            message: "Failed to retrieve product"
-        });
+        returnResponse(res, 404, false, error.message);
     }
 }
 
