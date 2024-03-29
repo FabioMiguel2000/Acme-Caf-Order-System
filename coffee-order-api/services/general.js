@@ -24,7 +24,8 @@ function returnResponse(res, code, sucessStatus, message, data) {
     }
     return res.status(code).json({
         success: sucessStatus,
-        message: message
+        message: message,
+        data: data
     });
 }
 

@@ -11,11 +11,13 @@ const readJSONFile = (fileName) =>
 const productSeeders = readJSONFile("productSeeders");
 const userSeeders = readJSONFile("userSeeders");
 const orderSeeders = readJSONFile("orderSeeders");
+const productCategorySeeders = readJSONFile("productCategorySeeders");
 
 const Product = require("../models/product");
 const User = require("../models/user");
 const Order = require("../models/order");
 const Voucher = require("../models/voucher");
+const Category = require("../models/category");
 
 const { createOrderByProductNames } = require("../controllers/orderController");
 
@@ -23,9 +25,8 @@ const importData = async () => {
   try {
     await dbconnection();
     const userSeedersEncrypted = await encryptPasswords(userSeeders);
-
     await Promise.all([Product.deleteMany(), User.deleteMany(), Order.deleteMany(), Voucher.deleteMany()]);
-    await Promise.all([Product.insertMany(productSeeders), User.insertMany(userSeedersEncrypted)]);
+    await Promise.all([Category.insertMany(productCategorySeeders)/*, Product.insertMany(productSeeders), User.insertMany(userSeedersEncrypted)*/]);
 
     for (let order of orderSeeders) {
       await createOrderByProductNames(order)
