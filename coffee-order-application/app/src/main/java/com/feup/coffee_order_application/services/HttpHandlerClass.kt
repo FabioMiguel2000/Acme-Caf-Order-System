@@ -8,7 +8,7 @@ class HttpHandlerClass private constructor(baseUrl: String, retrofitBuilder: Api
         get() {
             return field
         }
-
+    //retrofit builder, we need it for each api call
     val retrofitBuilder: ApiInterface = retrofitBuilder
         get() {
             return field
