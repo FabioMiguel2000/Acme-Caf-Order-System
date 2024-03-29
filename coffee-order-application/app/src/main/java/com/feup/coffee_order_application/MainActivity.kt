@@ -5,9 +5,9 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.feup.coffee_order_application.fragments.Cart
-import com.feup.coffee_order_application.fragments.Categories
-import com.feup.coffee_order_application.fragments.Profile
+import com.feup.coffee_order_application.fragments.CartFragment
+import com.feup.coffee_order_application.fragments.CategoriesFragment
+import com.feup.coffee_order_application.fragments.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,14 +15,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar1))
 
-        val home = Categories()
-        val profile = Profile()
-        val cart = Cart()
-        var bottom_nav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+        val home = CategoriesFragment()
+        val profile = ProfileFragment()
+        val cart = CartFragment()
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
         setCurrentPage(home)
 
-        bottom_nav.setOnNavigationItemSelectedListener {
+        bottomNav.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home->setCurrentPage(home)
                 R.id.cart->setCurrentPage(cart)
@@ -38,8 +38,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
-            //implement some code here
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
         }
         return super.onOptionsItemSelected(item)
     }

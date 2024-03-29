@@ -20,7 +20,7 @@ val categories = listOf<Category>(
     Category("Mocha", R.drawable.mocha, 12),
     Category("Oleato", R.drawable.oleato, 8)
 )
-class Categories : Fragment() {
+class CategoriesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
