@@ -43,7 +43,7 @@ const importData = async () => {
 const destroyData = async () => {
   try {
     await dbconnection();
-    await Promise.all([Product.deleteMany(), User.deleteMany(), Order.deleteMany(), Voucher.deleteMany()]);
+    await Promise.all([Category.deleteMany(), Product.deleteMany(), User.deleteMany(), Order.deleteMany(), Voucher.deleteMany()]);
 
     console.log("Data has been destroyed!");
     gracefulExit();
