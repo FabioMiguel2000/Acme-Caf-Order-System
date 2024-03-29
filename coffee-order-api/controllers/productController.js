@@ -17,6 +17,23 @@ const getAllProducts = async (req, res) => {
     }
 }
 
+const getProductCategories = async (req, res) => {
+    try {
+        const productCategories = Product.find();
+        return res.status(200).json({
+            success: true,
+            message: `Retrieved ${productCategories.length} product categories`,
+            data: productCategories
+        });
+    } catch(error){
+        return res.status(500).json({
+            error: true,
+            success: false,
+            message: "Failed to retrieve product categories"
+        }) ;
+    }
+}
+
 const getProductById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -42,4 +59,5 @@ const getProductById = async (req, res) => {
     }
 }
 
-module.exports = { getAllProducts,  getProductById};
+
+module.exports = { getAllProducts,  getProductById, getProductCategories};
