@@ -10,20 +10,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <View
-            android:id="@+id/line"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/light_purple"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
         <com.google.android.material.imageview.ShapeableImageView
             app:cardCornerRadius="10dp"
-            android:id="@+id/img_order"
+            android:id="@+id/img_product"
             app:shapeAppearanceOverlay="@style/RoundedSquare"
             android:layout_width="140dp"
             android:layout_height="120dp"
@@ -35,18 +24,18 @@
             />
 
         <TextView
-            android:id="@+id/tv_order_price_per_piece"
+            android:id="@+id/tv_product_price_per_piece"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tv_order_name"
-            app:layout_constraintStart_toEndOf="@id/img_order"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_name"
+            app:layout_constraintStart_toEndOf="@id/img_product"
             android:layout_marginStart="12dp"
             android:textColor="@color/dark_purple"
             android:layout_marginTop="20dp"
             android:text="1.1EUR / piece"/>
 
         <TextView
-            android:id="@+id/tv_order_name"
+            android:id="@+id/tv_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -54,10 +43,11 @@
             android:textColor="@color/dark_purple"
             android:textStyle="bold"
             android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="@+id/img_order"
-            app:layout_constraintStart_toEndOf="@id/img_order" />
+            app:layout_constraintTop_toTopOf="@+id/img_product"
+            app:layout_constraintStart_toEndOf="@id/img_product" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_add_to_cart"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:text=""
