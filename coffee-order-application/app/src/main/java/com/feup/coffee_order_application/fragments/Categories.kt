@@ -38,6 +38,8 @@ class Categories : Fragment() {
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Categories"
 
+        get
+
         val adapter = CategoriesAdapter(categories)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_categories)
