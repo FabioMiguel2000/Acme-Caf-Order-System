@@ -30,17 +30,32 @@ MONGODB_URI=mongodb://mongo:27017/acme-coffee
 docker-compose up -d
 ```
 
-5. Populate the database with seed, run:
-
-```bash
-docker exec -it api npm run data:import
-```
 6. Install NodeJS dependencies
 ```bash
 docker exec -it api npm install
 ```
 
-7. Change to your IP address to make api calls work locally: to achieve that you must change to your ip address in the singleton HttpHandlerClass, method getInstance, atribuite base
+5. Populate the database with seed, run:
+
 ```bash
-HttpHandlerClass(base)
+docker exec -it api npm run data:import
+```
+
+#### Run Application
+
+1. Head inside the app's project directory `/coffee-order-application`, and add the server's base URL to the `local.properties`, accordingly:
+
+If you are using a physical device:
+```bash
+apiBaseUrl=http://your_local_ip_address/api/
+```
+
+Example:
+```bash
+apiBaseUrl=http://192.168.1.97:3000/api/
+```
+
+If you are running on an emulator you can keep with the default base URL:
+```bash
+apiBaseUrl=http://10.0.2.2:3000/api/
 ```
