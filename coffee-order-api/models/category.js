@@ -1,0 +1,18 @@
+const { default: mongoose } = require("mongoose");
+
+const categorySchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true,
+    },
+    work_name: {
+        type: String,
+        required: true
+    },
+    img: {
+        type: String,
+        required: true,
+    }
+});
+
+module.exports = mongoose('Category', categorySchema);

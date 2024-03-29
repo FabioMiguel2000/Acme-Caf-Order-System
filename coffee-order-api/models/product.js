@@ -24,8 +24,9 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   productCategory: {
-    type: String,
-    enum: productCategories,
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"ProductCategory",
+    autopopulate: true,
   }
 });
 
