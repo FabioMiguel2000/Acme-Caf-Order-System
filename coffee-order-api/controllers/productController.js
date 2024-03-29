@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const ProductCategory = require('../models/category');
 const { returnResponse } = require('../services/general');
 
 const getAllProducts = async (req, res) => {
@@ -20,18 +21,10 @@ const getAllProducts = async (req, res) => {
 
 const getProductCategories = async (req, res) => {
     try {
-        const productCategories = Product.find();
-        return res.status(200).json({
-            success: true,
-            message: `Retrieved ${productCategories.length} product categories`,
-            data: productCategories
-        });
+        const productCategories = ProductCategory.find();
+        returnResponse(res, 200, true, `Retrivied ${(await productCategories).length} product categories`, productCategories);
     } catch(error){
-        return res.status(500).json({
-            error: true,
-            success: false,
-            message: "Failed to retrieve product categories"
-        }) ;
+        returnResponse(res, 404, false, "error "+error.message);
     }
 }
 

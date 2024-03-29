@@ -11,4 +11,6 @@ const categorySchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose('Category', categorySchema);
+categorySchema.plugin(require('mongoose-autopopulate'));
+
+module.exports = mongoose.model('Category', categorySchema);
