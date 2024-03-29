@@ -44,3 +44,9 @@ docker exec -it api npm install
 ```bash
 HttpHandlerClass(base)
 ```
+
+5. If you've populated the database in step four, to destroy old structure and get new one, run the comand bellow and run again step four:
+ß
+```bash
+docker exec -it api npm run data:destroy
+```
