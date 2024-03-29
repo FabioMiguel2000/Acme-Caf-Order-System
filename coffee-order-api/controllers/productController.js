@@ -21,8 +21,8 @@ const getAllProducts = async (req, res) => {
 
 const getProductCategories = async (req, res) => {
     try {
-        const productCategories = ProductCategory.find();
-        returnResponse(res, 200, true, `Retrivied ${(await productCategories).length} product categories`, productCategories);
+        const productCategories = await ProductCategory.find();
+        returnResponse(res, 200, true, `Retrivied ${productCategories.length} product categories`);
     } catch(error){
         returnResponse(res, 404, false, "error "+error.message);
     }
