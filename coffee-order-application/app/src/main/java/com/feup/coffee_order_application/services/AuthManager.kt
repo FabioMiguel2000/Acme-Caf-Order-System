@@ -33,4 +33,8 @@ class AuthManager {
             }
         })
     }
+
+    fun getProductCategories(){
+
+    }
 }
