@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.adapters.ProductsAdapter
 import com.feup.coffee_order_application.models.CartProduct
 
@@ -20,7 +19,7 @@ val products = mutableListOf<CartProduct>(
     CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 2),
 )
 
-class Products : Fragment() {
+class ProductsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,7 +31,11 @@ class Products : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Hot Coffee"
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            title = "Hot Coffee"
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
 
         val adapter = ProductsAdapter(products)
 

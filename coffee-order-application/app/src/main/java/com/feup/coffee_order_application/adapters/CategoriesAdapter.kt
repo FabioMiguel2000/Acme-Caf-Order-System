@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.fragments.Products
+import com.feup.coffee_order_application.fragments.ProductsFragment
 import com.feup.coffee_order_application.models.Category
 
 class CategoriesAdapter(private val categories: List<Category>) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
@@ -41,7 +41,7 @@ class CategoriesAdapter(private val categories: List<Category>) : RecyclerView.A
         holder.layout.setOnClickListener {
             val fragmentManager = (holder.layout.context as AppCompatActivity).supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            val productsFragment = Products().apply {
+            val productsFragment = ProductsFragment().apply {
                 arguments = Bundle().apply {
                     putString("category", category.name)
                 }
