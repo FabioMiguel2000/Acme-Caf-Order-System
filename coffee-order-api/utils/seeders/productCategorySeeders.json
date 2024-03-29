@@ -1,42 +1,26 @@
 [
     {
-        "name": "Hot Coffes",
+        "name": "Hot Coffe",
         "img": "fdsafsadfjsldfjsldf" 
     }, 
     {
-        "name": "Cold Coffes",
+        "name": "Cold Coffe",
         "img": "fdsafsadfjsldfjsldf" 
     }, 
     {
-        "name": "Hot Coffes",
+        "name": "Cappuccino",
         "img": "fdsafsadfjsldfjsldf" 
     }, 
     {
-        "name": "Cold Coffes",
+        "name": "Frappuccino",
         "img": "fdsafsadfjsldfjsldf" 
     }, 
     {
-        "name": "Hot Coffes",
+        "name": "Mocha",
         "img": "fdsafsadfjsldfjsldf" 
     }, 
     {
-        "name": "Cold Coffes",
-        "img": "fdsafsadfjsldfjsldf" 
-    }, 
-    {
-        "name": "Hot Coffes",
-        "img": "fdsafsadfjsldfjsldf" 
-    }, 
-    {
-        "name": "Cold Coffes",
-        "img": "fdsafsadfjsldfjsldf" 
-    }, 
-    {
-        "name": "Hot Coffes",
-        "img": "fdsafsadfjsldfjsldf" 
-    }, 
-    {
-        "name": "Cold Coffes",
+        "name": "Oleato",
         "img": "fdsafsadfjsldfjsldf" 
     }
 ]
