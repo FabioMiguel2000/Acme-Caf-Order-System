@@ -24,7 +24,7 @@ const productSchema = new mongoose.Schema({
     required: true,
   },
   productCategory: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.String,
     ref:"ProductCategory",
     autopopulate: true,
   }
