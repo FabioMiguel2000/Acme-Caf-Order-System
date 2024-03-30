@@ -8,9 +8,24 @@ const getProductCategories = async (req, res) => {
         const productCategories = await ProductCategory.find();
         //in this way becouse i want only a list to be returned and not object with my list inside
         res.json(productCategories)
-    } catch(error){
-        returnResponse(res, 404, false, "error "+error.message);
+    } catch (error) {
+        returnResponse(res, 404, false, "error " + error.message);
     }
+}
+
+const createProduct = async (product) => {
+    const category = await ProductCategory.find({ _name: product.category });
+
+    if (!category) {
+        returnResponse(res, 404, false, "Category not found");
+    }
+
+    const newProduct = new Product({
+        name: product.name,
+        price: product.price,
+        imgURL: product.imgUR,
+        category: category
+    });
 }
 
 const getAllProducts = async (req, res) => {
@@ -52,4 +67,4 @@ const getProductById = async (req, res) => {
 }
 
 
-module.exports = { getAllProducts,  getProductById, getProductCategories};
+module.exports = { getAllProducts, getProductById, getProductCategories, createProduct };

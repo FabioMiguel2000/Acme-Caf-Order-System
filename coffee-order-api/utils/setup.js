@@ -8,10 +8,11 @@ const { encryptPasswords } = require("./crypto/bcryptPassword");
 const readJSONFile = (fileName) =>
   JSON.parse(fs.readFileSync(path.join(__dirname, `./seeders/${fileName}.json`), "utf-8"));
 
+const productCategorySeeders = readJSONFile("productCategorySeeders");
 const productSeeders = readJSONFile("productSeeders");
 const userSeeders = readJSONFile("userSeeders");
 const orderSeeders = readJSONFile("orderSeeders");
-const productCategorySeeders = readJSONFile("productCategorySeeders");
+
 
 const Product = require("../models/product");
 const User = require("../models/user");
@@ -20,18 +21,23 @@ const Voucher = require("../models/voucher");
 const Category = require("../models/category");
 
 const { createOrderByProductNames } = require("../controllers/orderController");
+const { createProduct } = require("../controllers/productController");
+
 
 const importData = async () => {
   try {
     await dbconnection();
     const userSeedersEncrypted = await encryptPasswords(userSeeders);
     await Promise.all([Product.deleteMany(), User.deleteMany(), Order.deleteMany(), Voucher.deleteMany()]);
-    await Promise.all([Category.insertMany(productCategorySeeders), Product.insertMany(productSeeders), User.insertMany(userSeedersEncrypted)]);
+    await Promise.all([Category.insertMany(productCategorySeeders), /*Product.insertMany(productSeeders),*/ User.insertMany(userSeedersEncrypted)]);
+
+    for (let product of productSeeders) {
+      await createProduct(product);
+    }
 
     for (let order of orderSeeders) {
       await createOrderByProductNames(order)
     }
-
     console.log("Data has been seeded!");
     gracefulExit();
   } catch (error) {
