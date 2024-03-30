@@ -16,14 +16,6 @@ import com.feup.coffee_order_application.utils.FileUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.round
 
-//val cartProducts = mutableListOf<CartProduct>(
-//    CartProduct("Cappuccino", 2.5, R.drawable.cappucino, "Coffee", 12),
-//    CartProduct("Mocha", 3.0, R.drawable.mocha, "Coffee", 12),
-//    CartProduct("Frappuccino", 3.5, R.drawable.frappuccino, "Coffee", 12),
-//    CartProduct("Oleato", 2.0, R.drawable.oleato, "Coffee", 12),
-//)
-
-
 class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
     private lateinit var cartOrder: Order
@@ -34,14 +26,12 @@ class CartFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        FileUtils.saveOrderToFile(Order(cartProducts,null, null), requireContext())
         cartOrder = FileUtils.readOrderFromFile(requireContext())
         setupActionBar()
         setupRecyclerView()
         updateUI()
         setupListeners()
     }
-
     private fun setupRecyclerView() {
         val adapter = CartAdapter(cartOrder.cartProducts) {
             FileUtils.saveOrderToFile(cartOrder, requireContext())

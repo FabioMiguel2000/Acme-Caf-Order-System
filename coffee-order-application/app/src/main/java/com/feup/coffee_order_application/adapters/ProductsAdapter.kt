@@ -37,11 +37,12 @@ class ProductsAdapter(private val context: Context, private val products: List<C
         holder.nameTextView.text = product.name
         holder.priceTextView.text = "${product.price} € / per piece"
 
-        var url = "https://drive.google.com/uc?export=view&id=14lXzmRM-KDFdefeqOQEfttl_6TLdNfN6"
+//        var url = "https://drive.google.com/uc?export=view&id=14lXzmRM-KDFdefeqOQEfttl_6TLdNfN6"
 
-        Glide.with(context) // Replace "context" with your actual context
-            .load(url)
-            .into(holder.imageView)
+//        Glide.with(context) // Replace "context" with your actual context
+//            .load(url)
+//            .into(holder.imageView)
+        holder.imageView.setImageResource(product.imageUrl)
 
         holder.btnAdd.setOnClickListener {
             val existingProduct = cartOrder.cartProducts.find { it.name == product.name }
