@@ -2,6 +2,7 @@ package com.feup.coffee_order_application.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,14 @@ class ProductsAdapter(private val context: Context, private val products: List<C
         holder.imageView.setImageResource(product.imageUrl)
 
         holder.btnAdd.setOnClickListener {
-            cartOrder.cartProducts.add(product)
+            val existingProduct = cartOrder.cartProducts.find { it.name == product.name }
+            if (existingProduct != null) {
+                Log.d("ProductsAdapter", "Product already in cart")
+                existingProduct.quantity++
+            } else {
+                Log.d("ProductsAdapter", "Product added to cart")
+                cartOrder.cartProducts.add(product)
+            }
             FileUtils.saveOrderToFile(cartOrder, context)
         }
     }
