@@ -8,12 +8,16 @@ import androidx.fragment.app.Fragment
 import com.feup.coffee_order_application.fragments.Cart
 import com.feup.coffee_order_application.fragments.Categories
 import com.feup.coffee_order_application.fragments.Profile
+import com.feup.coffee_order_application.services.ProductController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar1))
+
+        val productController = ProductController()
+        productController.getProductCategories()
 
         val home = Categories()
         val profile = Profile()
