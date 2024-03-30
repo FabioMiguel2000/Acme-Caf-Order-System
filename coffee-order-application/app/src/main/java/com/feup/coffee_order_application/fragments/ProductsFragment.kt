@@ -14,9 +14,9 @@ import com.feup.coffee_order_application.models.CartProduct
 
 val products = mutableListOf<CartProduct>(
     CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-    CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "", 12),
+    CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "", 1),
     CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 2),
+    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 1),
 )
 
 class ProductsFragment : Fragment() {
@@ -37,7 +37,7 @@ class ProductsFragment : Fragment() {
             setDisplayShowHomeEnabled(true)
         }
 
-        val adapter = ProductsAdapter(products)
+        val adapter = ProductsAdapter(requireContext(), products)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_products)
         recyclerView.layoutManager =

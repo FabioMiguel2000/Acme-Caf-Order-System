@@ -26,7 +26,7 @@ import kotlin.math.round
 
 class CartFragment : Fragment() {
     private var _binding: FragmentCartBinding? = null
-    private val cartOrder by lazy { FileUtils.readOrderFromFile(requireContext()) }
+    private lateinit var cartOrder: Order
     private val binding get() = _binding!!
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
@@ -35,6 +35,7 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        FileUtils.saveOrderToFile(Order(cartProducts,null, null), requireContext())
+        cartOrder = FileUtils.readOrderFromFile(requireContext())
         setupActionBar()
         setupRecyclerView()
         updateUI()
