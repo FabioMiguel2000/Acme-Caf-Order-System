@@ -14,18 +14,22 @@ const getProductCategories = async (req, res) => {
 }
 
 const createProduct = async (product) => {
-    const category = await ProductCategory.find({ _name: product.category });
+    try {
+        const category = await ProductCategory.findOne({ _name: product.category });
 
-    if (!category) {
-        returnResponse(res, 404, false, "Category not found");
+        if (!category) {
+            throw new Error(`Category with name ${product.category} not found`);
+        }
+        const newProduct = await new Product({
+            name: product.name,
+            price: product.price,
+            imgURL: product.imgURL,
+            category: category._id
+        }).save();
+
+    } catch (error) {
+        throw new Error(`Failed to create product ${error}`);
     }
-
-    const newProduct = new Product({
-        name: product.name,
-        price: product.price,
-        imgURL: product.imgUR,
-        category: category
-    });
 }
 
 const getAllProducts = async (req, res) => {

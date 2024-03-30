@@ -130,11 +130,9 @@ const validateOrder = async (req, res) => {
     }
 
     if (order.discountVoucher) {
-      console.log(order.discountVoucher);
       await useVoucher(order.discountVoucher);
     }
     if (order.freeCoffeeVoucher) {
-      console.log(order.freeCoffeeVoucher);
       await useVoucher(order.freeCoffeeVoucher);
     }
 
@@ -206,6 +204,7 @@ const createOrder = async (req, res) => {
       });
     }
 
+  
     const { subtotal, promotionDiscount, total } = calculatePrices(
       productObjs,
       vDiscountVoucher
@@ -246,14 +245,13 @@ const createOrderByProductNames = async (order) => {
     if (!clientExists) {
       throw new Error(`Client with id: ${client} not found`);
     }
-    
-    const productObjs = await getProductObjs(products, true);
 
+    const productObjs = await getProductObjs(products, true);
     const { subtotal, promotionDiscount, total } = calculatePrices(
       productObjs,
       clientExists.discountVoucher
     );
-
+    
     await updateUserAccumulatedCoffeeBuys(
       clientExists._id,
       countCups(products, false)
