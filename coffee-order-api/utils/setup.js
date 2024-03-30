@@ -26,7 +26,7 @@ const importData = async () => {
     await dbconnection();
     const userSeedersEncrypted = await encryptPasswords(userSeeders);
     await Promise.all([Product.deleteMany(), User.deleteMany(), Order.deleteMany(), Voucher.deleteMany()]);
-    await Promise.all([Category.insertMany(productCategorySeeders)/*, Product.insertMany(productSeeders), User.insertMany(userSeedersEncrypted)*/]);
+    await Promise.all([Category.insertMany(productCategorySeeders), Product.insertMany(productSeeders), User.insertMany(userSeedersEncrypted)]);
 
     for (let order of orderSeeders) {
       await createOrderByProductNames(order)

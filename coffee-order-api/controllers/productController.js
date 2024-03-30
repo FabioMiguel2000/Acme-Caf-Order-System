@@ -1,6 +1,17 @@
-const Product = require('../models/product');
 const ProductCategory = require('../models/category');
+const Product = require('../models/product');
 const { returnResponse } = require('../services/general');
+
+
+const getProductCategories = async (req, res) => {
+    try {
+        const productCategories = await ProductCategory.find();
+        //in this way becouse i want only a list to be returned and not object with my list inside
+        res.json(productCategories)
+    } catch(error){
+        returnResponse(res, 404, false, "error "+error.message);
+    }
+}
 
 const getAllProducts = async (req, res) => {
     try {
@@ -16,15 +27,6 @@ const getAllProducts = async (req, res) => {
             success: false,
             message: "Failed to retrieve products"
         });
-    }
-}
-
-const getProductCategories = async (req, res) => {
-    try {
-        const productCategories = await ProductCategory.find();
-        res.json(productCategories)
-    } catch(error){
-        returnResponse(res, 404, false, "error "+error.message);
     }
 }
 
