@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.utils.FileUtils
@@ -34,17 +36,21 @@ class ProductsAdapter(private val context: Context, private val products: List<C
         val product = products[position]
         holder.nameTextView.text = product.name
         holder.priceTextView.text = "${product.price} € / per piece"
-        holder.imageView.setImageResource(product.imageUrl)
+
+        var url = "https://drive.google.com/uc?export=view&id=14lXzmRM-KDFdefeqOQEfttl_6TLdNfN6"
+
+        Glide.with(context) // Replace "context" with your actual context
+            .load(url)
+            .into(holder.imageView)
 
         holder.btnAdd.setOnClickListener {
             val existingProduct = cartOrder.cartProducts.find { it.name == product.name }
             if (existingProduct != null) {
-                Log.d("ProductsAdapter", "Product already in cart")
                 existingProduct.quantity++
             } else {
-                Log.d("ProductsAdapter", "Product added to cart")
                 cartOrder.cartProducts.add(product)
             }
+            Toast.makeText(context, "${product.name} added to cart", Toast.LENGTH_SHORT).show()
             FileUtils.saveOrderToFile(cartOrder, context)
         }
     }
