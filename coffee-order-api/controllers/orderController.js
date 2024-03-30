@@ -246,7 +246,7 @@ const createOrderByProductNames = async (order) => {
     if (!clientExists) {
       throw new Error(`Client with id: ${client} not found`);
     }
-
+    
     const productObjs = await getProductObjs(products, true);
 
     const { subtotal, promotionDiscount, total } = calculatePrices(

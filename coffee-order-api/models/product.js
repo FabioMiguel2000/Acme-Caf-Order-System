@@ -23,9 +23,9 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  productCategory: {
+  category: {
     type: mongoose.Schema.Types.String,
-    ref:"ProductCategory",
+    ref:"Category",
     autopopulate: true,
   }
 });
