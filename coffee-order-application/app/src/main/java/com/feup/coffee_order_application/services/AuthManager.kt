@@ -18,7 +18,6 @@ class AuthManager {
                 "email" to username,
                 "password" to password
             )
-
             http_handler.retrofitBuilder.login(body).enqueue(object : Callback<ResponseApi> {
                 override fun onResponse(
                     call: Call<ResponseApi>,
@@ -37,8 +36,5 @@ class AuthManager {
         } catch (exception: Exception){
             throw NotFoundException("Something went wrong")
         }
-
     }
-
-
 }

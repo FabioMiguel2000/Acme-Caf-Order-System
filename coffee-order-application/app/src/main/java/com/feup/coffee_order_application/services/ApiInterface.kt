@@ -12,7 +12,6 @@ interface ApiInterface {
     @JvmSuppressWildcards
     fun login(@Body body: Map<String, Any>): retrofit2.Call<ResponseApi>
 
-    @GET("/productCategories")
-    @JvmSuppressWildcards
-    fun getProductCategories(): Call<List<CategoryItem>>
+    @GET("productCategories")
+    fun getProductCategories(): retrofit2.Call<List<CategoryItem>>
 }
