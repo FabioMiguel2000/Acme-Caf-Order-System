@@ -9,6 +9,10 @@ class CategoriesHolder private constructor() {
     fun populateCategoryList(category: CategoryItem){
         categories.add(category)
     }
+
+    fun returnCategories(): LinkedList<CategoryItem>{
+        return this.categories
+    }
     companion object {
         @Volatile
         private var instance: CategoriesHolder? =  null
