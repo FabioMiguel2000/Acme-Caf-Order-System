@@ -197,7 +197,7 @@
         android:id="@+id/line_1"
         android:layout_width="0dp"
         android:layout_height="15dp"
-        android:background="@color/baby_purple"
+        android:background="@color/light_bg_color"
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -309,12 +309,11 @@
         android:id="@+id/line_3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/baby_purple"
+        android:background="@color/light_bg_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vouchers_option_container" />
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_logout"
@@ -323,7 +322,9 @@
         android:backgroundTint="@color/button_color"
         android:text="Sign Out"
         app:cornerRadius="5dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintStart_toStartOf="@id/left_guideline"
 
