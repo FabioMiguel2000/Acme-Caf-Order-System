@@ -32,7 +32,7 @@ class CategoriesAdapter(private val categories: LinkedList<CategoryItem>) : Recy
         val category = categories[position]
         holder.nameTextView.text = category.name
         //holder.sizeTextView.text = "(${category.size})"
-        holder.sizeTextView.text = "4"
+        holder.sizeTextView.text = category.size.toString()
         //holder.imageView.setImageResource(category.imageSrc)
         holder.imageView.setImageBitmap(general.baseImageToBitMap(category.img))
     }
