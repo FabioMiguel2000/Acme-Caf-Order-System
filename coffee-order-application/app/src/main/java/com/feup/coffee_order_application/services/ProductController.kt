@@ -19,12 +19,18 @@ class ProductController {
                     response: Response<List<CategoryItem>?>
                 ) {
                     var resposta: List<CategoryItem>? = null
+                    var categoryHolder = CategoriesHolder.getInstance()
                     if(response.isSuccessful){
                         if(response != null) {
                             resposta = response.body()
                         }
                     }
-                    val resultado = resposta
+
+                    if (resposta != null) {
+                        for(category in resposta){
+                            categoryHolder.populateCategoryList(category)
+                        }
+                    }
                 }
                 override fun onFailure(call: Call<List<CategoryItem>?>, t: Throwable) {
                     Log.e("result", "nok" + t.message)
