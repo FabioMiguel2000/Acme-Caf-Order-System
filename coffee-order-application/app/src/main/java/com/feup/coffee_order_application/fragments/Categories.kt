@@ -12,6 +12,7 @@ import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.models.Category
 import com.feup.coffee_order_application.services.CategoriesHolder
+import com.feup.coffee_order_application.services.ProductController
 
 val categories = listOf<Category>(
     Category("Hot Coffee", R.drawable.hot_coffee, 10),
@@ -41,12 +42,16 @@ class Categories : Fragment() {
 
         var categoriesHolder = CategoriesHolder.getInstance()
 
-        val adapter = CategoriesAdapter(categoriesHolder.returnCategories())
-
+        var categories = CategoriesAdapter(categoriesHolder.returnCategories())
+        if(categories.itemCount < 1){//if categories not initializ
+            val categoryController = ProductController()
+            categoryController.getProductCategories()
+            categories = CategoriesAdapter(categoriesHolder.returnCategories())
+        }
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_categories)
         recyclerView.layoutManager =
             GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-        recyclerView.adapter = adapter
+        recyclerView.adapter = categories
     }
 
 
