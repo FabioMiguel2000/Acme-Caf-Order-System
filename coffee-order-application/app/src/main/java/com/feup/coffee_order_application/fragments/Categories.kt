@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.models.Category
+import com.feup.coffee_order_application.services.CategoriesHolder
 
 val categories = listOf<Category>(
     Category("Hot Coffee", R.drawable.hot_coffee, 10),
@@ -38,9 +39,9 @@ class Categories : Fragment() {
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Categories"
 
+        var categoriesHolder = CategoriesHolder.getInstance()
 
-
-        val adapter = CategoriesAdapter(categories)
+        val adapter = CategoriesAdapter(categoriesHolder.returnCategories())
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_categories)
         recyclerView.layoutManager =
