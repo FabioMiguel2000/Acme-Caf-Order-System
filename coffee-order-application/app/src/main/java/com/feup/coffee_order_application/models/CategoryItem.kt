@@ -7,4 +7,5 @@ data class CategoryItem(
     val _name: String,
     val img: String,
     val __v: Int,
+    val size: Int,
 )

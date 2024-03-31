@@ -43,7 +43,7 @@ class Categories : Fragment() {
         var categoriesHolder = CategoriesHolder.getInstance()
 
         var categories = CategoriesAdapter(categoriesHolder.returnCategories())
-        if(categories.itemCount < 1){//if categories not initializ
+        if(categories.itemCount < 1){//if categories not initialized call it again
             val categoryController = ProductController()
             categoryController.getProductCategories()
             categories = CategoriesAdapter(categoriesHolder.returnCategories())
