@@ -25,6 +25,13 @@ const createProduct = async (product) => {
         if (!category) {
             throw new Error(`Category with name ${product.category} not found`);
         }
+
+        await ProductCategory.findByIdAndUpdate(
+            category._id, 
+            { $inc: { size: 1 } }, 
+            { new: true } 
+        );
+        
         const newProduct = await new Product({
             name: product.name,
             price: product.price,

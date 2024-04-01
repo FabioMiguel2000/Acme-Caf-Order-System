@@ -18,14 +18,12 @@ const readImageAsBase64 = (imageName) => {
 };
 
 const productCategorySeeders = readJSONFile("categorySeeders").map(category => {
-  console.log(category.img)
   return {
     ...category,
     img: readImageAsBase64(category.img) || '' // Fallback to empty string if image not found
   };
 });
 
-console.log(productCategorySeeders)
 
 // const productCategorySeeders = readJSONFile("productCategorySeeders");
 const productSeeders = readJSONFile("productSeeders");
