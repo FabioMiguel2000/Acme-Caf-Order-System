@@ -44,6 +44,13 @@ class ProfileFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Hi User!"
 
         fetchUserData()
+        binding.vouchersOptionContainer.setOnClickListener {
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.fLayout, AllVouchersFragment())
+                addToBackStack(null)
+                commit()
+            }
+        }
     }
 
     private fun fetchUserData() {
