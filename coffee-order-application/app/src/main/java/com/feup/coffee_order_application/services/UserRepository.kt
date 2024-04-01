@@ -4,6 +4,8 @@ import android.util.Log
 import com.feup.coffee_order_application.models.ApiResponse
 import com.feup.coffee_order_application.models.User
 import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.security.auth.callback.Callback
 
 class UserRepository(private val api: ApiInterface) {
@@ -26,5 +28,21 @@ class UserRepository(private val api: ApiInterface) {
                 callback(null)
             }
         })
+    }
+}
+
+object ServiceLocator {
+
+    private val retrofit = Retrofit.Builder()
+        .baseUrl("http://localhost:3000/api/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private val apiService by lazy {
+        retrofit.create(ApiInterface::class.java)
+    }
+
+    val userRepository by lazy {
+        UserRepository(apiService)
     }
 }

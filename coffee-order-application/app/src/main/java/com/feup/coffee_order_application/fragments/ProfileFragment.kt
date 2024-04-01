@@ -17,6 +17,7 @@ import com.feup.coffee_order_application.models.ApiResponse
 import com.feup.coffee_order_application.models.ResponseApi
 import com.feup.coffee_order_application.models.User
 import com.feup.coffee_order_application.services.ApiInterface
+import com.feup.coffee_order_application.services.ServiceLocator
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -46,31 +47,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun fetchUserData() {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:3000/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val apiService = retrofit.create(ApiInterface::class.java)
-        val call = apiService.getUserById(user_id)
-
-        call.enqueue(object : retrofit2.Callback<ApiResponse<User>> {
-            override fun onResponse(call: retrofit2.Call<ApiResponse<User>>, response: retrofit2.Response<ApiResponse<User>>) {
-                if (response.isSuccessful) {
-                    val user = response.body()?.data
-                    user?.let {
-                        updateUI(it)
-                    }
-                }
+        ServiceLocator.userRepository.getUserById(user_id) { user ->
+            user?.let {
+                updateUI(it)
             }
-
-            override fun onFailure(call: Call<ApiResponse<User>>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
+        }
     }
-
-
 
     private fun updateUI(user: User) {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Hi ${user.name}!"
