@@ -13,21 +13,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AuthManager {
-    val http_handler =  HttpHandlerClass.getInstance()
-    fun login(context: Context, username: String, password: String){
-        //preparing request body
-        val body = mapOf(
-            "email" to username,
-            "password" to password
-        )
-
-        http_handler.retrofitBuilder.login(body).enqueue(object : Callback<ResponseApi> {
-            override fun onResponse(
-                call: Call<ResponseApi>,
-                response: Response<ResponseApi>
-            ) {
-                if(response.code() == 200){
+    fun login(context: Context, username: String, password: String, onSuccess: () -> Unit) {
+        val body = mapOf("email" to username, "password" to password)
+        HttpHandlerClass.getInstance().retrofitBuilder.login(body).enqueue(object : Callback<ResponseApi> {
+            override fun onResponse(call: Call<ResponseApi>, response: Response<ResponseApi>) {
+                if (response.code() == 200) {
                     Toast.makeText(context, "Login succeeded", Toast.LENGTH_LONG).show()
+
                     val intent = Intent(context, MainActivity::class.java);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
@@ -37,7 +29,7 @@ class AuthManager {
                 }
             }
             override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
-                Log.d("error", "Login Request Error: " + t.message)
+                Log.d("error", "Login Request Error: ${t.message}")
             }
         })
     }
