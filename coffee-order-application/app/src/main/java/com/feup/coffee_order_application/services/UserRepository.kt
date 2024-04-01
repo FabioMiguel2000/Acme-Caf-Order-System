@@ -3,6 +3,7 @@ package com.feup.coffee_order_application.services
 import android.util.Log
 import com.feup.coffee_order_application.models.ApiResponse
 import com.feup.coffee_order_application.models.User
+import com.feup.coffee_order_application.models.VoucherData
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -29,6 +30,29 @@ class UserRepository(private val api: ApiInterface) {
             }
         })
     }
+    fun getUserVouchers(userId: String, callback: (List<VoucherData>?) -> Unit) {
+        val call = api.getUserVouchers(userId)
+
+        call.enqueue(object : retrofit2.Callback<ApiResponse<List<VoucherData>>> {
+            override fun onResponse(
+                call: retrofit2.Call<ApiResponse<List<VoucherData>>>,
+                response: retrofit2.Response<ApiResponse<List<VoucherData>>>
+            ) {
+                if (response.isSuccessful) {
+                    Log.d("Response", response.body().toString())
+                    val vouchers = response.body()?.data
+                    callback(vouchers)
+                } else {
+                    callback(null)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<List<VoucherData>>>, t: Throwable) {
+                callback(null)
+            }
+        })
+    }
+
 }
 
 object ServiceLocator {

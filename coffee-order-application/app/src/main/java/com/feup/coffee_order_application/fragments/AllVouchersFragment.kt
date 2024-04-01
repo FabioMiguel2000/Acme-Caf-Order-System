@@ -13,10 +13,11 @@ import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.AllVouchersAdapter
 import com.feup.coffee_order_application.adapters.VoucherAdapter
 import com.feup.coffee_order_application.models.Voucher
+import com.feup.coffee_order_application.services.ServiceLocator
 
 
 class AllVouchersFragment : Fragment() {
-    private var user_id: String = "31ca6621550a71fdb4629390d1d264a2" // hardcoded user id, TODO: get from shared preferences (session)
+    private var userId: String = "31ca6621550a71fdb4629390d1d264a2" // hardcoded user id, TODO: get from shared preferences (session)
     val vouchers = mutableListOf<Voucher>(
         Voucher("9768b993ae44ecea8dfde6439349f1c2", "discount", "dasdadasda", false, false),
         Voucher("3813e7553135d09e6b993f39251e73ab", "discount", "dasdadasda", false, false),
@@ -31,8 +32,18 @@ class AllVouchersFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fetchVouchers()
         setupActionBar()
         setupRecyclerView(view)
+    }
+
+    private fun fetchVouchers(){
+        ServiceLocator.userRepository.getUserVouchers(userId) { vouchers ->
+            vouchers?.let {
+            }
+            Log.d("Vouchers", vouchers.toString())
+        }
     }
 
     private fun setupRecyclerView(view: View) {
