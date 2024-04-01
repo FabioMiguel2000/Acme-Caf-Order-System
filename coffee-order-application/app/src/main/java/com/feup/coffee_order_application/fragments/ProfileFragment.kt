@@ -41,7 +41,11 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Hi User!"
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            title = "Hi User!"
+            setDisplayHomeAsUpEnabled(false)
+            setDisplayShowHomeEnabled(false)
+        }
 
         fetchUserData()
         binding.vouchersOptionContainer.setOnClickListener {
