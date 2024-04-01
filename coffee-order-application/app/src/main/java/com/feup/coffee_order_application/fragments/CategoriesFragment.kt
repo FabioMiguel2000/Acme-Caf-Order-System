@@ -14,7 +14,8 @@ import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.models.Category
 import com.feup.coffee_order_application.services.ServiceLocator
 
-class Categories : Fragment() {
+
+class CategoriesFragment : Fragment() {
     private val categories = mutableListOf<Category>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
