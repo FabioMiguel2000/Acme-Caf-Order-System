@@ -7,8 +7,12 @@ const getProductCategories = async (req, res) => {
     try {
         const productCategories = await ProductCategory.find();
         //in this way becouse i want only a list to be returned and not object with my list inside
-        //returnResponse(res, 200, true, "Sucess", productCategories);
-        res.json(productCategories)
+        // returnResponse(res, 200, true, "Sucess", productCategories);
+        return res.status(200).json({
+            success: true,
+            message: `Retrieved ${productCategories.length} categories`,
+            data: productCategories
+        });
     } catch (error) {
         returnResponse(res, 404, false, "error " + error.message);
     }
