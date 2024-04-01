@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
@@ -20,7 +22,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ProfileFragment : Fragment() {
-    private var user_id: String = "31ca6621550a71fdb4629390d1d264a2"
+    private var user_id: String = "31ca6621550a71fdb4629390d1d264a2" // hardcoded user id, TODO: get from shared preferences (session)
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,16 +70,47 @@ class ProfileFragment : Fragment() {
         })
     }
 
-    @SuppressLint("SetTextI18n")
+
+
     private fun updateUI(user: User) {
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Hi ${user.name}!"
 
-        binding.tvDrinkProgressFraction.text = "${user.accumulatedCoffeeBuys.toInt().toString()}/3"
-        binding.freeDrinkProgressBar.progress = user.accumulatedCoffeeBuys.toInt()
-        binding.tvFreeDrinkProgressDesc.text = "${3- user.accumulatedCoffeeBuys.toInt()} More Drinks To Receive 1 Drink For Free"
+        updateProgress(
+            user.accumulatedCoffeeBuys.toInt(),
+            MAX_COFFEE_BUYS,
+            binding.tvDrinkProgressFraction,
+            binding.freeDrinkProgressBar,
+            binding.tvFreeDrinkProgressDesc,
+            "More Drinks To Receive 1 Drink For Free"
+        )
 
-        binding.tvDiscountProgressFraction.text = "${user.accumulatedExpenses.toInt().toString()}/100"
-        binding.discountProgressBar.progress = user.accumulatedExpenses.toInt()
-        binding.tvDiscountProgressDesc.text = "${100 - user.accumulatedExpenses.toInt()} More Points For Discount Voucher (1EUR = 1 Point)"
+        // Update Discount Progress
+        updateProgress(
+            user.accumulatedExpenses.toInt(),
+            MAX_EXPENSES_POINTS,
+            binding.tvDiscountProgressFraction,
+            binding.discountProgressBar,
+            binding.tvDiscountProgressDesc,
+            "More Points For Discount Voucher (1EUR = 1 Point)"
+        )
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateProgress(
+        currentProgress: Int,
+        maxProgress: Int,
+        progressFractionTextView: TextView,
+        progressBar: ProgressBar,
+        progressDescTextView: TextView,
+        progressDescSuffix: String
+    ) {
+        progressFractionTextView.text = "$currentProgress/$maxProgress"
+        progressBar.progress = currentProgress
+        val remainingProgress = maxProgress - currentProgress
+        progressDescTextView.text = "$remainingProgress $progressDescSuffix"
+    }
+    companion object {
+        private const val MAX_COFFEE_BUYS = 3
+        private const val MAX_EXPENSES_POINTS = 100
     }
 }
