@@ -7,4 +7,9 @@ data class Voucher(
     val used: Boolean,
     val date: String,
     var isSelected: Boolean = false
-)
+){
+    companion object {
+        const val TYPE_DISCOUNT = "Discount"
+        const val TYPE_FREE_COFFEE = "FreeCoffee"
+    }
+}

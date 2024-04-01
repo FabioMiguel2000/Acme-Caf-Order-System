@@ -33,7 +33,7 @@ class VoucherAdapter(private val vouchers: MutableList<Voucher>) :
         val voucher = vouchers[position]
         Log.d("VoucherAdapter", "Voucher: $voucher")
 
-        holder.voucherName.text = if (voucher.type == "Discount") "5 % OFF" else "1 Free Coffee"
+        holder.voucherName.text = if (voucher.type == Voucher.TYPE_DISCOUNT) "5 % OFF" else "1 Free Coffee"
         holder.voucherCode.text = voucher._id
         holder.radioBtnSelected.visibility = if (voucher.isSelected) View.VISIBLE else View.GONE
 

@@ -16,12 +16,6 @@ import com.feup.coffee_order_application.services.ServiceLocator
 import com.feup.coffee_order_application.utils.FileUtils
 import com.google.android.material.button.MaterialButton
 
-//val vouchers = mutableListOf<VoucherData>(
-//    VoucherData("9768b993ae44ecea8dfde6439349f1c2", "discount", User, false, false),
-//    VoucherData("3813e7553135d09e6b993f39251e73ab", "discount", "dasdadasda", false, false),
-//    VoucherData("e3f63421c2da473da3a7838408613889", "coffee", "dasdadasda", false, false),
-//    VoucherData("5f2af742faf4aec14441efa7fb31aa47", "coffee", "dasdadasda", false, false),
-//)
 class VouchersApplyFragment : Fragment() {
     private val cartOrder by lazy { FileUtils.readOrderFromFile(requireContext()) }
     private var userId: String = "31ca6621550a71fdb4629390d1d264a2" // hardcoded user id, TODO: get from shared preferences (session)
@@ -33,7 +27,6 @@ class VouchersApplyFragment : Fragment() {
             voucherType = it.getString(ARG_VOUCHER_TYPE)
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,21 +38,17 @@ class VouchersApplyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fetchVouchers()
-
         setupActionBar()
-
     }
 
     private fun fetchVouchers(){
         ServiceLocator.userRepository.getUserVouchers(userId) { vouchers ->
             vouchers?.let {
                 this.vouchers.addAll(it)
-
             }
             setupRecyclerView(requireView())
             markSelectedVouchers()
             setupApplyVoucherButton(requireView())
-
         }
     }
 
@@ -99,8 +88,8 @@ class VouchersApplyFragment : Fragment() {
 
     private fun applyVoucher(voucher: Voucher) {
         when (voucher.type) {
-            "Discount" -> cartOrder.discountVoucher = voucher
-            "FreeCoffee" -> {
+            Voucher.TYPE_DISCOUNT -> cartOrder.discountVoucher = voucher
+            Voucher.TYPE_FREE_COFFEE -> {
                 cartOrder.coffeeVoucher = voucher
                 addFreeCoffeeIfNecessary()
             }
@@ -115,8 +104,8 @@ class VouchersApplyFragment : Fragment() {
     }
 
     private fun clearVoucherSelection() {
-        if (voucherType == "Discount") cartOrder.discountVoucher = null
-        if (voucherType == "FreeCoffee") {
+        if (voucherType == Voucher.TYPE_DISCOUNT) cartOrder.discountVoucher = null
+        if (voucherType == Voucher.TYPE_FREE_COFFEE) {
             cartOrder.coffeeVoucher = null
             cartOrder.cartProducts.removeAll { it.name == "Free Coffee" }
         }

@@ -34,7 +34,7 @@ class AllVouchersAdapter(private val vouchers: MutableList<Voucher>) :
     override fun onBindViewHolder(holder: AllVoucherViewHolder, position: Int) {
         val voucher = vouchers[position]
 
-        holder.voucherName.text = if (voucher.type == "Discount") "5 % OFF" else "1 Free Coffee"
+        holder.voucherName.text = if (voucher.type == Voucher.TYPE_DISCOUNT) "5 % OFF" else "1 Free Coffee"
         holder.voucherCode.text = voucher._id
         holder.radioBtnSelected.visibility = View.GONE
         holder.radioBtn.visibility = View.GONE

@@ -12,6 +12,7 @@ import com.feup.coffee_order_application.adapters.CartAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.models.Order
+import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.utils.FileUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.round
@@ -76,8 +77,9 @@ class CartFragment : Fragment() {
             val bottomNavigationView: BottomNavigationView = activity.findViewById(R.id.bottom_nav)
             bottomNavigationView.selectedItemId = R.id.home
         }
-        binding.discountVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance("Discount")) }
-        binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance("FreeCoffee")) }
+        binding.discountVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance(
+            Voucher.TYPE_DISCOUNT)) }
+        binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance(Voucher.TYPE_FREE_COFFEE)) }
     }
 
     private fun navigateToFragment(fragment: Fragment) {
