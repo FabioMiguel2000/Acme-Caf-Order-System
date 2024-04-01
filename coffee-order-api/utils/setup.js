@@ -8,7 +8,26 @@ const { encryptPasswords } = require("./crypto/bcryptPassword");
 const readJSONFile = (fileName) =>
   JSON.parse(fs.readFileSync(path.join(__dirname, `./seeders/${fileName}.json`), "utf-8"));
 
-const productCategorySeeders = readJSONFile("productCategorySeeders");
+const readImageAsBase64 = (imageName) => {
+  const imagePath = path.join(__dirname, `./seeders/images/${imageName}`);
+  if (fs.existsSync(imagePath)) {
+    return fs.readFileSync(imagePath, { encoding: 'base64' });
+  }
+  console.warn(`Image ${imageName} not found.`);
+  return null;
+};
+
+const productCategorySeeders = readJSONFile("categorySeeders").map(category => {
+  console.log(category.img)
+  return {
+    ...category,
+    img: readImageAsBase64(category.img) || '' // Fallback to empty string if image not found
+  };
+});
+
+console.log(productCategorySeeders)
+
+// const productCategorySeeders = readJSONFile("productCategorySeeders");
 const productSeeders = readJSONFile("productSeeders");
 const userSeeders = readJSONFile("userSeeders");
 const orderSeeders = readJSONFile("orderSeeders");

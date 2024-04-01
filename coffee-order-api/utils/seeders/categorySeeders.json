@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Hot Coffee",
+        "_name": "hot_coffee",
+        "size": 0,
+        "img": "hot_coffee.png"
+    },
+    {
+        "name": "Cold Coffee",
+        "_name": "cold_coffee",
+        "size": 0,
+        "img": "cold_coffee.png"
+    },
+    {
+        "name": "Cappuccino",
+        "_name": "cappuccino",
+        "size": 0,
+        "img": "cappuccino.png"
+    },
+    {
+        "name": "Frappuccino",
+        "_name": "frappuccino",
+        "size": 0,
+        "img": "frappuccino.png"
+    },
+    {
+        "name": "Mocha",
+        "_name": "mocha",
+        "size": 0,
+        "img": "mocha.png"
+    },
+    {
+        "name": "Oleato",
+        "_name": "oleato",
+        "size": 0,
+        "img": "oleato.png"
+    }
+]
