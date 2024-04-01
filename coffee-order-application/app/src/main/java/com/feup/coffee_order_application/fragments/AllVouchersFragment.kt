@@ -16,6 +16,7 @@ import com.feup.coffee_order_application.models.Voucher
 
 
 class AllVouchersFragment : Fragment() {
+    private var user_id: String = "31ca6621550a71fdb4629390d1d264a2" // hardcoded user id, TODO: get from shared preferences (session)
     val vouchers = mutableListOf<Voucher>(
         Voucher("9768b993ae44ecea8dfde6439349f1c2", "discount", "dasdadasda", false, false),
         Voucher("3813e7553135d09e6b993f39251e73ab", "discount", "dasdadasda", false, false),
