@@ -5,5 +5,6 @@ data class VoucherData(
     val type: String,
     val client: User,
     val used: Boolean,
-    val date: String
+    val date: String,
+    var isSelected: Boolean = false
 )

@@ -1,6 +1,7 @@
 package com.feup.coffee_order_application.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,18 +12,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.VoucherAdapter
 import com.feup.coffee_order_application.models.CartProduct
+import com.feup.coffee_order_application.models.User
 import com.feup.coffee_order_application.models.Voucher
+import com.feup.coffee_order_application.models.VoucherData
+import com.feup.coffee_order_application.services.ServiceLocator
 import com.feup.coffee_order_application.utils.FileUtils
 import com.google.android.material.button.MaterialButton
 
-val vouchers = mutableListOf<Voucher>(
-    Voucher("9768b993ae44ecea8dfde6439349f1c2", "discount", "dasdadasda", false, false),
-    Voucher("3813e7553135d09e6b993f39251e73ab", "discount", "dasdadasda", false, false),
-    Voucher("e3f63421c2da473da3a7838408613889", "coffee", "dasdadasda", false, false),
-    Voucher("5f2af742faf4aec14441efa7fb31aa47", "coffee", "dasdadasda", false, false),
-)
+//val vouchers = mutableListOf<VoucherData>(
+//    VoucherData("9768b993ae44ecea8dfde6439349f1c2", "discount", User, false, false),
+//    VoucherData("3813e7553135d09e6b993f39251e73ab", "discount", "dasdadasda", false, false),
+//    VoucherData("e3f63421c2da473da3a7838408613889", "coffee", "dasdadasda", false, false),
+//    VoucherData("5f2af742faf4aec14441efa7fb31aa47", "coffee", "dasdadasda", false, false),
+//)
 class VouchersApplyFragment : Fragment() {
     private val cartOrder by lazy { FileUtils.readOrderFromFile(requireContext()) }
+    private var userId: String = "31ca6621550a71fdb4629390d1d264a2" // hardcoded user id, TODO: get from shared preferences (session)
+    private val vouchers = mutableListOf<VoucherData>()
     private var voucherType: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,15 +47,30 @@ class VouchersApplyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fetchVouchers()
+
         setupActionBar()
-        setupRecyclerView(view)
-        markSelectedVouchers()
-        setupApplyVoucherButton(view)
+
+    }
+
+    private fun fetchVouchers(){
+        ServiceLocator.userRepository.getUserVouchers(userId) { vouchers ->
+            vouchers?.let {
+                this.vouchers.addAll(it)
+
+            }
+            setupRecyclerView(requireView())
+            markSelectedVouchers()
+            setupApplyVoucherButton(requireView())
+
+        }
     }
 
 
     private fun setupRecyclerView(view: View) {
         val filteredVouchers = vouchers.filter { it.type == voucherType }.toMutableList()
+        Log.d("Filtered Vouchers", filteredVouchers.toString())
+        Log.d("Vouchers", this.vouchers.toString())
         val adapter = VoucherAdapter(filteredVouchers)
         view.findViewById<RecyclerView>(R.id.rv_vouchers).apply {
             layoutManager = LinearLayoutManager(context)
@@ -59,10 +80,10 @@ class VouchersApplyFragment : Fragment() {
 
     private fun markSelectedVouchers() {
         cartOrder.discountVoucher?.let { discountVoucher ->
-            vouchers.find { it.uuid == discountVoucher.uuid }?.isSelected = true
+            vouchers.find { it._id == discountVoucher._id }?.isSelected = true
         }
         cartOrder.coffeeVoucher?.let { coffeeVoucher ->
-            vouchers.find { it.uuid == coffeeVoucher.uuid }?.isSelected = true
+            vouchers.find { it._id == coffeeVoucher._id }?.isSelected = true
         }
     }
 
@@ -81,7 +102,7 @@ class VouchersApplyFragment : Fragment() {
         FileUtils.saveOrderToFile(cartOrder, requireContext())
     }
 
-    private fun applyVoucher(voucher: Voucher) {
+    private fun applyVoucher(voucher: VoucherData) {
         when (voucher.type) {
             "discount" -> cartOrder.discountVoucher = voucher
             "coffee" -> {

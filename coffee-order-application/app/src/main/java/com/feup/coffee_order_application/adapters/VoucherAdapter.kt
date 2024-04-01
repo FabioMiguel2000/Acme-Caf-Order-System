@@ -1,6 +1,7 @@
 package com.feup.coffee_order_application.adapters
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.databinding.VoucherCardBinding
 import com.feup.coffee_order_application.models.Voucher
+import com.feup.coffee_order_application.models.VoucherData
 import kotlin.math.round
 
-class VoucherAdapter(private val vouchers: MutableList<Voucher>) :
+class VoucherAdapter(private val vouchers: MutableList<VoucherData>) :
     RecyclerView.Adapter<VoucherAdapter.VoucherViewHolder>() {
 
     class VoucherViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,9 +34,10 @@ class VoucherAdapter(private val vouchers: MutableList<Voucher>) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: VoucherViewHolder, position: Int) {
         val voucher = vouchers[position]
+        Log.d("VoucherAdapter", "Voucher: $voucher")
 
-        holder.voucherName.text = if (voucher.type == "discount") "5 % OFF" else "1 Free Coffee"
-        holder.voucherCode.text = voucher.uuid
+        holder.voucherName.text = if (voucher.type == "Discount") "5 % OFF" else "1 Free Coffee"
+        holder.voucherCode.text = voucher._id
         holder.radioBtnSelected.visibility = if (voucher.isSelected) View.VISIBLE else View.GONE
 
         if (holder.radioBtnSelected.visibility == View.VISIBLE) {

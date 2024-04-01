@@ -76,8 +76,8 @@ class CartFragment : Fragment() {
             val bottomNavigationView: BottomNavigationView = activity.findViewById(R.id.bottom_nav)
             bottomNavigationView.selectedItemId = R.id.home
         }
-        binding.discountVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance("discount")) }
-        binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance("coffee")) }
+        binding.discountVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance("Discount")) }
+        binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance("FreeCoffee")) }
     }
 
     private fun navigateToFragment(fragment: Fragment) {
