@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.AllVouchersAdapter
-import com.feup.coffee_order_application.models.VoucherData
+import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.services.ServiceLocator
 
 
 class AllVouchersFragment : Fragment() {
     private var userId: String = "31ca6621550a71fdb4629390d1d264a2" // hardcoded user id, TODO: get from shared preferences (session)
-    private val vouchers = mutableListOf<VoucherData>()
+    private val vouchers = mutableListOf<Voucher>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

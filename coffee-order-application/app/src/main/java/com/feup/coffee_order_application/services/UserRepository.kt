@@ -3,11 +3,10 @@ package com.feup.coffee_order_application.services
 import android.util.Log
 import com.feup.coffee_order_application.models.ApiResponse
 import com.feup.coffee_order_application.models.User
-import com.feup.coffee_order_application.models.VoucherData
+import com.feup.coffee_order_application.models.Voucher
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.security.auth.callback.Callback
 
 class UserRepository(private val api: ApiInterface) {
     fun getUserById (userId: String, callback: (User?)->Unit){
@@ -30,13 +29,13 @@ class UserRepository(private val api: ApiInterface) {
             }
         })
     }
-    fun getUserVouchers(userId: String, callback: (List<VoucherData>?) -> Unit) {
+    fun getUserVouchers(userId: String, callback: (List<Voucher>?) -> Unit) {
         val call = api.getUserVouchers(userId)
 
-        call.enqueue(object : retrofit2.Callback<ApiResponse<List<VoucherData>>> {
+        call.enqueue(object : retrofit2.Callback<ApiResponse<List<Voucher>>> {
             override fun onResponse(
-                call: retrofit2.Call<ApiResponse<List<VoucherData>>>,
-                response: retrofit2.Response<ApiResponse<List<VoucherData>>>
+                call: retrofit2.Call<ApiResponse<List<Voucher>>>,
+                response: retrofit2.Response<ApiResponse<List<Voucher>>>
             ) {
                 if (response.isSuccessful) {
                     Log.d("Response", response.body().toString())
@@ -47,7 +46,7 @@ class UserRepository(private val api: ApiInterface) {
                 }
             }
 
-            override fun onFailure(call: Call<ApiResponse<List<VoucherData>>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<List<Voucher>>>, t: Throwable) {
                 callback(null)
             }
         })

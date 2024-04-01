@@ -1,6 +1,6 @@
 package com.feup.coffee_order_application.models
 
-data class VoucherData(
+data class Voucher(
     val _id: String,
     val type: String,
     val client: User,

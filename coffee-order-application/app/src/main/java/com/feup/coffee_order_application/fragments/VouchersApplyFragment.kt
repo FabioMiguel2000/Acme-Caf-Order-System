@@ -1,7 +1,6 @@
 package com.feup.coffee_order_application.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.VoucherAdapter
 import com.feup.coffee_order_application.models.CartProduct
-import com.feup.coffee_order_application.models.VoucherData
+import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.services.ServiceLocator
 import com.feup.coffee_order_application.utils.FileUtils
 import com.google.android.material.button.MaterialButton
@@ -26,7 +25,7 @@ import com.google.android.material.button.MaterialButton
 class VouchersApplyFragment : Fragment() {
     private val cartOrder by lazy { FileUtils.readOrderFromFile(requireContext()) }
     private var userId: String = "31ca6621550a71fdb4629390d1d264a2" // hardcoded user id, TODO: get from shared preferences (session)
-    private val vouchers = mutableListOf<VoucherData>()
+    private val vouchers = mutableListOf<Voucher>()
     private var voucherType: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,7 +97,7 @@ class VouchersApplyFragment : Fragment() {
         FileUtils.saveOrderToFile(cartOrder, requireContext())
     }
 
-    private fun applyVoucher(voucher: VoucherData) {
+    private fun applyVoucher(voucher: Voucher) {
         when (voucher.type) {
             "Discount" -> cartOrder.discountVoucher = voucher
             "FreeCoffee" -> {
