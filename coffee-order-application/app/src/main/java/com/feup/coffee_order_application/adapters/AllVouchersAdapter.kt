@@ -1,11 +1,13 @@
 package com.feup.coffee_order_application.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.databinding.VoucherCardBinding
@@ -20,6 +22,7 @@ class AllVouchersAdapter(private val vouchers: MutableList<Voucher>) :
         val voucherCode: TextView = view.findViewById(R.id.tv_voucher_code)
         val radioBtnSelected: ImageView = view.findViewById(R.id.img_radio_btn_selected)
         val radioBtn: ImageView = view.findViewById(R.id.img_radio_btn)
+        val cardLayout: ConstraintLayout = view.findViewById(R.id.voucher_card_layout)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllVoucherViewHolder {
@@ -37,6 +40,10 @@ class AllVouchersAdapter(private val vouchers: MutableList<Voucher>) :
         holder.voucherCode.text = voucher.uuid
         holder.radioBtnSelected.visibility = View.GONE
         holder.radioBtn.visibility = View.GONE
+
+        if (voucher.used) {
+            holder.cardLayout.setBackgroundColor(Color.parseColor("#DBD8DD"))
+        }
 
     }
 
