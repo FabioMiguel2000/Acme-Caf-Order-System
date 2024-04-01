@@ -17,7 +17,7 @@ const readImageAsBase64 = (imageName) => {
   return null;
 };
 
-const productCategorySeeders = readJSONFile("categorySeeders").map(category => {
+const productCategorySeeders = readJSONFile("productCategorySeeders").map(category => {
   return {
     ...category,
     img: readImageAsBase64(category.img) || '' // Fallback to empty string if image not found
