@@ -34,7 +34,7 @@ class UserRepository(private val api: ApiInterface) {
 object ServiceLocator {
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("http://localhost:3000/api/")
+        .baseUrl("http://10.0.2.2:3000/api/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
