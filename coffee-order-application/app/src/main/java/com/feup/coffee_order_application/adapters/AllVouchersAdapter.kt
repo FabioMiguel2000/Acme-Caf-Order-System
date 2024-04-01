@@ -10,10 +10,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.databinding.VoucherCardBinding
-import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.models.VoucherData
-import kotlin.math.round
 
 class AllVouchersAdapter(private val vouchers: MutableList<VoucherData>) :
     RecyclerView.Adapter<AllVouchersAdapter.AllVoucherViewHolder>() {

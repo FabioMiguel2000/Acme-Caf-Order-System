@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.VoucherAdapter
 import com.feup.coffee_order_application.models.CartProduct
-import com.feup.coffee_order_application.models.User
-import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.models.VoucherData
 import com.feup.coffee_order_application.services.ServiceLocator
 import com.feup.coffee_order_application.utils.FileUtils
@@ -69,8 +67,6 @@ class VouchersApplyFragment : Fragment() {
 
     private fun setupRecyclerView(view: View) {
         val filteredVouchers = vouchers.filter { it.type == voucherType }.toMutableList()
-        Log.d("Filtered Vouchers", filteredVouchers.toString())
-        Log.d("Vouchers", this.vouchers.toString())
         val adapter = VoucherAdapter(filteredVouchers)
         view.findViewById<RecyclerView>(R.id.rv_vouchers).apply {
             layoutManager = LinearLayoutManager(context)
@@ -104,8 +100,8 @@ class VouchersApplyFragment : Fragment() {
 
     private fun applyVoucher(voucher: VoucherData) {
         when (voucher.type) {
-            "discount" -> cartOrder.discountVoucher = voucher
-            "coffee" -> {
+            "Discount" -> cartOrder.discountVoucher = voucher
+            "FreeCoffee" -> {
                 cartOrder.coffeeVoucher = voucher
                 addFreeCoffeeIfNecessary()
             }
@@ -120,8 +116,8 @@ class VouchersApplyFragment : Fragment() {
     }
 
     private fun clearVoucherSelection() {
-        if (voucherType == "discount") cartOrder.discountVoucher = null
-        if (voucherType == "coffee") {
+        if (voucherType == "Discount") cartOrder.discountVoucher = null
+        if (voucherType == "FreeCoffee") {
             cartOrder.coffeeVoucher = null
             cartOrder.cartProducts.removeAll { it.name == "Free Coffee" }
         }

@@ -1,7 +1,6 @@
 package com.feup.coffee_order_application.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.AllVouchersAdapter
-import com.feup.coffee_order_application.adapters.VoucherAdapter
-import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.models.VoucherData
 import com.feup.coffee_order_application.services.ServiceLocator
 
