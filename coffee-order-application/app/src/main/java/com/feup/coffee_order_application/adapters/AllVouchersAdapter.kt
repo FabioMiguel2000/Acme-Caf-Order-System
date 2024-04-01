@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.databinding.VoucherCardBinding
 import com.feup.coffee_order_application.models.Voucher
+import com.feup.coffee_order_application.models.VoucherData
 import kotlin.math.round
 
-class AllVouchersAdapter(private val vouchers: MutableList<Voucher>) :
+class AllVouchersAdapter(private val vouchers: MutableList<VoucherData>) :
     RecyclerView.Adapter<AllVouchersAdapter.AllVoucherViewHolder>() {
 
     class AllVoucherViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -37,7 +38,7 @@ class AllVouchersAdapter(private val vouchers: MutableList<Voucher>) :
         val voucher = vouchers[position]
 
         holder.voucherName.text = if (voucher.type == "discount") "5 % OFF" else "1 Free Coffee"
-        holder.voucherCode.text = voucher.uuid
+        holder.voucherCode.text = voucher._id
         holder.radioBtnSelected.visibility = View.GONE
         holder.radioBtn.visibility = View.GONE
 
