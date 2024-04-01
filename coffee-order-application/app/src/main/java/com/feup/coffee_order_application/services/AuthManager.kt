@@ -28,11 +28,10 @@ class AuthManager {
             ) {
                 if(response.code() == 200){
                     Toast.makeText(context, "Login succeeded", Toast.LENGTH_LONG).show()
-                    Thread().run{
-                        var intent = Intent(context, MainActivity::class.java);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        context.startActivity(intent)
-                    }
+                    val intent = Intent(context, MainActivity::class.java);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(intent)
+
                 } else {
                     Toast.makeText(context, "Email or password is wrong", Toast.LENGTH_LONG).show()
                 }
