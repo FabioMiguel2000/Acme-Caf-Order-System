@@ -1,29 +1,20 @@
 package com.feup.coffee_order_application.fragments
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.nfc.Tag
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CartAdapter
 import com.feup.coffee_order_application.adapters.CartQuantityChangeListener
-import com.feup.coffee_order_application.adapters.CategoriesAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.models.CartProduct
-import com.feup.coffee_order_application.models.Category
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.button.MaterialButton
 import kotlin.math.round
 
 val cartProducts = mutableListOf<CartProduct>(

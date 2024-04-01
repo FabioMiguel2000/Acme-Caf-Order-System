@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CategoriesAdapter
-import com.feup.coffee_order_application.models.CategoryItem
+import com.feup.coffee_order_application.models.Category
 import com.feup.coffee_order_application.services.ServiceLocator
 
 class Categories : Fragment() {
-    private val categories = mutableListOf<CategoryItem>()
+    private val categories = mutableListOf<Category>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
