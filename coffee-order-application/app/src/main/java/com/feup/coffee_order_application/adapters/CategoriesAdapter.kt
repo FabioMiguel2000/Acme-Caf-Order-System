@@ -28,7 +28,7 @@ class CategoriesAdapter(private val categories: MutableList<Category>) : Recycle
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categories[position]
         holder.nameTextView.text = category.name
-        holder.sizeTextView.text = category.size.toString()
+        holder.sizeTextView.text = "(${category.size})"
         val general = General()
         holder.imageView.setImageBitmap(general.baseImageToBitMap(category.img))
 //        general.loadBase64ImageIntoView(category.img, holder.imageView)
