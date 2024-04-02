@@ -11,6 +11,7 @@ import com.feup.coffee_order_application.models.ResponseApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.security.PublicKey
 
 class AuthManager {
     fun login(context: Context, username: String, password: String, onSuccess: () -> Unit) {
@@ -32,5 +33,37 @@ class AuthManager {
                 Log.d("error", "Login Request Error: ${t.message}")
             }
         })
+    }
+
+    fun register(context: Context, name: String, email: String, nif: String,  password: String, publicKey: String, callback: RegistrationCallback){
+        //preparing request body
+        val body = mapOf(
+            "name" to name,
+            "email" to email,
+            "nif" to nif,
+            "password" to password,
+            "publicKey" to publicKey
+        )
+
+        return HttpHandlerClass.getInstance().retrofitBuilder.register(body).enqueue(object : Callback<ResponseApi> {
+            override fun onResponse(
+                call: Call<ResponseApi>,
+                response: Response<ResponseApi>
+            ) {
+                if(response.code() == 201){
+                    Toast.makeText(context, "Register succeeded", Toast.LENGTH_LONG).show()
+                    callback.onRegistrationSuccess()
+                } else {
+                    Toast.makeText(context, "Verify your information", Toast.LENGTH_LONG).show()
+                }
+            }
+            override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
+                Log.d("error", "Register Request Error: " + t.message)
+            }
+        })
+    }
+
+    interface RegistrationCallback {
+        fun onRegistrationSuccess()
     }
 }

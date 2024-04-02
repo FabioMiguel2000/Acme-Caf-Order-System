@@ -12,6 +12,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiInterface {
+    @POST("auth/register")
+    @JvmSuppressWildcards
+    fun register(@Body body: Map<String, Any>): Call<ResponseApi>
     @POST("auth/login")
     @JvmSuppressWildcards
     fun login(@Body body: Map<String, Any>): Call<ResponseApi>
@@ -19,4 +22,5 @@ interface ApiInterface {
     fun getUserById(@Path("id") userId: String): Call<ApiResponse<User>>
     @GET("vouchers/client")
     fun getUserVouchers(@Query("client") clientId: String): Call<ApiResponse<List<Voucher>>>
+
 }
