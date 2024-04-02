@@ -80,7 +80,7 @@ const getProductById = async (req, res) => {
   }
 };
 
-const getProductByCategory = async (req, res) => {
+const getProductsByCategory = async (req, res) => {
   try {
     const { category } = req.query;
     if (category === undefined || category === "") {
@@ -96,9 +96,28 @@ const getProductByCategory = async (req, res) => {
       .select("_id")
       .lean();
 
-    const products = await Product.find({
-      category: categoryObjectId,
-    });
+      const products = await Product.aggregate([
+        { $match: { category: categoryObjectId._id } },
+        {
+          $lookup: {
+            from: 'categories', 
+            localField: 'category', 
+            foreignField: '_id', 
+            as: 'categoryDetails',
+          },
+        },
+        {
+          $unwind: '$categoryDetails',
+        },
+        {
+          $project: {
+            name: 1,
+            price: 1,
+            imgURL: 1,
+            category: '$categoryDetails._name',
+          },
+        },
+      ]);
 
     if (products.length === 0) {
       return res.status(404).json({
@@ -126,5 +145,5 @@ module.exports = {
   getProductById,
   getProductCategories,
   createProduct,
-  getProductByCategory,
+  getProductsByCategory,
 };
