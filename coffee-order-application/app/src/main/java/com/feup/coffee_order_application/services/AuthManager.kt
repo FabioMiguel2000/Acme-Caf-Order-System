@@ -35,7 +35,7 @@ class AuthManager {
         })
     }
 
-    fun register(context: Context, name: String, email: String, nif: String,  password: String, publicKey: String){
+    fun register(context: Context, name: String, email: String, nif: String,  password: String, publicKey: String, callback: RegistrationCallback){
         //preparing request body
         val body = mapOf(
             "name" to name,
@@ -45,13 +45,14 @@ class AuthManager {
             "publicKey" to publicKey
         )
 
-        http_handler.retrofitBuilder.register(body).enqueue(object : Callback<ResponseApi> {
+        return http_handler.retrofitBuilder.register(body).enqueue(object : Callback<ResponseApi> {
             override fun onResponse(
                 call: Call<ResponseApi>,
                 response: Response<ResponseApi>
             ) {
                 if(response.code() == 201){
                     Toast.makeText(context, "Register succeeded", Toast.LENGTH_LONG).show()
+                    callback.onRegistrationSuccess()
                 } else {
                     Toast.makeText(context, "Verify your information", Toast.LENGTH_LONG).show()
                 }
@@ -60,5 +61,9 @@ class AuthManager {
                 Log.d("error", "Register Request Error: " + t.message)
             }
         })
+    }
+
+    interface RegistrationCallback {
+        fun onRegistrationSuccess()
     }
 }

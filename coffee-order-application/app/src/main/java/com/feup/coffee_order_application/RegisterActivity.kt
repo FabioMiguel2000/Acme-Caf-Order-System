@@ -44,12 +44,18 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
 
             val auth = AuthManager()
-            auth.register(this.baseContext, name.text.toString(), email.text.toString(), nif.text.toString(), password.text.toString(), crypto.getPublicKeyBase64())
-            name.text.clear()
-            email.text.clear()
-            nif.text.clear()
-            password.text.clear()
-            passwordConfirmation.text.clear()
+            auth.register(this.baseContext, name.text.toString(), email.text.toString(), nif.text.toString(), password.text.toString(), crypto.getPublicKeyBase64(), object :
+                AuthManager.RegistrationCallback {
+
+                override fun onRegistrationSuccess() {
+                    //TODO: Send user to home activity
+                    name.text.clear()
+                    email.text.clear()
+                    nif.text.clear()
+                    password.text.clear()
+                    passwordConfirmation.text.clear()
+                }
+            })
         }
     }
 
