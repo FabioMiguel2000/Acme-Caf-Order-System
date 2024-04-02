@@ -5,6 +5,6 @@ object Crypto {
     const val KEY_ALGO = "RSA"
     const val SIGN_ALGO = "SHA256WithRSA"
     const val ENC_ALGO = "RSA/NONE/PKCS1Padding"
-    const val KeyName = "myDemoKey"
+    const val KeyName = "ACMECAFE"
     const val SerialNr = 1234567890L
 }

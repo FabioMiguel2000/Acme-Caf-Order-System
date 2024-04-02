@@ -13,11 +13,7 @@ import java.util.Calendar
 import java.util.GregorianCalendar
 import javax.security.auth.x500.X500Principal
 
-fun byteArrayToHex(ba: ByteArray): String {
-    val sb = StringBuilder(ba.size * 2)
-    for (b in ba) sb.append(String.format("%02x", b))
-    return sb.toString()
-}
+
 data class PubKey(var modulus: ByteArray, var exponent: ByteArray)
 
 class CryptoKeys {
@@ -89,16 +85,16 @@ class CryptoKeys {
         return exp
     }
 
-    fun getPublicKeyBase64(): String {
-        var pubKeyString: String = ""
-        try {
-            val pubKey = (entry as KeyStore.PrivateKeyEntry).certificate.publicKey
-            val pubKeyBytes = pubKey.encoded
-            pubKeyString = Base64.encodeToString(pubKeyBytes, Base64.DEFAULT)
-        } catch (ex: Exception) {
-            Log.d("error", "Get base64 public key error: " + ex.message)
-        }
-        return pubKeyString
+    fun getPublicKey(): String {
+        val pkey = getPubKey()
+        val pkeyString = byteArrayToHex(pkey.modulus)
+        return pkeyString
+    }
+
+    private fun byteArrayToHex(ba: ByteArray): String {
+        val sb = StringBuilder(ba.size * 2)
+        for (b in ba) sb.append(String.format("%02x", b))
+        return sb.toString()
     }
 
 }

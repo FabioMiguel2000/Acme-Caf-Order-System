@@ -44,7 +44,7 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
 
             val auth = AuthManager()
-            auth.register(this.baseContext, name.text.toString(), email.text.toString(), nif.text.toString(), password.text.toString(), crypto.getPublicKeyBase64(), object :
+            auth.register(this.baseContext, name.text.toString(), email.text.toString(), nif.text.toString(), password.text.toString(), crypto.getPublicKey(), object :
                 AuthManager.RegistrationCallback {
 
                 override fun onRegistrationSuccess() {
