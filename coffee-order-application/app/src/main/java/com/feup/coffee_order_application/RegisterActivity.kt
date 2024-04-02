@@ -1,5 +1,6 @@
 package com.feup.coffee_order_application
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.MenuItem
@@ -27,14 +28,14 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        var name = findViewById<EditText>(R.id.name_value)
-        var email = findViewById<EditText>(R.id.email_value)
-        var nif = findViewById<EditText>(R.id.nif_value)
-        var password = findViewById<EditText>(R.id.password_value)
-        var passwordConfirmation = findViewById<EditText>(R.id.passwordconfirmation_value)
-        var btnRegister: Button = findViewById(R.id.btn_register)
+        val name = findViewById<EditText>(R.id.name_value)
+        val email = findViewById<EditText>(R.id.email_value)
+        val nif = findViewById<EditText>(R.id.nif_value)
+        val password = findViewById<EditText>(R.id.password_value)
+        val passwordConfirmation = findViewById<EditText>(R.id.passwordconfirmation_value)
+        val btnRegister: Button = findViewById(R.id.btn_register)
 
-        btnRegister?.setOnClickListener{
+        btnRegister.setOnClickListener{
             if(!generated){
                 generated = crypto.generateAndStoreKeys()
             }
@@ -48,12 +49,16 @@ class RegisterActivity : AppCompatActivity() {
                 AuthManager.RegistrationCallback {
 
                 override fun onRegistrationSuccess() {
-                    //TODO: Send user to home activity
                     name.text.clear()
                     email.text.clear()
                     nif.text.clear()
                     password.text.clear()
                     passwordConfirmation.text.clear()
+
+                    val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                    startActivity(intent)
+
+                    finish()
                 }
             })
         }
@@ -68,7 +73,7 @@ class RegisterActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun validateForm(name:String, email:String, nif: String, password: String, passwordConfirmation: String, generated: Boolean): Boolean {
+    private fun validateForm(name:String, email:String, nif: String, password: String, passwordConfirmation: String, generated: Boolean): Boolean {
 
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(nif) || TextUtils.isEmpty(password) || TextUtils.isEmpty(passwordConfirmation)){
             Toast.makeText(this, "Incorrect form fill", Toast.LENGTH_SHORT).show()
