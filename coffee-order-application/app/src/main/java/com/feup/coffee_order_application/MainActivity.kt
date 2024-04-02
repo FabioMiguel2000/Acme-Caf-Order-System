@@ -39,18 +39,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
-            R.id.logout ->{
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            R.id.logout -> {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
+
 
     private fun setCurrentPage(fragment: Fragment){
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fLayout, fragment)
+            addToBackStack(null)
             commit()
         }
     }
