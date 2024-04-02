@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.androidApplication)
@@ -9,6 +10,16 @@ android {
     namespace = "com.feup.coffee_order_application"
     compileSdk = 34
 
+    val localProperties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localProperties.load(localPropertiesFile.inputStream())
+    }
+
+    val apiBaseUrl: String by localProperties
+    val defaultApiBaseUrl = "http://10.0.2.2:3000/api/"
+    val apiUrl = apiBaseUrl ?: defaultApiBaseUrl
+
     defaultConfig {
         applicationId = "com.feup.coffee_order_application"
         minSdk = 26
@@ -16,6 +27,8 @@ android {
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_BASE_URL", "\"$apiUrl\"")
     }
 
     buildTypes {
@@ -30,6 +43,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 
     compileOptions {
@@ -65,4 +79,5 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
     implementation("com.google.android.material:material:1.6.0")
+    implementation("com.google.code.gson:gson:2.8.8")
 }
