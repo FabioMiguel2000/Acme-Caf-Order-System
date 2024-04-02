@@ -8,7 +8,24 @@ const { encryptPasswords } = require("./crypto/bcryptPassword");
 const readJSONFile = (fileName) =>
   JSON.parse(fs.readFileSync(path.join(__dirname, `./seeders/${fileName}.json`), "utf-8"));
 
-const productCategorySeeders = readJSONFile("productCategorySeeders");
+const readImageAsBase64 = (imageName) => {
+  const imagePath = path.join(__dirname, `./seeders/images/${imageName}`);
+  if (fs.existsSync(imagePath)) {
+    return fs.readFileSync(imagePath, { encoding: 'base64' });
+  }
+  console.warn(`Image ${imageName} not found.`);
+  return null;
+};
+
+const productCategorySeeders = readJSONFile("productCategorySeeders").map(category => {
+  return {
+    ...category,
+    img: readImageAsBase64(category.img) || '' // Fallback to empty string if image not found
+  };
+});
+
+
+// const productCategorySeeders = readJSONFile("productCategorySeeders");
 const productSeeders = readJSONFile("productSeeders");
 const userSeeders = readJSONFile("userSeeders");
 const orderSeeders = readJSONFile("orderSeeders");
@@ -28,7 +45,7 @@ const importData = async () => {
   try {
     await dbconnection();
     const userSeedersEncrypted = await encryptPasswords(userSeeders);
-    await Promise.all([Product.deleteMany(), User.deleteMany(), Order.deleteMany(), Voucher.deleteMany()]);
+    await Promise.all([Category.deleteMany(), Product.deleteMany(), User.deleteMany(), Order.deleteMany(), Voucher.deleteMany()]);
     await Promise.all([Category.insertMany(productCategorySeeders), User.insertMany(userSeedersEncrypted)]);
 
     for (let product of productSeeders) {
