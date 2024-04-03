@@ -24,27 +24,42 @@ class CategoriesFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_categories, container, false)
     }
-
-    private fun setupRecyclerView(view: View) {
-        val adapter = CategoriesAdapter(categories)
-        Log.d("categories", categories.size.toString())
-
-        view.findViewById<RecyclerView>(R.id.rv_categories).apply {
-            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-            this.adapter = adapter
-        }
-    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Categories"
+        setupActionBar()
+        setupRecyclerView(view)
 
         ServiceLocator.productRepository.fetchProductCategories { categories ->
             categories?.let {
                 this.categories.clear()
                 this.categories.addAll(it)
-                setupRecyclerView(view)
+                updateRecyclerView()
             }
+        }
+    }
+    private fun setupRecyclerView(view: View) {
+        val adapter = CategoriesAdapter(mutableListOf())
+        view.findViewById<RecyclerView>(R.id.rv_categories).apply {
+            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+            this.adapter = adapter
+        }
+    }
+
+    private fun updateRecyclerView() {
+        val recyclerView = requireView().findViewById<RecyclerView>(R.id.rv_categories)
+        (recyclerView.adapter as? CategoriesAdapter)?.let { adapter ->
+            adapter.categories.clear()
+            adapter.categories.addAll(this.categories)
+            adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            title = "Categories"
+            setDisplayHomeAsUpEnabled(false)
+            setDisplayShowHomeEnabled(false)
         }
     }
 }
