@@ -1,3 +1,4 @@
+const category = require("../models/category");
 const ProductCategory = require("../models/category");
 const Product = require("../models/product");
 const { returnResponse } = require("../services/general");
@@ -45,17 +46,9 @@ const createProduct = async (product) => {
 const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    return res.status(200).json({
-      success: true,
-      message: `Retrieved ${products.length} products`,
-      data: products,
-    });
+    returnResponse(res, 200, true, `Retrieved ${products.length} products`, products);
   } catch (error) {
-    return res.status(500).json({
-      error: true,
-      success: false,
-      message: `Failed to retrieve products ${error}`,
-    });
+    returnResponse(res, 500, false, `Failed to retrieve products ${error}`);
   }
 };
 
@@ -64,17 +57,9 @@ const getProductById = async (req, res) => {
     const { id } = req.params;
     const product = await Product.findById(id);
     if (!product) {
-      return res.status(404).json({
-        error: true,
-        success: false,
-        message: `Product with id: ${id} not found`,
-      });
+      returnResponse(res, 404, false, `Product with id: ${id} not found`);
     }
-    return res.status(200).json({
-      success: true,
-      message: `Retrieved product with id: ${id}`,
-      data: product,
-    });
+    returnResponse(res, 200, true, `Retrieved product with id: ${id}`, product);
   } catch (error) {
     returnResponse(res, 404, false, error.message);
   }
@@ -84,12 +69,7 @@ const getProductsByCategory = async (req, res) => {
   try {
     const { category } = req.query;
     if (category === undefined || category === "") {
-      return res.status(400).json({
-        error: true,
-        success: false,
-        message:
-          "Bad Request: category query parameter is required and cannot be empty, e.g. /products/category?category=Hot%20Coffees",
-      });
+      returnResponse(res, 400, false, "Bad Request: category query parameter is required and cannot be empty, e.g. /products/category?category=Hot%20Coffees");
     }
 
     const categoryObjectId = await ProductCategory.findOne({ _name: category })
@@ -120,23 +100,11 @@ const getProductsByCategory = async (req, res) => {
       ]);
 
     if (products.length === 0) {
-      return res.status(404).json({
-        error: true,
-        success: false,
-        message: `Products with category: ${category} not found`,
-      });
+      returnResponse(res, 404, false, `Products with category: ${category} not found`);
     }
-    return res.status(200).json({
-      success: true,
-      message: `Retrieved ${products.length} products with category: ${category}`,
-      data: products,
-    });
+    returnResponse(res, 200, true, `Retrieved ${products.length} products with category: ${category}`, products);
   } catch (error) {
-    return res.status(500).json({
-      error: true,
-      success: false,
-      message: "Failed to retrieve products by category",
-    });
+    returnResponse(res, 500, false, `Failed to retrieve products by category`);
   }
 };
 
