@@ -1,6 +1,7 @@
 package com.feup.coffee_order_application.services
 
 import com.feup.coffee_order_application.models.ApiResponse
+import com.feup.coffee_order_application.models.Category
 import com.feup.coffee_order_application.models.ResponseApi
 import com.feup.coffee_order_application.models.User
 import com.feup.coffee_order_application.models.Voucher
@@ -18,9 +19,13 @@ interface ApiInterface {
     @POST("auth/login")
     @JvmSuppressWildcards
     fun login(@Body body: Map<String, Any>): Call<ResponseApi>
+    @GET("productCategories")
+    fun getProductCategories(): Call<ApiResponse<List<Category>>>
+
     @GET("users/{id}")
     fun getUserById(@Path("id") userId: String): Call<ApiResponse<User>>
     @GET("vouchers/client")
     fun getUserVouchers(@Query("client") clientId: String): Call<ApiResponse<List<Voucher>>>
+
 
 }

@@ -59,3 +59,8 @@ If you are running on an emulator you can keep with the default base URL:
 ```bash
 apiBaseUrl=http://10.0.2.2:3000/api/
 ```
+
+5. If you've populated the database in step four, to destroy old structure and get new one, run the comand bellow and run again step four:
+```bash
+docker exec -it api npm run data:destroy
+```

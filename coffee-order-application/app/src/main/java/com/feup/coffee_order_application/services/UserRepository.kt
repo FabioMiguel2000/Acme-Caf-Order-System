@@ -53,19 +53,3 @@ class UserRepository(private val api: ApiInterface) {
     }
 
 }
-
-object ServiceLocator {
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("http://10.0.2.2:3000/api/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val apiService by lazy {
-        retrofit.create(ApiInterface::class.java)
-    }
-
-    val userRepository by lazy {
-        UserRepository(apiService)
-    }
-}

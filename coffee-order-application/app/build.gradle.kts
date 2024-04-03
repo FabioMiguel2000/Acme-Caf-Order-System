@@ -79,5 +79,5 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
 
     implementation("com.google.android.material:material:1.6.0")
-    implementation("com.google.code.gson:gson:2.8.8")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
