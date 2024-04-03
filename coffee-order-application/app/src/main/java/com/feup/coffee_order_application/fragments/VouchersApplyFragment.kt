@@ -18,7 +18,7 @@ import com.google.android.material.button.MaterialButton
 
 class VouchersApplyFragment : Fragment() {
     private val cartOrder by lazy { FileUtils.readOrderFromFile(requireContext()) }
-    private var userId: String = "31ca6621550a71fdb4629390d1d264a2" // hardcoded user id, TODO: get from shared preferences (session)
+    private var userId: String = "ecf585f7874bc0d4c5f4f622dc93730b" // hardcoded user id, TODO: get from shared preferences (session)
     private val vouchers = mutableListOf<Voucher>()
     private var voucherType: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,25 +37,35 @@ class VouchersApplyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fetchVouchers()
         setupActionBar()
+        setupRecyclerView(view)
+        fetchVouchers()
     }
 
     private fun fetchVouchers(){
         ServiceLocator.userRepository.getUserVouchers(userId) { vouchers ->
             vouchers?.let {
                 this.vouchers.addAll(it)
+                updateRecyclerView()
+                markSelectedVouchers()
+                setupApplyVoucherButton(requireView())
             }
-            setupRecyclerView(requireView())
-            markSelectedVouchers()
-            setupApplyVoucherButton(requireView())
+        }
+    }
+
+    private fun updateRecyclerView() {
+        val filteredVouchers = vouchers.filter { it.type == voucherType }.toMutableList()
+        val recyclerView = requireView().findViewById<RecyclerView>(R.id.rv_vouchers)
+        (recyclerView.adapter as? VoucherAdapter)?.let { adapter ->
+            adapter.vouchers.clear()
+            adapter.vouchers.addAll(filteredVouchers)
+            adapter.notifyDataSetChanged() // Notify the adapter of the data change
         }
     }
 
 
     private fun setupRecyclerView(view: View) {
-        val filteredVouchers = vouchers.filter { it.type == voucherType }.toMutableList()
-        val adapter = VoucherAdapter(filteredVouchers)
+        val adapter = VoucherAdapter(mutableListOf())
         view.findViewById<RecyclerView>(R.id.rv_vouchers).apply {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
