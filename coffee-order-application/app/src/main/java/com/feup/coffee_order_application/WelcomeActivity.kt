@@ -14,7 +14,7 @@ class WelcomeActivity : AppCompatActivity() {
         val prefs = getSharedPreferences("session", MODE_PRIVATE)
         prefs.getString("status", "")
 
-        var option = 1
+        var option = 2
         if(option == 1){
             startActivity(Intent(this, LoginActivity::class.java))
         } else {
