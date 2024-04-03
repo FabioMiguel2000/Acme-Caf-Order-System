@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.services.AuthManager
+import com.feup.coffee_order_application.core.service.AuthManager
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

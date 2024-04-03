@@ -1,7 +1,7 @@
 package com.feup.coffee_order_application.domain.repository
 
 import android.util.Log
-import com.feup.coffee_order_application.domain.model.ApiResponse
+import com.feup.coffee_order_application.core.network.ApiResponse
 import com.feup.coffee_order_application.domain.model.User
 import com.feup.coffee_order_application.domain.model.Voucher
 import com.feup.coffee_order_application.core.network.ApiInterface

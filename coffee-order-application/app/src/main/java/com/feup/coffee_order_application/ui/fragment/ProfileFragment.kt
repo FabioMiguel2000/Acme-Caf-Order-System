@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.databinding.FragmentProfileBinding
 import com.feup.coffee_order_application.domain.model.User
-import com.feup.coffee_order_application.services.ServiceLocator
+import com.feup.coffee_order_application.core.service.ServiceLocator
 
 class ProfileFragment : Fragment() {
     private var user_id: String = "ecf585f7874bc0d4c5f4f622dc93730b" // hardcoded user id, TODO: get from shared preferences (session)

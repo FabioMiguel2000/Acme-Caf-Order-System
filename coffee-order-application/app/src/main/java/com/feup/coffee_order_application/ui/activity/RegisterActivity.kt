@@ -11,7 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.core.crypto.CryptoKeys
-import com.feup.coffee_order_application.services.AuthManager
+import com.feup.coffee_order_application.core.service.AuthManager
 
 class RegisterActivity : AppCompatActivity() {
     private var generated = false

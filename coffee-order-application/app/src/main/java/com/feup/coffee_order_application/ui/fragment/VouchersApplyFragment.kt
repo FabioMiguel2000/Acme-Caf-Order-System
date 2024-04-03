@@ -12,7 +12,7 @@ import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.ui.adapter.VoucherAdapter
 import com.feup.coffee_order_application.domain.model.CartProduct
 import com.feup.coffee_order_application.domain.model.Voucher
-import com.feup.coffee_order_application.services.ServiceLocator
+import com.feup.coffee_order_application.core.service.ServiceLocator
 import com.feup.coffee_order_application.core.utils.OrderStorageUtils
 import com.google.android.material.button.MaterialButton
 

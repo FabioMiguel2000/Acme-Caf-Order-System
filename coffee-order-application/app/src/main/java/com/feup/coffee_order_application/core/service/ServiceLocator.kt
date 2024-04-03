@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.services
+package com.feup.coffee_order_application.core.service
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

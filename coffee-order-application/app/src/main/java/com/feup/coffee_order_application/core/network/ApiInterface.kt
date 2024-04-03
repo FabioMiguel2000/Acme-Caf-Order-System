@@ -1,6 +1,5 @@
 package com.feup.coffee_order_application.core.network
 
-import com.feup.coffee_order_application.domain.model.ApiResponse
 import com.feup.coffee_order_application.domain.model.Category
 import com.feup.coffee_order_application.domain.model.ResponseApi
 import com.feup.coffee_order_application.domain.model.User

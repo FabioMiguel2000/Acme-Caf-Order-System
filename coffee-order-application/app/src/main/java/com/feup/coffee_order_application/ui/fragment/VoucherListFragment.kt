@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.ui.adapter.VoucherListAdapter
 import com.feup.coffee_order_application.domain.model.Voucher
-import com.feup.coffee_order_application.services.ServiceLocator
+import com.feup.coffee_order_application.core.service.ServiceLocator
 
 
 class VoucherListFragment : Fragment() {

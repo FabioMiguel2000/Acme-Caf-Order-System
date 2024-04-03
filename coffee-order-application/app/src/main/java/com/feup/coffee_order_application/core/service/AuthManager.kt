@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.services
+package com.feup.coffee_order_application.core.service
 
 import android.content.Context
 import android.content.Intent

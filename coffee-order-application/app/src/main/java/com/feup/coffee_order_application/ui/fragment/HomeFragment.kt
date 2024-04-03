@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.ui.adapter.CategoriesAdapter
 import com.feup.coffee_order_application.domain.model.Category
-import com.feup.coffee_order_application.services.ServiceLocator
+import com.feup.coffee_order_application.core.service.ServiceLocator
 
 
 class HomeFragment : Fragment() {

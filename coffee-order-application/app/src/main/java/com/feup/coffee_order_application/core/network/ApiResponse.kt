@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.domain.model
+package com.feup.coffee_order_application.core.network
 
 data class ApiResponse<T>(
     val success: Boolean,
