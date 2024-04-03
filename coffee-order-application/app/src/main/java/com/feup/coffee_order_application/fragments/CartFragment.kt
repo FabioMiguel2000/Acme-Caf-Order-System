@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CartAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
-import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.models.Order
 import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.utils.FileUtils
@@ -62,7 +61,7 @@ class CartFragment : Fragment() {
 
     private fun setupListeners() {
         binding.btnGoShopNow.setOnClickListener {
-            navigateToFragment(CategoriesFragment())
+            navigateToFragment(HomeFragment())
 
             val activity = requireActivity() as AppCompatActivity
             val bottomNavigationView: BottomNavigationView = activity.findViewById(R.id.bottom_nav)

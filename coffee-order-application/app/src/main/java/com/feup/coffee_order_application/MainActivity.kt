@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.feup.coffee_order_application.fragments.CartFragment
-import com.feup.coffee_order_application.fragments.CategoriesFragment
+import com.feup.coffee_order_application.fragments.HomeFragment
 import com.feup.coffee_order_application.fragments.ProfileFragment
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar1))
 
-        val home = CategoriesFragment()
+        val home = HomeFragment()
         val profile = ProfileFragment()
         val cart = CartFragment()
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)

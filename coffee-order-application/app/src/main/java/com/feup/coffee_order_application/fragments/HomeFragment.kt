@@ -1,7 +1,6 @@
 package com.feup.coffee_order_application.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,14 +14,14 @@ import com.feup.coffee_order_application.models.Category
 import com.feup.coffee_order_application.services.ServiceLocator
 
 
-class CategoriesFragment : Fragment() {
+class HomeFragment : Fragment() {
     private val categories = mutableListOf<Category>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
