@@ -10,7 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.models.CartProduct
+import com.feup.coffee_order_application.domain.model.CartProduct
 import com.feup.coffee_order_application.utils.OrderStorageUtils
 import com.google.android.material.button.MaterialButton
 

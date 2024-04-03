@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.VoucherListAdapter
-import com.feup.coffee_order_application.models.Voucher
+import com.feup.coffee_order_application.domain.model.Voucher
 import com.feup.coffee_order_application.services.ServiceLocator
 
 

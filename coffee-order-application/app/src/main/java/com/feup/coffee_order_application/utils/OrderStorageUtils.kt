@@ -1,7 +1,7 @@
 package com.feup.coffee_order_application.utils
 
 import android.content.Context
-import com.feup.coffee_order_application.models.Order
+import com.feup.coffee_order_application.domain.model.Order
 import com.google.gson.Gson
 import java.io.File
 

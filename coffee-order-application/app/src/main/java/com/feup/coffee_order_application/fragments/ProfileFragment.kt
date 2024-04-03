@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.databinding.FragmentProfileBinding
-import com.feup.coffee_order_application.models.User
+import com.feup.coffee_order_application.domain.model.User
 import com.feup.coffee_order_application.services.ServiceLocator
 
 class ProfileFragment : Fragment() {

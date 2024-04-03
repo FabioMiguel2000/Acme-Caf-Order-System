@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.models
+package com.feup.coffee_order_application.domain.model
 data class User(
     val __v: Int,
     val _id: String,

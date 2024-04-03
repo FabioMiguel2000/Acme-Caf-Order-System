@@ -1,12 +1,11 @@
-package com.feup.coffee_order_application.services
+package com.feup.coffee_order_application.domain.repository
 
 import android.util.Log
-import com.feup.coffee_order_application.models.ApiResponse
-import com.feup.coffee_order_application.models.Category
+import com.feup.coffee_order_application.domain.model.ApiResponse
+import com.feup.coffee_order_application.domain.model.Category
+import com.feup.coffee_order_application.services.ApiInterface
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class ProductRepository(private val api: ApiInterface) {
     fun fetchProductCategories(callback: (List<Category>?) -> Unit) {

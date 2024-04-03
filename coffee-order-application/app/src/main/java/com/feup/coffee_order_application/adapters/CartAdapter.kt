@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.databinding.OrderItemCardBinding
-import com.feup.coffee_order_application.models.CartProduct
+import com.feup.coffee_order_application.domain.model.CartProduct
 import kotlin.math.round
 
 class CartAdapter(

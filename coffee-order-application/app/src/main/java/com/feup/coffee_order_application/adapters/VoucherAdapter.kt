@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.models.Voucher
+import com.feup.coffee_order_application.domain.model.Voucher
 
 class VoucherAdapter(val vouchers: MutableList<Voucher>) :
     RecyclerView.Adapter<VoucherAdapter.VoucherViewHolder>() {

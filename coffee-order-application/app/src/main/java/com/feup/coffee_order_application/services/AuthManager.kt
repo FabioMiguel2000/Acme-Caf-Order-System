@@ -4,14 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import com.feup.coffee_order_application.MainActivity
-import com.feup.coffee_order_application.RegisterActivity
-import com.feup.coffee_order_application.models.ResponseApi
+import com.feup.coffee_order_application.domain.model.ResponseApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.security.PublicKey
 
 class AuthManager {
     fun login(context: Context, username: String, password: String, onSuccess: () -> Unit) {

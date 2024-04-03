@@ -1,12 +1,11 @@
-package com.feup.coffee_order_application.services
+package com.feup.coffee_order_application.domain.repository
 
 import android.util.Log
-import com.feup.coffee_order_application.models.ApiResponse
-import com.feup.coffee_order_application.models.User
-import com.feup.coffee_order_application.models.Voucher
+import com.feup.coffee_order_application.domain.model.ApiResponse
+import com.feup.coffee_order_application.domain.model.User
+import com.feup.coffee_order_application.domain.model.Voucher
+import com.feup.coffee_order_application.services.ApiInterface
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class UserRepository(private val api: ApiInterface) {
     fun getUserById (userId: String, callback: (User?)->Unit){

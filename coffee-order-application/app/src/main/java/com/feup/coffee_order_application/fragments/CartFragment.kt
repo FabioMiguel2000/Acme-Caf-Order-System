@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.CartAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
-import com.feup.coffee_order_application.models.Order
-import com.feup.coffee_order_application.models.Voucher
+import com.feup.coffee_order_application.domain.model.Order
+import com.feup.coffee_order_application.domain.model.Voucher
 import com.feup.coffee_order_application.utils.OrderStorageUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.round

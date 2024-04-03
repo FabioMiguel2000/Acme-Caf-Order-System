@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.adapters.ProductsAdapter
-import com.feup.coffee_order_application.models.CartProduct
+import com.feup.coffee_order_application.domain.model.CartProduct
 
 val products = mutableListOf<CartProduct>(
     CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),

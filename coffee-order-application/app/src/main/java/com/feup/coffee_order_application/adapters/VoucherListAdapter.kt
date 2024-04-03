@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.models.Voucher
+import com.feup.coffee_order_application.domain.model.Voucher
 
 class VoucherListAdapter(val vouchers: MutableList<Voucher>) :
     RecyclerView.Adapter<VoucherListAdapter.AllVoucherViewHolder>() {

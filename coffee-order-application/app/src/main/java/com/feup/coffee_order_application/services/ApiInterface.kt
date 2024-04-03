@@ -1,10 +1,10 @@
 package com.feup.coffee_order_application.services
 
-import com.feup.coffee_order_application.models.ApiResponse
-import com.feup.coffee_order_application.models.Category
-import com.feup.coffee_order_application.models.ResponseApi
-import com.feup.coffee_order_application.models.User
-import com.feup.coffee_order_application.models.Voucher
+import com.feup.coffee_order_application.domain.model.ApiResponse
+import com.feup.coffee_order_application.domain.model.Category
+import com.feup.coffee_order_application.domain.model.ResponseApi
+import com.feup.coffee_order_application.domain.model.User
+import com.feup.coffee_order_application.domain.model.Voucher
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
