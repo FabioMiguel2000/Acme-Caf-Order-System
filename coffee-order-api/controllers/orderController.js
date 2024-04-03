@@ -121,11 +121,7 @@ const validateOrder = async (req, res) => {
     returnResponse(res, 200, true, `Order with id: ${id} verified`, order);
     
   } catch (error) {
-    return res.status(500).json({
-      error: true,
-      success: false,
-      message: `Failed to validate order: ${error}`,
-    });
+    returnResponse(res, 500, false, `Failed to validate order: ${error}`);
   }
 };
 
@@ -135,11 +131,7 @@ const createOrder = async (req, res) => {
       req.body;
 
     if (status !== "Pending") {
-      return res.status(400).json({
-        error: true,
-        success: false,
-        message: `Invalid status: ${status}`,
-      });
+      returnResponse (res, 400, false, `Invalid status: ${status}`);
     }
 
     const clientExists = await User.findById({
@@ -147,11 +139,7 @@ const createOrder = async (req, res) => {
     });
 
     if (!clientExists) {
-      return res.status(404).json({
-        error: true,
-        success: false,
-        message: `Client with id: ${client} not found`,
-      });
+      returnResponse(res, 404, false, `Client with id: ${client} not found`);
     }
 
     const productObjs = await getProductObjs(products);
@@ -167,11 +155,9 @@ const createOrder = async (req, res) => {
       (vFreeCoffeeVoucher && !freeCoffeeProductExist) ||
       (!vFreeCoffeeVoucher && freeCoffeeProductExist)
     ) {
-      return res.status(400).json({
-        error: true,
-        success: false,
-        message: `Free Coffee Voucher not valid or Free Coffee product not in order`,
-      });
+
+      returnResponse(res, 400, false, `Free Coffee Voucher not valid or Free Coffee product not in order`);
+
     }
 
   
@@ -190,17 +176,11 @@ const createOrder = async (req, res) => {
       freeCoffeeVoucher: vFreeCoffeeVoucher,
     }).save();
 
-    return res.status(201).json({
-      success: true,
-      message: `Order created with id: ${newOrder._id}`,
-      data: newOrder,
-    });
+    returnResponse(res, 201, true, `Order created with id: ${newOrder._id}`, newOrder);
+
   } catch (error) {
-    return res.status(500).json({
-      error: true,
-      success: false,
-      message: `Failed to create order: ${error}`,
-    });
+
+    returnResponse(res, 500, false, `Failed to create order: ${error}`);
   }
 };
 
