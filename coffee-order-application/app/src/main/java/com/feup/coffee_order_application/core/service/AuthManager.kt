@@ -4,9 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import com.feup.coffee_order_application.core.network.ApiResponse
 import com.feup.coffee_order_application.ui.activity.MainActivity
 import com.feup.coffee_order_application.core.network.HttpHandlerClass
-import com.feup.coffee_order_application.domain.model.ResponseApi
+import com.feup.coffee_order_application.domain.model.User
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,8 +15,8 @@ import retrofit2.Response
 class AuthManager {
     fun login(context: Context, username: String, password: String, onSuccess: () -> Unit) {
         val body = mapOf("email" to username, "password" to password)
-        HttpHandlerClass.getInstance().retrofitBuilder.login(body).enqueue(object : Callback<ResponseApi> {
-            override fun onResponse(call: Call<ResponseApi>, response: Response<ResponseApi>) {
+        HttpHandlerClass.getInstance().retrofitBuilder.login(body).enqueue(object : Callback<ApiResponse<User>> {
+            override fun onResponse(call: Call<ApiResponse<User>>, response: Response<ApiResponse<User>>) {
                 if (response.code() == 200) {
                     Toast.makeText(context, "Login succeeded", Toast.LENGTH_LONG).show()
 
@@ -27,7 +28,7 @@ class AuthManager {
                     Toast.makeText(context, "Email or password is wrong", Toast.LENGTH_LONG).show()
                 }
             }
-            override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<User>>, t: Throwable) {
                 Log.d("error", "Login Request Error: ${t.message}")
             }
         })
@@ -43,10 +44,10 @@ class AuthManager {
             "publicKey" to publicKey
         )
 
-        return HttpHandlerClass.getInstance().retrofitBuilder.register(body).enqueue(object : Callback<ResponseApi> {
+        return HttpHandlerClass.getInstance().retrofitBuilder.register(body).enqueue(object : Callback<ApiResponse<User>> {
             override fun onResponse(
-                call: Call<ResponseApi>,
-                response: Response<ResponseApi>
+                call: Call<ApiResponse<User>>,
+                response: Response<ApiResponse<User>>
             ) {
                 if(response.code() == 201){
                     Toast.makeText(context, "Register succeeded", Toast.LENGTH_LONG).show()
@@ -55,7 +56,7 @@ class AuthManager {
                     Toast.makeText(context, "Verify your information", Toast.LENGTH_LONG).show()
                 }
             }
-            override fun onFailure(call: Call<ResponseApi>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<User>>, t: Throwable) {
                 Log.d("error", "Register Request Error: " + t.message)
             }
         })
