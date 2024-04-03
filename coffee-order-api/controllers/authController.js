@@ -1,12 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const { encryptPassword } = require("../utils/crypto/bcryptPassword");
-
-const validEmailFormat = (email) => {
-  const emailRegex =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return emailRegex.test(email);
-};
+const { returnResponse } = require("../services/general");
 
 const loginUser = async (req, res) => {
   try {
@@ -16,13 +11,6 @@ const loginUser = async (req, res) => {
         password: req.body.password,
         publicKey: req.body.publicKey,
       } = req.body);
-  
-      if (!validEmailFormat(userInput.email)) {
-        return res.status(409).json({
-          success: false,
-          message: "Invalid email format",
-        });
-      }
   
       let user = await User.findOne({
         email: userInput.email,
@@ -86,22 +74,12 @@ const registerUser = async (req, res) => {
       publicKey: req.body.publicKey,
     } = req.body);
 
-    if (!validEmailFormat(userInput.email)) {
-      return res.status(409).json({
-        success: false,
-        message: "Invalid email format",
-      });
-    }
-
     const usernameExists = await User.findOne({
       email: userInput.email,
     });
 
     if (usernameExists) {
-      return res.status(409).json({
-        success: false,
-        message: `User already exists ${userInput.email}`,
-      });
+      returnResponse(res, 409, false, `User already exists ${userInput.email}`);
     }
 
     const nifExists = await User.findOne({
@@ -109,10 +87,7 @@ const registerUser = async (req, res) => {
     });
 
     if (nifExists) {
-      return res.status(409).json({
-        success: false,
-        message: `NIF already registered ${userInput.nif}`,
-      });
+      returnResponse(res, 409, false, `NIF already registered ${userInput.nif}`);
     }
 
     const encryptedPassword = await encryptPassword(userInput.password);
@@ -130,18 +105,9 @@ const registerUser = async (req, res) => {
     const filteredUser = await User.findById(newUser._id).select(
       "-password -publicKey"
     );
-
-    return res.status(201).json({
-      success: true,
-      message: `User created ${filteredUser}`,
-      data: filteredUser,
-    });
+      returnResponse(res, 201, true, `User created ${filteredUser}`, filteredUser);
   } catch (error) {
-    return res.status(500).json({
-      error: true,
-      success: false,
-      message: "Failed to register user: " + error,
-    });
+    returnResponse(res, 500, false, `Failed to register user ${error}`);
   }
 };
 
