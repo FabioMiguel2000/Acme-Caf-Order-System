@@ -47,11 +47,13 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun updateRecyclerView() {
-        val recyclerView = requireView().findViewById<RecyclerView>(R.id.rv_categories)
-        (recyclerView.adapter as? CategoriesAdapter)?.let { adapter ->
-            adapter.categories.clear()
-            adapter.categories.addAll(this.categories)
-            adapter.notifyDataSetChanged()
+        if (isAdded) {
+            val recyclerView = requireView().findViewById<RecyclerView>(R.id.rv_categories)
+            (recyclerView.adapter as? CategoriesAdapter)?.let { adapter ->
+                adapter.categories.clear()
+                adapter.categories.addAll(this.categories)
+                adapter.notifyDataSetChanged()
+            }
         }
     }
 
