@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.fragments
+package com.feup.coffee_order_application.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.adapters.VoucherListAdapter
+import com.feup.coffee_order_application.ui.adapter.VoucherListAdapter
 import com.feup.coffee_order_application.domain.model.Voucher
 import com.feup.coffee_order_application.services.ServiceLocator
 

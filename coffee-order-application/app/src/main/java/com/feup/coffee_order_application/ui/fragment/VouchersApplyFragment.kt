@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.fragments
+package com.feup.coffee_order_application.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.adapters.VoucherAdapter
+import com.feup.coffee_order_application.ui.adapter.VoucherAdapter
 import com.feup.coffee_order_application.domain.model.CartProduct
 import com.feup.coffee_order_application.domain.model.Voucher
 import com.feup.coffee_order_application.services.ServiceLocator

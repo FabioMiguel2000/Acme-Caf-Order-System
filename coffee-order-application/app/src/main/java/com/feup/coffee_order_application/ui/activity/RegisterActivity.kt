@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application
+package com.feup.coffee_order_application.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,8 +9,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.core.crypto.CryptoKeys
 import com.feup.coffee_order_application.services.AuthManager
+
 class RegisterActivity : AppCompatActivity() {
     private var generated = false
 

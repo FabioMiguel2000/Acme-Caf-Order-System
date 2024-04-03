@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.adapters
+package com.feup.coffee_order_application.ui.adapter
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.fragments.ProductsFragment
+import com.feup.coffee_order_application.ui.fragment.ProductsFragment
 import com.feup.coffee_order_application.domain.model.Category
 import com.feup.coffee_order_application.core.utils.ImageUtils
 

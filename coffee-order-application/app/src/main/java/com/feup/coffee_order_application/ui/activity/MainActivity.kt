@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application
+package com.feup.coffee_order_application.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,9 +6,10 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.feup.coffee_order_application.fragments.CartFragment
-import com.feup.coffee_order_application.fragments.HomeFragment
-import com.feup.coffee_order_application.fragments.ProfileFragment
+import com.feup.coffee_order_application.R
+import com.feup.coffee_order_application.ui.fragment.CartFragment
+import com.feup.coffee_order_application.ui.fragment.HomeFragment
+import com.feup.coffee_order_application.ui.fragment.ProfileFragment
 
 import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
@@ -26,9 +27,9 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.home->setCurrentPage(home)
-                R.id.cart->setCurrentPage(cart)
-                R.id.person->setCurrentPage(profile)
+                R.id.home ->setCurrentPage(home)
+                R.id.cart ->setCurrentPage(cart)
+                R.id.person ->setCurrentPage(profile)
             }
             true
         }

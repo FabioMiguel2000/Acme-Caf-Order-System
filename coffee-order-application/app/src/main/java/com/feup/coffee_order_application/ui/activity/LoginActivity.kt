@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application
+package com.feup.coffee_order_application.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.services.AuthManager
 
 class LoginActivity : AppCompatActivity() {

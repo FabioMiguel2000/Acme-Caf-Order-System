@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
-import com.feup.coffee_order_application.MainActivity
+import com.feup.coffee_order_application.ui.activity.MainActivity
 import com.feup.coffee_order_application.core.network.HttpHandlerClass
 import com.feup.coffee_order_application.domain.model.ResponseApi
 import retrofit2.Call

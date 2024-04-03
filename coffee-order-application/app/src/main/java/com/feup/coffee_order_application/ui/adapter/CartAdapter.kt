@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.adapters
+package com.feup.coffee_order_application.ui.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

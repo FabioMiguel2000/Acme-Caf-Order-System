@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.fragments
+package com.feup.coffee_order_application.ui.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle

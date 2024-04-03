@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.fragments
+package com.feup.coffee_order_application.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.adapters.ProductsAdapter
+import com.feup.coffee_order_application.ui.adapter.ProductsAdapter
 import com.feup.coffee_order_application.domain.model.CartProduct
 
 val products = mutableListOf<CartProduct>(
