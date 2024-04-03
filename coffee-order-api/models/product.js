@@ -1,15 +1,5 @@
 const mongoose = require('mongoose');
 
-const productCategories = [
-    "Oleato",
-    "Hot Coffees",
-    "Cold Coffees",
-    "Cappuccinos",
-    "Frapuccinos",
-    "Mochas",
-    "Promotions"
-]
-
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -23,12 +13,12 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  productCategory: {
-    type: String,
-    enum: productCategories,
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"Category",
+    autopopulate: true,
   }
 });
-
 
 productSchema.plugin(require('mongoose-autopopulate'));
 
