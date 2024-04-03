@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.services
+package com.feup.coffee_order_application.core.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

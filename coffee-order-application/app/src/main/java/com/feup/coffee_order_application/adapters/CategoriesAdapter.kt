@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.fragments.ProductsFragment
 import com.feup.coffee_order_application.domain.model.Category
-import com.feup.coffee_order_application.services.ImageUtils
+import com.feup.coffee_order_application.core.utils.ImageUtils
 
 class CategoriesAdapter(val categories: MutableList<Category>) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
     class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {

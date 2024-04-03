@@ -4,7 +4,7 @@ import android.util.Log
 import com.feup.coffee_order_application.domain.model.ApiResponse
 import com.feup.coffee_order_application.domain.model.User
 import com.feup.coffee_order_application.domain.model.Voucher
-import com.feup.coffee_order_application.services.ApiInterface
+import com.feup.coffee_order_application.core.network.ApiInterface
 import retrofit2.Call
 
 class UserRepository(private val api: ApiInterface) {

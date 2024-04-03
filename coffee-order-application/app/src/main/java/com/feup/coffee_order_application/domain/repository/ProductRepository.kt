@@ -3,7 +3,7 @@ package com.feup.coffee_order_application.domain.repository
 import android.util.Log
 import com.feup.coffee_order_application.domain.model.ApiResponse
 import com.feup.coffee_order_application.domain.model.Category
-import com.feup.coffee_order_application.services.ApiInterface
+import com.feup.coffee_order_application.core.network.ApiInterface
 import retrofit2.Call
 import retrofit2.Response
 

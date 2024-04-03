@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.utils
+package com.feup.coffee_order_application.core.utils
 
 import android.content.Context
 import com.feup.coffee_order_application.domain.model.Order

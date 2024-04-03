@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.crypto
+package com.feup.coffee_order_application.core.crypto
 object Crypto {
     const val KEY_SIZE = 512
     const val ANDROID_KEYSTORE = "AndroidKeyStore"

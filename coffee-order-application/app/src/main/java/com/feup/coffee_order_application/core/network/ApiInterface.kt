@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.services
+package com.feup.coffee_order_application.core.network
 
 import com.feup.coffee_order_application.domain.model.ApiResponse
 import com.feup.coffee_order_application.domain.model.Category

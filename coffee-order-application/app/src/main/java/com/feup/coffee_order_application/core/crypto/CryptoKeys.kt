@@ -1,4 +1,4 @@
-package com.feup.coffee_order_application.crypto
+package com.feup.coffee_order_application.core.crypto
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties

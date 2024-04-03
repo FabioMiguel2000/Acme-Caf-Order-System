@@ -9,7 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import com.feup.coffee_order_application.crypto.CryptoKeys
+import com.feup.coffee_order_application.core.crypto.CryptoKeys
 import com.feup.coffee_order_application.services.AuthManager
 class RegisterActivity : AppCompatActivity() {
     private var generated = false
