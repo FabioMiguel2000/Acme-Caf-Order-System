@@ -30,15 +30,22 @@ MONGODB_URI=mongodb://mongo:27017/acme-coffee
 docker-compose up -d
 ```
 
-6. Install NodeJS dependencies
+5. Install NodeJS dependencies
 ```bash
 docker exec -it api npm install
 ```
 
-5. Populate the database with seed, run:
+
+6. Populate the database with seed, run:
 
 ```bash
 docker exec -it api npm run data:import
+```
+
+
+7. If you've populated the database in step four, to destroy old structure and get new one, run the comand bellow and run again step four:
+```bash
+docker exec -it api npm run data:destroy
 ```
 
 #### Run Application
@@ -58,9 +65,4 @@ apiBaseUrl=http://192.168.1.97:3000/api/
 If you are running on an emulator you can keep with the default base URL:
 ```bash
 apiBaseUrl=http://10.0.2.2:3000/api/
-```
-
-5. If you've populated the database in step four, to destroy old structure and get new one, run the comand bellow and run again step four:
-```bash
-docker exec -it api npm run data:destroy
 ```

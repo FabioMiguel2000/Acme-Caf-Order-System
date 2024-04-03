@@ -6,21 +6,14 @@ const {
   updateUserAccumulatedExpenses,
 } = require("./userController");
 const { validateVoucher, useVoucher } = require("./voucherController");
+const { returnResponse } = require("../services/general");
 
 const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find();
-    return res.status(200).json({
-      success: true,
-      message: `Retrieved ${orders.length} orders`,
-      data: orders,
-    });
+    returnResponse(res, 200, true, `Retrieved ${orders.length} orders`, orders);
   } catch (error) {
-    return res.status(500).json({
-      error: true,
-      success: false,
-      message: "Failed to retrieve orders",
-    });
+    returnResponse(res, 500, false, `Failed to retrieve orders`);
   }
 };
 
@@ -29,23 +22,13 @@ const getOrderByID = async (req, res) => {
     const { id } = req.params;
     const order = await Order.findById(id);
     if (!order) {
-      return res.status(404).json({
-        error: true,
-        success: false,
-        message: `Order with id: ${id} not found`,
-      });
+      returnResponse(res, 404, false, `Order with id: ${id} not found`);
     }
-    return res.status(200).json({
-      success: true,
-      message: `Retrieved order with id: ${id}`,
-      data: order,
-    });
+
+    returnResponse(res, 200, true, `Retrieved order with id: ${id}`, order);
+    
   } catch (error) {
-    return res.status(500).json({
-      error: true,
-      success: false,
-      message: "Failed to retrieve order",
-    });
+    returnResponse(res, 500, false, `Failed to retrieve order`);
   }
 };
 
@@ -53,17 +36,11 @@ const getOrderByUser = async (req, res) => {
   try {
     const { client } = req.query;
     const orders = await Order.find({ client });
-    return res.status(200).json({
-      success: true,
-      message: `Retrieved ${orders.length} orders from client: ${client}`,
-      data: orders,
-    });
+
+    returnResponse(res, 200, true, `Retrieved ${orders.length} orders from client: ${client}`, orders);
+
   } catch (error) {
-    return res.status(500).json({
-      error: true,
-      success: false,
-      message: "Failed to retrieve orders",
-    });
+    returnResponse(res, 500, false, `Failed to retrieve orders`);
   }
 };
 
@@ -122,11 +99,7 @@ const validateOrder = async (req, res) => {
     }
 
     if (order.status !== "Pending") {
-      return res.status(400).json({
-        error: true,
-        success: false,
-        message: `Order with id: ${id} is not pending`,
-      });
+      returnResponse(res, 400, false, `Order with id: ${id} is not pending`);
     }
 
     if (order.discountVoucher) {
@@ -144,18 +117,11 @@ const validateOrder = async (req, res) => {
 
     order.status = "Verified";
     await order.save();
-
-    return res.status(200).json({
-      success: true,
-      message: `Order with id: ${id} verified`,
-      data: order,
-    });
+    
+    returnResponse(res, 200, true, `Order with id: ${id} verified`, order);
+    
   } catch (error) {
-    return res.status(500).json({
-      error: true,
-      success: false,
-      message: `Failed to validate order: ${error}`,
-    });
+    returnResponse(res, 500, false, `Failed to validate order: ${error}`);
   }
 };
 
@@ -165,11 +131,7 @@ const createOrder = async (req, res) => {
       req.body;
 
     if (status !== "Pending") {
-      return res.status(400).json({
-        error: true,
-        success: false,
-        message: `Invalid status: ${status}`,
-      });
+      returnResponse (res, 400, false, `Invalid status: ${status}`);
     }
 
     const clientExists = await User.findById({
@@ -177,11 +139,7 @@ const createOrder = async (req, res) => {
     });
 
     if (!clientExists) {
-      return res.status(404).json({
-        error: true,
-        success: false,
-        message: `Client with id: ${client} not found`,
-      });
+      returnResponse(res, 404, false, `Client with id: ${client} not found`);
     }
 
     const productObjs = await getProductObjs(products);
@@ -197,11 +155,9 @@ const createOrder = async (req, res) => {
       (vFreeCoffeeVoucher && !freeCoffeeProductExist) ||
       (!vFreeCoffeeVoucher && freeCoffeeProductExist)
     ) {
-      return res.status(400).json({
-        error: true,
-        success: false,
-        message: `Free Coffee Voucher not valid or Free Coffee product not in order`,
-      });
+
+      returnResponse(res, 400, false, `Free Coffee Voucher not valid or Free Coffee product not in order`);
+
     }
 
   
@@ -220,17 +176,11 @@ const createOrder = async (req, res) => {
       freeCoffeeVoucher: vFreeCoffeeVoucher,
     }).save();
 
-    return res.status(201).json({
-      success: true,
-      message: `Order created with id: ${newOrder._id}`,
-      data: newOrder,
-    });
+    returnResponse(res, 201, true, `Order created with id: ${newOrder._id}`, newOrder);
+
   } catch (error) {
-    return res.status(500).json({
-      error: true,
-      success: false,
-      message: `Failed to create order: ${error}`,
-    });
+
+    returnResponse(res, 500, false, `Failed to create order: ${error}`);
   }
 };
 
