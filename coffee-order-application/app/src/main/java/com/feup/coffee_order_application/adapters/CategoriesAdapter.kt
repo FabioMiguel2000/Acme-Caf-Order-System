@@ -11,8 +11,8 @@ import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.models.Category
 import com.feup.coffee_order_application.services.General
 
-class CategoriesAdapter(private val categories: MutableList<Category>) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
 
+class CategoriesAdapter(private val categories: MutableList<Category>) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
     class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.img_category)
         val nameTextView: TextView = view.findViewById(R.id.tv_category_name)
