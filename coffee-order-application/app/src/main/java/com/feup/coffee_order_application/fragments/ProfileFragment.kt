@@ -2,7 +2,6 @@ package com.feup.coffee_order_application.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +10,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.databinding.FragmentProfileBinding
-import com.feup.coffee_order_application.models.ApiResponse
-import com.feup.coffee_order_application.models.ResponseApi
 import com.feup.coffee_order_application.models.User
-import com.feup.coffee_order_application.services.ApiInterface
 import com.feup.coffee_order_application.services.ServiceLocator
-import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class ProfileFragment : Fragment() {
     private var user_id: String = "ecf585f7874bc0d4c5f4f622dc93730b" // hardcoded user id, TODO: get from shared preferences (session)
@@ -50,7 +42,7 @@ class ProfileFragment : Fragment() {
         fetchUserData()
         binding.vouchersOptionContainer.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
-                replace(R.id.fLayout, AllVouchersFragment())
+                replace(R.id.fLayout, VoucherListFragment())
                 addToBackStack(null)
                 commit()
             }

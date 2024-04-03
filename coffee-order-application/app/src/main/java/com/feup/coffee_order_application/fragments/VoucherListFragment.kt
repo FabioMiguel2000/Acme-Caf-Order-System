@@ -10,16 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
-import com.feup.coffee_order_application.adapters.AllVouchersAdapter
+import com.feup.coffee_order_application.adapters.VoucherListAdapter
 import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.services.ServiceLocator
 
 
-class AllVouchersFragment : Fragment() {
+class VoucherListFragment : Fragment() {
     private var userId: String = "ecf585f7874bc0d4c5f4f622dc93730b" // hardcoded user id, TODO: get from shared preferences (session)
     private val vouchers = mutableListOf<Voucher>()
-    private lateinit var unusedVoucherAdapter: AllVouchersAdapter
-    private lateinit var usedVoucherAdapter: AllVouchersAdapter
+    private lateinit var unusedVoucherAdapter: VoucherListAdapter
+    private lateinit var usedVoucherAdapter: VoucherListAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,8 +30,8 @@ class AllVouchersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        unusedVoucherAdapter = AllVouchersAdapter(mutableListOf())
-        usedVoucherAdapter = AllVouchersAdapter(mutableListOf())
+        unusedVoucherAdapter = VoucherListAdapter(mutableListOf())
+        usedVoucherAdapter = VoucherListAdapter(mutableListOf())
 
         setupRecyclerView(view)
 

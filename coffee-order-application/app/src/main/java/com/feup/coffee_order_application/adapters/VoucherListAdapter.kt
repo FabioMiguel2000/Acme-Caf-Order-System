@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.models.Voucher
 
-class AllVouchersAdapter(val vouchers: MutableList<Voucher>) :
-    RecyclerView.Adapter<AllVouchersAdapter.AllVoucherViewHolder>() {
+class VoucherListAdapter(val vouchers: MutableList<Voucher>) :
+    RecyclerView.Adapter<VoucherListAdapter.AllVoucherViewHolder>() {
 
     class AllVoucherViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val voucherName: TextView = view.findViewById(R.id.tv_voucher_name)
