@@ -12,7 +12,7 @@ import com.feup.coffee_order_application.adapters.CartAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.models.Order
 import com.feup.coffee_order_application.models.Voucher
-import com.feup.coffee_order_application.utils.FileUtils
+import com.feup.coffee_order_application.utils.OrderStorageUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.round
 
@@ -26,7 +26,7 @@ class CartFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cartOrder = FileUtils.readOrderFromFile(requireContext())
+        cartOrder = OrderStorageUtils.readOrderFromFile(requireContext())
         setupActionBar()
         setupRecyclerView()
         updateUI()
@@ -34,7 +34,7 @@ class CartFragment : Fragment() {
     }
     private fun setupRecyclerView() {
         val adapter = CartAdapter(cartOrder.cartProducts) {
-            FileUtils.saveOrderToFile(cartOrder, requireContext())
+            OrderStorageUtils.saveOrderToFile(cartOrder, requireContext())
             updatePrices()
             updateCartRendering(cartOrder.cartProducts.isEmpty())
         }

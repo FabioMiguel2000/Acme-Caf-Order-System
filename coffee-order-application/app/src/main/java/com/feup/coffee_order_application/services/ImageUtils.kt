@@ -5,9 +5,8 @@ import android.graphics.BitmapFactory
 import android.util.Base64
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import java.io.ByteArrayInputStream
 
-class General {
+class ImageUtils {
 
     open fun baseImageToBitMap(image: String): Bitmap? {
         val imageBytes = android.util.Base64.decode(image, android.util.Base64.DEFAULT)

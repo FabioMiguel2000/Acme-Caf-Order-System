@@ -1,10 +1,7 @@
 package com.feup.coffee_order_application.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.fragments.ProductsFragment
 import com.feup.coffee_order_application.models.Category
-import com.feup.coffee_order_application.services.General
+import com.feup.coffee_order_application.services.ImageUtils
 
 class CategoriesAdapter(val categories: MutableList<Category>) : RecyclerView.Adapter<CategoriesAdapter.CategoryViewHolder>() {
     class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -36,8 +33,8 @@ class CategoriesAdapter(val categories: MutableList<Category>) : RecyclerView.Ad
         holder.nameTextView.text = category.name
         holder.sizeTextView.text = "(${category.size})"
 
-        val general = General()
-        holder.imageView.setImageBitmap(general.baseImageToBitMap(category.img))
+        val imageUtils = ImageUtils()
+        holder.imageView.setImageBitmap(imageUtils.baseImageToBitMap(category.img))
 //        general.loadBase64ImageIntoView(category.img, holder.imageView)
 
         holder.layout.setOnClickListener {

@@ -5,7 +5,7 @@ import com.feup.coffee_order_application.models.Order
 import com.google.gson.Gson
 import java.io.File
 
-class FileUtils {
+class OrderStorageUtils {
     companion object {
         private const val ORDER_FILE_NAME = "cart_order.json"
         fun saveOrderToFile(order: Order, context: Context) {

@@ -2,23 +2,20 @@ package com.feup.coffee_order_application.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.models.CartProduct
-import com.feup.coffee_order_application.utils.FileUtils
+import com.feup.coffee_order_application.utils.OrderStorageUtils
 import com.google.android.material.button.MaterialButton
 
 class ProductsAdapter(private val context: Context, private val products: List<CartProduct>) : RecyclerView.Adapter<ProductsAdapter.ProductsViewHolder>() {
-    private var cartOrder = FileUtils.readOrderFromFile(context)
+    private var cartOrder = OrderStorageUtils.readOrderFromFile(context)
     class ProductsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val imageView: ImageView = view.findViewById(R.id.img_product)
@@ -52,7 +49,7 @@ class ProductsAdapter(private val context: Context, private val products: List<C
                 cartOrder.cartProducts.add(product)
             }
             Toast.makeText(context, "${product.name} added to cart", Toast.LENGTH_SHORT).show()
-            FileUtils.saveOrderToFile(cartOrder, context)
+            OrderStorageUtils.saveOrderToFile(cartOrder, context)
         }
     }
     override fun getItemCount() = products.size

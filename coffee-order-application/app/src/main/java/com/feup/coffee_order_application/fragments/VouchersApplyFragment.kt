@@ -13,11 +13,11 @@ import com.feup.coffee_order_application.adapters.VoucherAdapter
 import com.feup.coffee_order_application.models.CartProduct
 import com.feup.coffee_order_application.models.Voucher
 import com.feup.coffee_order_application.services.ServiceLocator
-import com.feup.coffee_order_application.utils.FileUtils
+import com.feup.coffee_order_application.utils.OrderStorageUtils
 import com.google.android.material.button.MaterialButton
 
 class VouchersApplyFragment : Fragment() {
-    private val cartOrder by lazy { FileUtils.readOrderFromFile(requireContext()) }
+    private val cartOrder by lazy { OrderStorageUtils.readOrderFromFile(requireContext()) }
     private var userId: String = "ecf585f7874bc0d4c5f4f622dc93730b" // hardcoded user id, TODO: get from shared preferences (session)
     private val vouchers = mutableListOf<Voucher>()
     private var voucherType: String? = null
@@ -93,7 +93,7 @@ class VouchersApplyFragment : Fragment() {
             applyVoucher(selectedVoucher)
         } ?: clearVoucherSelection()
 
-        FileUtils.saveOrderToFile(cartOrder, requireContext())
+        OrderStorageUtils.saveOrderToFile(cartOrder, requireContext())
     }
 
     private fun applyVoucher(voucher: Voucher) {
