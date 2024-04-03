@@ -2,7 +2,6 @@ package com.feup.coffee_order_application.crypto
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
-import android.util.Base64
 import android.util.Log
 import java.math.BigInteger
 import java.security.KeyPairGenerator
@@ -14,7 +13,6 @@ import java.util.GregorianCalendar
 import javax.security.auth.x500.X500Principal
 
 
-data class PubKey(var modulus: ByteArray, var exponent: ByteArray)
 
 class CryptoKeys {
     private var generated = false
