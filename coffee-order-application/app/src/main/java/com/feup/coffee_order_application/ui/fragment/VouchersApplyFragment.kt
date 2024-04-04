@@ -13,12 +13,13 @@ import com.feup.coffee_order_application.ui.adapter.VoucherAdapter
 import com.feup.coffee_order_application.domain.model.CartProduct
 import com.feup.coffee_order_application.domain.model.Voucher
 import com.feup.coffee_order_application.core.service.ServiceLocator
+import com.feup.coffee_order_application.core.service.SessionManager
 import com.feup.coffee_order_application.core.utils.OrderStorageUtils
 import com.google.android.material.button.MaterialButton
 
 class VouchersApplyFragment : Fragment() {
     private val cartOrder by lazy { OrderStorageUtils.readOrderFromFile(requireContext()) }
-    private var userId: String = "ecf585f7874bc0d4c5f4f622dc93730b" // hardcoded user id, TODO: get from shared preferences (session)
+    private var userId: String = ""
     private val vouchers = mutableListOf<Voucher>()
     private var voucherType: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +38,10 @@ class VouchersApplyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sessionManager = SessionManager(requireContext())
+        userId = sessionManager.fetchUserToken() ?: ""
+
         setupActionBar()
         setupRecyclerView(view)
         fetchVouchers()
