@@ -25,7 +25,7 @@ class ImageUtils {
             .into(imageView)
     }
 
-    fun convertGoogleDriveLinkToDirectLink(driveLink: String): String? {
+    private fun convertGoogleDriveLinkToDirectLink(driveLink: String): String? {
         val fileId = Regex("https://drive.google.com/file/d/(.*?)/view").find(driveLink)?.groupValues?.get(1)
         return fileId?.let { "https://drive.google.com/uc?export=view&id=$it" }
     }
@@ -35,7 +35,7 @@ class ImageUtils {
         directImageUrl?.let { url ->
             Glide.with(imageView.context)
                 .load(url)
-                .placeholder(R.drawable.hot_coffee)
+                .placeholder(R.drawable.loading)
                 .error(R.drawable.error_image)
                 .into(imageView)
         } ?: run {
