@@ -4,11 +4,7 @@ const { returnResponse } = require('../services/responseHandler');
 const getAllVouchers = async (req, res) => {
     try {
         const vouchers = await Voucher.find();
-        return res.status(200).json({
-            success: true,
-            message: `Retrieved ${vouchers.length} vouchers`,
-            data: vouchers
-        });
+        return responseResponse(res, 200, true, `Retrieved ${vouchers.length} vouchers`, vouchers);
     } catch (error) {
         return returnResponse(res, 500, false, `Failed to retrieve vouchers`);
     }

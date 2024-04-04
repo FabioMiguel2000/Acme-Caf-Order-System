@@ -16,10 +16,7 @@ const loginUser = async (req, res) => {
         email: userInput.email,
       });
       if (!user) {
-        return res.status(409).json({
-          success: false,
-          message: `Authentication Failed: The username that you've entered doesn't match any account.`,
-        });
+        return returnResponse(res, 409, false, `Authentication Failed: The username that you've entered doesn't match any account.`);
       }
   
       const isPasswordCorrect = await bcrypt.compare(
@@ -28,10 +25,7 @@ const loginUser = async (req, res) => {
       );
   
       if (!isPasswordCorrect) {
-        return res.status(409).json({
-          success: false,
-          message: `Authentication Failed: Invalid logid name or password.`,
-        });
+        return returnResponse(res, 409, false, `Authentication Failed: Invalid logid name or password.`);
       }
   
       user = await User.findOneAndUpdate(
@@ -42,21 +36,14 @@ const loginUser = async (req, res) => {
           runValidators: true,
         }
       ).select("-password -publicKey");
-  
       return returnResponse(res, 200, true, `User authenticated ${user}`, user);
 
     } else {
-      return res.status(500).json({
-        success: false,
-        message: "Bad request"
-      })
+      return returnResponse(res, 400, false, `Bad request`);
     }
     
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Failed to retrieve users",
-    });
+    return returnResponse(res, 500, false, `Failed to authenticate user ${error}`);
   }
 };
 
