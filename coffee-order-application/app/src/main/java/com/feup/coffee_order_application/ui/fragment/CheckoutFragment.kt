@@ -126,6 +126,8 @@ class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
         super.onDestroyView()
         _binding = null
 
+        OrderStorageUtils.clearOrderFile(requireContext())
+
         setNavBarVisibility(View.VISIBLE)
     }
 }
