@@ -13,6 +13,13 @@
         android:theme="@style/Theme.Coffeeorderterminal"
         tools:targetApi="31">
         <activity
+            android:name=".fragment_orders"
+            android:exported="false" />
+        <activity
+            android:name=".order_card"
+            android:exported="false"
+            android:theme="@style/Theme.Coffeeorderterminal" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
