@@ -27,9 +27,10 @@
 
         <ImageView
             android:id="@+id/iv_qr_code"
-            android:layout_width="280dp"
-            android:layout_height="280dp"
+            android:layout_width="320dp"
+            android:layout_height="320dp"
             android:src="@drawable/qr_code"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
