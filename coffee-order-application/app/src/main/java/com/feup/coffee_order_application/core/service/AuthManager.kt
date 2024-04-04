@@ -15,15 +15,19 @@ import retrofit2.Response
 class AuthManager {
     fun login(context: Context, username: String, password: String, onSuccess: () -> Unit) {
         val body = mapOf("email" to username, "password" to password)
+        val sessionManager = SessionManager(context)
         HttpHandlerClass.getInstance().retrofitBuilder.login(body).enqueue(object : Callback<ApiResponse<User>> {
             override fun onResponse(call: Call<ApiResponse<User>>, response: Response<ApiResponse<User>>) {
                 if (response.code() == 200) {
                     Toast.makeText(context, "Login succeeded", Toast.LENGTH_LONG).show()
+                    val userToken = response.body()?.data?._id
+
+                    if(!userToken.isNullOrEmpty())
+                        sessionManager.saveUserToken(userToken)
 
                     val intent = Intent(context, MainActivity::class.java);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
-
                 } else {
                     Toast.makeText(context, "Email or password is wrong", Toast.LENGTH_LONG).show()
                 }
