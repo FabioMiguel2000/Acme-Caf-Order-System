@@ -15,7 +15,6 @@ import retrofit2.Response
 class AuthManager {
     fun login(context: Context, username: String, password: String, onSuccess: () -> Unit) {
         val body = mapOf("email" to username, "password" to password)
-        val sessionManager = SessionManager(context)
         HttpHandlerClass.getInstance().retrofitBuilder.login(body).enqueue(object : Callback<ApiResponse<User>> {
             override fun onResponse(call: Call<ApiResponse<User>>, response: Response<ApiResponse<User>>) {
                 if (response.code() == 200) {
@@ -23,7 +22,7 @@ class AuthManager {
                     val userToken = response.body()?.data?._id
 
                     if(!userToken.isNullOrEmpty())
-                        sessionManager.saveUserToken(userToken)
+                        SessionManager(context).saveUserToken(userToken)
 
                     val intent = Intent(context, MainActivity::class.java);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -55,6 +54,12 @@ class AuthManager {
             ) {
                 if(response.code() == 201){
                     Toast.makeText(context, "Register succeeded", Toast.LENGTH_LONG).show()
+
+                    val userToken = response.body()?.data?._id
+
+                    if(!userToken.isNullOrEmpty())
+                        SessionManager(context).saveUserToken(userToken)
+
                     callback.onRegistrationSuccess()
                 } else {
                     Toast.makeText(context, "Verify your information", Toast.LENGTH_LONG).show()
