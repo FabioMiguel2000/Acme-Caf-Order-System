@@ -1,5 +1,6 @@
 package com.feup.coffee_order_application.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -7,6 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.feup.coffee_order_application.R
+import com.feup.coffee_order_application.core.service.SessionManager
 import com.feup.coffee_order_application.ui.fragment.CartFragment
 import com.feup.coffee_order_application.ui.fragment.HomeFragment
 import com.feup.coffee_order_application.ui.fragment.ProfileFragment
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.logout -> {
+                SessionManager(this).clearSession()
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 true

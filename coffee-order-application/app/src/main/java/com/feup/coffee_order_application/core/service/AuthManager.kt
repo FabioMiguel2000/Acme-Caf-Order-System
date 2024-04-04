@@ -19,11 +19,14 @@ class AuthManager {
             override fun onResponse(call: Call<ApiResponse<User>>, response: Response<ApiResponse<User>>) {
                 if (response.code() == 200) {
                     Toast.makeText(context, "Login succeeded", Toast.LENGTH_LONG).show()
+                    val userToken = response.body()?.data?._id
+
+                    if(!userToken.isNullOrEmpty())
+                        SessionManager(context).saveUserToken(userToken)
 
                     val intent = Intent(context, MainActivity::class.java);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     context.startActivity(intent)
-
                 } else {
                     Toast.makeText(context, "Email or password is wrong", Toast.LENGTH_LONG).show()
                 }
@@ -51,6 +54,12 @@ class AuthManager {
             ) {
                 if(response.code() == 201){
                     Toast.makeText(context, "Register succeeded", Toast.LENGTH_LONG).show()
+
+                    val userToken = response.body()?.data?._id
+
+                    if(!userToken.isNullOrEmpty())
+                        SessionManager(context).saveUserToken(userToken)
+
                     callback.onRegistrationSuccess()
                 } else {
                     Toast.makeText(context, "Verify your information", Toast.LENGTH_LONG).show()
