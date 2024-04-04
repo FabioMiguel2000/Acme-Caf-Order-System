@@ -99,24 +99,82 @@
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintTop_toBottomOf="@id/rv_checkout_order">
 
+
             <TextView
+                android:id="@+id/tv_vouchers_used"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:text="Vouchers Used"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="@color/dark_purple"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_checkout_d_voucher"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textSize="12sp"
+                android:text="Discount Voucher"
+                android:textColor="@color/dark_purple"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_vouchers_used" />
+
+            <TextView
+                android:id="@+id/tv_checkout_d_voucher_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textSize="12sp"
+
+                android:text="dafjhdkjahkjsdhakjdhaskjsdhaskj"
+                android:textColor="@color/light_purple"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_vouchers_used" />
+
+            <TextView
+                android:id="@+id/tv_checkout_c_voucher"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+
+                android:text="Coffee Voucher"
+                android:textColor="@color/dark_purple"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_checkout_d_voucher"/>
+
+            <TextView
+                android:id="@+id/tv_checkout_c_voucher_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+
+                android:text="dafjhdkjahkjsdhakjdhaskjsdhaskj"
+                android:textColor="@color/light_purple"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_checkout_d_voucher"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:text="Subtotal"
                 android:textColor="@color/light_purple"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/tv_checkout_c_voucher"/>
 
             <TextView
                 android:id="@+id/tv_subtotal_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:text="12.00 EUR"
                 android:textColor="@color/light_purple"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/tv_checkout_c_voucher"
+                />
 
             <TextView
                 android:id="@+id/textView"
