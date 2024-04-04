@@ -127,6 +127,7 @@ const validateOrder = async (req, res) => {
 
 const createOrder = async (req, res) => {
   try {
+    console.log(req.body)
     const { client, products, discountVoucher, freeCoffeeVoucher, status } =
       req.body;
 

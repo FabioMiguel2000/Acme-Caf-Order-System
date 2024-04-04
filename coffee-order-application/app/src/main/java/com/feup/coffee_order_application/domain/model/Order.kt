@@ -5,7 +5,7 @@ class Order(
     var cartProducts: MutableList<CartProduct> = mutableListOf(),
     var coffeeVoucher: Voucher? = null,
     var discountVoucher: Voucher? = null,
-    val status: String = "Pending"
+    val status: String = STATUS_PENDING
 ){
     companion object {
         const val STATUS_PENDING = "Pending"

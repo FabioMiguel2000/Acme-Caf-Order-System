@@ -1,13 +1,16 @@
 package com.feup.coffee_order_application.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.feup.coffee_order_application.R
+import com.feup.coffee_order_application.core.service.ServiceLocator
 import com.feup.coffee_order_application.ui.adapter.CartAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.domain.model.Order
@@ -78,7 +81,18 @@ class CartFragment : Fragment() {
         binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance(Voucher.TYPE_FREE_COFFEE)) }
 
         binding.btnCheckout.setOnClickListener {
-            navigateToFragment(CheckoutFragment())
+            createOrderAndNavigate()
+        }
+    }
+
+    private fun createOrderAndNavigate (){
+        ServiceLocator.orderRepository.createOrder(cartOrder) { isSuccess, statusCode ->
+            if (isSuccess) {
+                navigateToFragment(CheckoutFragment())
+            } else {
+                Log.e("CartFragment", "Failed to create order, status code: $statusCode")
+                Toast.makeText(requireContext(), "Failed to create order, status code: $statusCode", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
