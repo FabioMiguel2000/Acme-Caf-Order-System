@@ -24,6 +24,12 @@ class CartFragment : Fragment() {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root
     }
+    override fun onResume() {
+        super.onResume()
+        cartOrder = OrderStorageUtils.readOrderFromFile(requireContext())
+        updateUI()
+        setupRecyclerView()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         cartOrder = OrderStorageUtils.readOrderFromFile(requireContext())
