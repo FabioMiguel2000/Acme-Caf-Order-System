@@ -1,6 +1,7 @@
 package com.feup.coffee_order_application.core.network
 
 import com.feup.coffee_order_application.domain.model.Category
+import com.feup.coffee_order_application.domain.model.Product
 import com.feup.coffee_order_application.domain.model.User
 import com.feup.coffee_order_application.domain.model.Voucher
 import retrofit2.Call
@@ -25,5 +26,6 @@ interface ApiInterface {
     @GET("vouchers/client")
     fun getUserVouchers(@Query("client") clientId: String): Call<ApiResponse<List<Voucher>>>
 
-
+    @GET("api/products/category")
+    fun getProductsByCategory(@Query("category") category: String): Call<ApiResponse<List<Product>>>
 }
