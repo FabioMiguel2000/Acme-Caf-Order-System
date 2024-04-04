@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.core.utils.OrderStorageUtils
+import com.feup.coffee_order_application.core.utils.QRCodeGenerator
 import com.feup.coffee_order_application.databinding.FragmentCheckoutBinding
 import com.feup.coffee_order_application.domain.model.Order
 import com.feup.coffee_order_application.ui.adapter.CheckoutAdapter
@@ -39,12 +40,19 @@ class CheckoutFragment: Fragment() {
         }
     }
 
-
-
     private fun updateUI() {
+        displayQRCode()
         binding.tvCheckoutCVoucherCode.text = cartOrder.coffeeVoucher?._id?.toUpperCase()?: "No Voucher"
         binding.tvCheckoutDVoucherCode.text = cartOrder.discountVoucher?._id?.toUpperCase()?: "No Voucher"
         updatePrices()
+    }
+
+    fun displayQRCode() {
+        val qrCodeBitmap = QRCodeGenerator().generateQRCode(cartOrder.toString())
+
+        qrCodeBitmap?.let {
+            binding.ivQrCode.setImageBitmap(it)
+        }
     }
 
     private fun setupActionBar() {
