@@ -1,5 +1,6 @@
 package com.feup.coffee_order_application.ui.fragment
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.feup.coffee_order_application.core.utils.QRCodeGenerator
 import com.feup.coffee_order_application.databinding.FragmentCheckoutBinding
 import com.feup.coffee_order_application.domain.model.Order
 import com.feup.coffee_order_application.ui.adapter.CheckoutAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import kotlin.math.round
 
@@ -32,6 +34,12 @@ class CheckoutFragment: Fragment() {
         setupActionBar()
         setupRecyclerView()
         updateUI()
+        setNavBarVisibility(View.GONE)
+
+    }
+    private fun setNavBarVisibility(visibility: Int){
+        val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
+        bottomNav.visibility = visibility
     }
     private fun setupRecyclerView() {
         val adapter = CheckoutAdapter(cartOrder.cartProducts)
@@ -89,5 +97,7 @@ class CheckoutFragment: Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
+        setNavBarVisibility(View.VISIBLE)
     }
 }
