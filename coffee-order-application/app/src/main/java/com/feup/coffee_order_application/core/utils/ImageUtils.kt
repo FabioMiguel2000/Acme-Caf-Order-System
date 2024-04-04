@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.util.Base64
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.feup.coffee_order_application.R
 
 class ImageUtils {
 
@@ -23,4 +24,25 @@ class ImageUtils {
             .load(imageBytes)
             .into(imageView)
     }
+
+    fun convertGoogleDriveLinkToDirectLink(driveLink: String): String? {
+        val fileId = Regex("https://drive.google.com/file/d/(.*?)/view").find(driveLink)?.groupValues?.get(1)
+        return fileId?.let { "https://drive.google.com/uc?export=view&id=$it" }
+    }
+
+    fun loadImageFromUrlIntoView(imageUrl: String, imageView: ImageView) {
+        val directImageUrl = convertGoogleDriveLinkToDirectLink(imageUrl)
+        directImageUrl?.let { url ->
+            Glide.with(imageView.context)
+                .load(url)
+                .placeholder(R.drawable.hot_coffee)
+                .error(R.drawable.error_image)
+                .into(imageView)
+        } ?: run {
+            Glide.with(imageView.context)
+                .load(R.drawable.error_image)
+                .into(imageView)
+        }
+    }
+
 }

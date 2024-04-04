@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.feup.coffee_order_application.R
+import com.feup.coffee_order_application.core.utils.ImageUtils
 import com.feup.coffee_order_application.domain.model.CartProduct
 import com.feup.coffee_order_application.core.utils.OrderStorageUtils
 import com.feup.coffee_order_application.domain.model.Product
@@ -37,11 +38,7 @@ class ProductsAdapter(private val context: Context, private val products: List<P
         holder.nameTextView.text = product.name
         holder.priceTextView.text = "${product.price} € / per piece"
 
-        var url = "https://drive.google.com/uc?export=view&id=14lXzmRM-KDFdefeqOQEfttl_6TLdNfN6"
-
-        Glide.with(context) // Replace "context" with your actual context
-            .load(url)
-            .into(holder.imageView)
+        ImageUtils().loadImageFromUrlIntoView(product.imgURL, holder.imageView)
 
         holder.btnAdd.setOnClickListener {
             val existingProduct = cartOrder.cartProducts.find { it.name == product.name }
