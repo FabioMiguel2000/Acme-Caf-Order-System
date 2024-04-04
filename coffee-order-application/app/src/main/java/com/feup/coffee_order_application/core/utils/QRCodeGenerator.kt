@@ -1,14 +1,12 @@
 package com.feup.coffee_order_application.core.utils
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
-import com.feup.coffee_order_application.R
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
-class QRCodeGenerator() {
+class QRCodeGenerator {
     fun generateQRCode(content: String, width: Int = 320, height: Int = 320): Bitmap? {
         val qrCodeWriter = QRCodeWriter()
         try {

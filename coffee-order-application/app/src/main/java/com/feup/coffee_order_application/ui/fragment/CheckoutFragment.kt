@@ -9,11 +9,13 @@ import androidx.compose.ui.text.toUpperCase
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.feup.coffee_order_application.R
+import com.feup.coffee_order_application.core.service.SessionManager
 import com.feup.coffee_order_application.core.utils.OrderStorageUtils
 import com.feup.coffee_order_application.core.utils.QRCodeGenerator
 import com.feup.coffee_order_application.databinding.FragmentCheckoutBinding
 import com.feup.coffee_order_application.domain.model.Order
 import com.feup.coffee_order_application.ui.adapter.CheckoutAdapter
+import com.google.gson.Gson
 import kotlin.math.round
 
 class CheckoutFragment: Fragment() {
@@ -47,8 +49,10 @@ class CheckoutFragment: Fragment() {
         updatePrices()
     }
 
-    fun displayQRCode() {
-        val qrCodeBitmap = QRCodeGenerator().generateQRCode(cartOrder.toString())
+    private fun displayQRCode() {
+        cartOrder.client = SessionManager(requireContext()).fetchUserToken()!!
+        val orderJson = Gson().toJson(cartOrder)
+        val qrCodeBitmap = QRCodeGenerator().generateQRCode(orderJson)
 
         qrCodeBitmap?.let {
             binding.ivQrCode.setImageBitmap(it)
