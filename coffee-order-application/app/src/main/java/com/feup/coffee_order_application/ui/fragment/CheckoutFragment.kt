@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.text.toUpperCase
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.feup.coffee_order_application.R
@@ -38,7 +39,11 @@ class CheckoutFragment: Fragment() {
         }
     }
 
+
+
     private fun updateUI() {
+        binding.tvCheckoutCVoucherCode.text = cartOrder.coffeeVoucher?._id?.toUpperCase()?: "No voucher"
+        binding.tvCheckoutDVoucherCode.text = cartOrder.discountVoucher?._id?.toUpperCase()?: "No voucher"
         updatePrices()
     }
 
@@ -48,9 +53,6 @@ class CheckoutFragment: Fragment() {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
-    }
-    fun View.setVisible(isVisible: Boolean) {
-        visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
     private fun updatePrices() {
