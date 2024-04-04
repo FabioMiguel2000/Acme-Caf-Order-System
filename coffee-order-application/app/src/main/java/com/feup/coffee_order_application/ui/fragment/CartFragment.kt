@@ -70,6 +70,10 @@ class CartFragment : Fragment() {
         binding.discountVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance(
             Voucher.TYPE_DISCOUNT)) }
         binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance(Voucher.TYPE_FREE_COFFEE)) }
+
+        binding.btnCheckout.setOnClickListener {
+            navigateToFragment(CheckoutFragment())
+        }
     }
 
     private fun navigateToFragment(fragment: Fragment) {
