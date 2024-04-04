@@ -41,12 +41,12 @@ class ProductsAdapter(private val context: Context, private val products: List<P
         ImageUtils().loadImageFromUrlIntoView(product.imgURL, holder.imageView)
 
         holder.btnAdd.setOnClickListener {
-            val existingProduct = cartOrder.cartProducts.find { it.name == product.name }
+            val existingProduct = cartOrder.cartProducts.find { it.product._id == product._id }
             if (existingProduct != null) {
                 existingProduct.quantity++
             } else {
                 Log.d("ProductsAdapter", "Product added to cart: ${product.name}")
-//                cartOrder.cartProducts.add(product)
+                cartOrder.cartProducts.add(CartProduct(product, 1))
             }
             Toast.makeText(context, "${product.name} added to cart", Toast.LENGTH_SHORT).show()
             OrderStorageUtils.saveOrderToFile(cartOrder, context)

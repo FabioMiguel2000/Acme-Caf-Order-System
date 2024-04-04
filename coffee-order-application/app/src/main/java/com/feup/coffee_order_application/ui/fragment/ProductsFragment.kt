@@ -59,7 +59,7 @@ class ProductsFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    fun String.toDisplayFormat(): String {
+    private fun String.toDisplayFormat(): String {
         return this.split("_") // Split the string by underscores
             .joinToString(" ") { it.capitalize() } // Capitalize each word and join with a space
             .replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } // Ensure the first character is capitalized
