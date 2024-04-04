@@ -79,7 +79,7 @@ const registerUser = async (req, res) => {
     });
 
     if (usernameExists) {
-      returnResponse(res, 409, false, `User already exists ${userInput.email}`);
+      return returnResponse(res, 409, false, `User already exists ${userInput.email}`);
     }
 
     const nifExists = await User.findOne({
@@ -87,7 +87,7 @@ const registerUser = async (req, res) => {
     });
 
     if (nifExists) {
-      returnResponse(res, 409, false, `NIF already registered ${userInput.nif}`);
+      return returnResponse(res, 409, false, `NIF already registered ${userInput.nif}`);
     }
 
     const encryptedPassword = await encryptPassword(userInput.password);
@@ -105,9 +105,9 @@ const registerUser = async (req, res) => {
     const filteredUser = await User.findById(newUser._id).select(
       "-password -publicKey"
     );
-      returnResponse(res, 201, true, `User created ${filteredUser}`, filteredUser);
+      return returnResponse(res, 201, true, `User created ${filteredUser}`, filteredUser);
   } catch (error) {
-    returnResponse(res, 500, false, `Failed to register user ${error}`);
+    return returnResponse(res, 500, false, `Failed to register user ${error}`);
   }
 };
 

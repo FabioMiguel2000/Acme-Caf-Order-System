@@ -14,7 +14,7 @@ const getProductCategories = async (req, res) => {
       data: productCategories,
     });
   } catch (error) {
-    returnResponse(res, 404, false, "error " + error.message);
+    return returnResponse(res, 404, false, "error " + error.message);
   }
 };
 
@@ -46,9 +46,9 @@ const createProduct = async (product) => {
 const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    returnResponse(res, 200, true, `Retrieved ${products.length} products`, products);
+    return returnResponse(res, 200, true, `Retrieved ${products.length} products`, products);
   } catch (error) {
-    returnResponse(res, 500, false, `Failed to retrieve products ${error}`);
+    return returnResponse(res, 500, false, `Failed to retrieve products ${error}`);
   }
 };
 
@@ -57,11 +57,11 @@ const getProductById = async (req, res) => {
     const { id } = req.params;
     const product = await Product.findById(id);
     if (!product) {
-      returnResponse(res, 404, false, `Product with id: ${id} not found`);
+      return returnResponse(res, 404, false, `Product with id: ${id} not found`);
     }
-    returnResponse(res, 200, true, `Retrieved product with id: ${id}`, product);
+    return returnResponse(res, 200, true, `Retrieved product with id: ${id}`, product);
   } catch (error) {
-    returnResponse(res, 404, false, error.message);
+    return returnResponse(res, 404, false, error.message);
   }
 };
 
@@ -69,7 +69,7 @@ const getProductsByCategory = async (req, res) => {
   try {
     const { category } = req.query;
     if (category === undefined || category === "") {
-      returnResponse(res, 400, false, "Bad Request: category query parameter is required and cannot be empty, e.g. /products/category?category=Hot%20Coffees");
+      return returnResponse(res, 400, false, "Bad Request: category query parameter is required and cannot be empty, e.g. /products/category?category=Hot%20Coffees");
     }
 
     const categoryObjectId = await ProductCategory.findOne({ _name: category })
@@ -100,11 +100,11 @@ const getProductsByCategory = async (req, res) => {
       ]);
 
     if (products.length === 0) {
-      returnResponse(res, 404, false, `Products with category: ${category} not found`);
+      return returnResponse(res, 404, false, `Products with category: ${category} not found`);
     }
-    returnResponse(res, 200, true, `Retrieved ${products.length} products with category: ${category}`, products);
+    return returnResponse(res, 200, true, `Retrieved ${products.length} products with category: ${category}`, products);
   } catch (error) {
-    returnResponse(res, 500, false, `Failed to retrieve products by category`);
+    return returnResponse(res, 500, false, `Failed to retrieve products by category`);
   }
 };
 
