@@ -91,11 +91,7 @@ const validateOrder = async (req, res) => {
     const order = await Order.findById(id);
 
     if (!order) {
-      return res.status(404).json({
-        error: true,
-        success: false,
-        message: `Order with id: ${id} not found`,
-      });
+      return returnResponse(res, 404, false, `Order with id: ${id} not found`);
     }
 
     if (order.status !== "Pending") {
@@ -131,6 +127,8 @@ const createOrder = async (req, res) => {
     const { client, products, discountVoucher, freeCoffeeVoucher, status } =
       req.body;
 
+    console.log( client, products, discountVoucher, freeCoffeeVoucher, status)
+
     if (status !== "Pending") {
       return returnResponse (res, 400, false, `Invalid status: ${status}`);
     }
@@ -143,14 +141,25 @@ const createOrder = async (req, res) => {
       return returnResponse(res, 404, false, `Client with id: ${client} not found`);
     }
 
+    let freeCoffeeProductExist = false
+
+    const freeCoffeeProductIndex = products.findIndex(p => p.product === "FreeCoffee");
+
+    if (freeCoffeeProductIndex !== -1) {
+      products.splice(freeCoffeeProductIndex, 1);
+      freeCoffeeProductExist = true;
+    }
+
+    console.log(products)
+
     const productObjs = await getProductObjs(products);
 
     const vDiscountVoucher = await validateVoucher(discountVoucher, client);
     const vFreeCoffeeVoucher = await validateVoucher(freeCoffeeVoucher, client);
 
-    const freeCoffeeProductExist = productObjs
-      .map((p) => p.product.name)
-      .includes("Free Coffee");
+    // const freeCoffeeProductExist = productObjs
+    //   .map((p) => p.product.name)
+    //   .includes("Free Coffee");
 
     if (
       (vFreeCoffeeVoucher && !freeCoffeeProductExist) ||

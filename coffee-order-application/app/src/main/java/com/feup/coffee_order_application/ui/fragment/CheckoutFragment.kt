@@ -64,13 +64,12 @@ class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
 
     private fun updateUI() {
         displayQRCode()
-        binding.tvCheckoutCVoucherCode.text = cartOrder.coffeeVoucher?._id?.toUpperCase()?: "No Voucher"
+        binding.tvCheckoutCVoucherCode.text = cartOrder.freeCoffeeVoucher?._id?.toUpperCase()?: "No Voucher"
         binding.tvCheckoutDVoucherCode.text = cartOrder.discountVoucher?._id?.toUpperCase()?: "No Voucher"
         updatePrices()
     }
 
     private fun displayQRCode() {
-        cartOrder.client = SessionManager(requireContext()).fetchUserToken()!!
         val orderJson = Gson().toJson(cartOrder)
         val qrCodeBitmap = QRCodeGenerator().generateQRCode(orderJson)
 

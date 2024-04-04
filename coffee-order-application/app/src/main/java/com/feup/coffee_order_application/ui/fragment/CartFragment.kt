@@ -11,11 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.core.service.ServiceLocator
+import com.feup.coffee_order_application.core.service.SessionManager
 import com.feup.coffee_order_application.ui.adapter.CartAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.domain.model.Order
 import com.feup.coffee_order_application.domain.model.Voucher
 import com.feup.coffee_order_application.core.utils.OrderStorageUtils
+import com.feup.coffee_order_application.domain.model.OrderRequest
+import com.feup.coffee_order_application.domain.model.ProductItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.round
 
@@ -61,7 +64,7 @@ class CartFragment : Fragment() {
     }
     private fun updateVoucherStatus() {
         binding.tvSelectCoffeeVoucher.text = getString(
-            if (cartOrder.coffeeVoucher == null) R.string.voucher_not_selected else R.string.voucher_selected
+            if (cartOrder.freeCoffeeVoucher == null) R.string.voucher_not_selected else R.string.voucher_selected
         )
         binding.tvSelectDiscountVoucher.text = getString(
             if (cartOrder.discountVoucher == null) R.string.voucher_not_selected else R.string.voucher_selected
@@ -86,9 +89,17 @@ class CartFragment : Fragment() {
     }
 
     private fun createOrderAndNavigate (){
-        ServiceLocator.orderRepository.createOrder(cartOrder) { isSuccess, statusCode ->
+        val orderRequest = OrderRequest(
+            client = SessionManager(requireContext()).fetchUserToken()!!,
+            products = cartOrder.cartProducts.map { cartProduct -> ProductItem(cartProduct.product._id, cartProduct.quantity)  },
+            discountVoucher = cartOrder.discountVoucher?._id ,
+            freeCoffeeVoucher = cartOrder.freeCoffeeVoucher?._id
+            )
+
+        ServiceLocator.orderRepository.createOrder(orderRequest) { isSuccess, statusCode ->
             if (isSuccess) {
                 navigateToFragment(CheckoutFragment())
+                Toast.makeText(requireContext(), "Order created successfully", Toast.LENGTH_SHORT).show()
             } else {
                 Log.e("CartFragment", "Failed to create order, status code: $statusCode")
                 Toast.makeText(requireContext(), "Failed to create order, status code: $statusCode", Toast.LENGTH_SHORT).show()
