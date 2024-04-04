@@ -1,6 +1,7 @@
 package com.feup.coffee_order_application.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,16 +15,14 @@ import com.feup.coffee_order_application.ui.adapter.ProductsAdapter
 import com.feup.coffee_order_application.domain.model.CartProduct
 import com.feup.coffee_order_application.domain.model.Product
 
-//val products = mutableListOf<CartProduct>(
-//    CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-//    CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "", 1),
-//    CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-//    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 1),
-//)
-
 class ProductsFragment : Fragment() {
-    val category: String = "hot_coffee"
-    val products = mutableListOf<Product>()
+    private var category: String? = null
+    private val products = mutableListOf<Product>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        category = arguments?.getString("category", "default_category")
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,29 +35,27 @@ class ProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            title = "Hot Coffee"
+            title = category
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
 
-        ServiceLocator.productRepository.fetchProductsByCategory(category) { fetchedProducts ->
-            fetchedProducts?.let {
-                this.products.clear()
-                this.products.addAll(it)
-
-                val adapter = ProductsAdapter(requireContext(), products)
-                val recyclerView: RecyclerView = view.findViewById(R.id.rv_products)
-                recyclerView.layoutManager =
-                    LinearLayoutManager(context)
-                recyclerView.adapter = adapter
+        category?.let { safeCategory ->
+            ServiceLocator.productRepository.fetchProductsByCategory(safeCategory) { fetchedProducts ->
+                fetchedProducts?.let {
+                    products.clear()
+                    products.addAll(it)
+                    updateRecyclerView(view, products)
+                }
             }
         }
+        updateRecyclerView(view, products)
+    }
 
+    private fun updateRecyclerView(view: View, products: List<Product>) {
         val adapter = ProductsAdapter(requireContext(), products)
-
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_products)
-        recyclerView.layoutManager =
-            LinearLayoutManager(context)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
     }
 

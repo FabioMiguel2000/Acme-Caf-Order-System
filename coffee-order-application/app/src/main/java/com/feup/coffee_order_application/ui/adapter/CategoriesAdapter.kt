@@ -42,7 +42,7 @@ class CategoriesAdapter(val categories: MutableList<Category>) : RecyclerView.Ad
             val fragmentTransaction = fragmentManager.beginTransaction()
             val productsFragment = ProductsFragment().apply {
                 arguments = Bundle().apply {
-                    putString("category", category.name)
+                    putString("category", category._name)
                 }
             }
             fragmentTransaction.replace(R.id.fLayout, productsFragment)
