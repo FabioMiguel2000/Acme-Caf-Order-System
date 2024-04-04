@@ -96,8 +96,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/dark_purple"
             android:text="12.00"
-            app:layout_constraintBottom_toTopOf="@+id/line"
-            app:layout_constraintEnd_toEndOf="@+id/line" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_order_quantity"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
             android:id="@+id/remove_btn_order"

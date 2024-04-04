@@ -23,7 +23,7 @@ class CheckoutAdapter(
         with(holder.binding) {
             val cartProduct = products[position]
             val product = cartProduct.product
-            tvOrderQuantity.text = cartProduct.quantity.toString()
+            tvOrderQuantity.text = "Qty ${cartProduct.quantity}"
             tvOrderName.text = product.name
             tvOrderPricePerPiece.text = "${product.price} € / per piece"
 
@@ -34,6 +34,7 @@ class CheckoutAdapter(
             plusBtnOrder.isVisible = false
             minusBtnOrder.isVisible = false
             removeBtnOrder.isVisible = false
+            line.isVisible = false
 
         }
     }
