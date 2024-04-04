@@ -28,7 +28,7 @@
             app:shapeAppearanceOverlay="@style/RoundedSquare"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@drawable/cappucino"
+            android:background="@drawable/loading"
             app:layout_constraintBottom_toTopOf="@id/tv_order_quantity"
             app:layout_constraintStart_toStartOf="parent"
             android:scaleType="centerCrop"
