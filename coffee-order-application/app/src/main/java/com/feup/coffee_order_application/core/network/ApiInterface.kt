@@ -26,6 +26,6 @@ interface ApiInterface {
     @GET("vouchers/client")
     fun getUserVouchers(@Query("client") clientId: String): Call<ApiResponse<List<Voucher>>>
 
-    @GET("api/products/category")
+    @GET("products/category")
     fun getProductsByCategory(@Query("category") category: String): Call<ApiResponse<List<Product>>>
 }

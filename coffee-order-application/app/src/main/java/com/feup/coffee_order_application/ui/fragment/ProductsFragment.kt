@@ -9,17 +9,21 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
+import com.feup.coffee_order_application.core.service.ServiceLocator
 import com.feup.coffee_order_application.ui.adapter.ProductsAdapter
 import com.feup.coffee_order_application.domain.model.CartProduct
+import com.feup.coffee_order_application.domain.model.Product
 
-val products = mutableListOf<CartProduct>(
-    CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-    CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "", 1),
-    CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 1),
-)
+//val products = mutableListOf<CartProduct>(
+//    CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),
+//    CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "", 1),
+//    CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
+//    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 1),
+//)
 
 class ProductsFragment : Fragment() {
+    val category: String = "hot_coffee"
+    val products = mutableListOf<Product>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,6 +41,19 @@ class ProductsFragment : Fragment() {
             setDisplayShowHomeEnabled(true)
         }
 
+        ServiceLocator.productRepository.fetchProductsByCategory(category) { fetchedProducts ->
+            fetchedProducts?.let {
+                this.products.clear()
+                this.products.addAll(it)
+
+                val adapter = ProductsAdapter(requireContext(), products)
+                val recyclerView: RecyclerView = view.findViewById(R.id.rv_products)
+                recyclerView.layoutManager =
+                    LinearLayoutManager(context)
+                recyclerView.adapter = adapter
+            }
+        }
+
         val adapter = ProductsAdapter(requireContext(), products)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_products)
@@ -44,4 +61,5 @@ class ProductsFragment : Fragment() {
             LinearLayoutManager(context)
         recyclerView.adapter = adapter
     }
+
 }
