@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.activity.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -18,7 +18,9 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></androidx.appcompat.widget.Toolbar>
+            android:layout_height="wrap_content"
+            app:titleTextAppearance="@style/ToolbarTitleTextStyle" />
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -37,5 +39,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="75dp"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:itemIconTint="@color/nav_item_color_state"
+        app:itemTextColor="@color/nav_item_color_state"
+        app:menu="@menu/bottom_nav_menu"
+        android:background="@color/white"
+        style="@style/BottomNavigationViewStyle"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

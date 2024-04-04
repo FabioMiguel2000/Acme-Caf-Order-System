@@ -30,12 +30,39 @@ MONGODB_URI=mongodb://mongo:27017/acme-coffee
 docker-compose up -d
 ```
 
-5. Populate the database with seed, run:
+5. Install NodeJS dependencies
+```bash
+docker exec -it api npm install
+```
+
+
+6. Populate the database with seed, run:
 
 ```bash
 docker exec -it api npm run data:import
 ```
-6. Install NodeJS dependencies
+
+
+7. If you've populated the database in step four, to destroy old structure and get new one, run the comand bellow and run again step four:
 ```bash
-docker exec -it api npm install
+docker exec -it api npm run data:destroy
+```
+
+#### Run Application
+
+1. Head inside the app's project directory `/coffee-order-application`, and add the server's base URL to the `local.properties`, accordingly:
+
+If you are using a physical device:
+```bash
+apiBaseUrl=http://your_local_ip_address/api/
+```
+
+Example:
+```bash
+apiBaseUrl=http://192.168.1.97:3000/api/
+```
+
+If you are running on an emulator you can keep with the default base URL:
+```bash
+apiBaseUrl=http://10.0.2.2:3000/api/
 ```

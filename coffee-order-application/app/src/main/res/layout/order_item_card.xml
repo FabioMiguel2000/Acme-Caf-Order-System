@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardUseCompatPadding="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_purple"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            app:cardCornerRadius="10dp"
+            android:id="@+id/img_order"
+            app:shapeAppearanceOverlay="@style/RoundedSquare"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/cappucino"
+            app:layout_constraintBottom_toTopOf="@id/tv_order_quantity"
+            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="5dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_order_price_per_piece"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_name"
+            app:layout_constraintStart_toEndOf="@id/img_order"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/dark_purple"
+            android:layout_marginTop="20dp"
+            android:text="1.1EUR / piece"/>
+
+        <TextView
+            android:id="@+id/tv_order_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Caffe Americanno"
+            android:textColor="@color/dark_purple"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@+id/img_order"
+            app:layout_constraintStart_toEndOf="@id/img_order" />
+
+        <ImageView
+            android:id="@+id/minus_btn_order"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_remove"
+            app:layout_constraintStart_toStartOf="@id/img_order"
+            app:layout_constraintTop_toBottomOf="@id/img_order"
+            app:layout_constraintBottom_toBottomOf="@id/line"/>
+
+        <TextView
+            android:id="@+id/tv_order_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_purple"
+            android:text="1"
+            app:layout_constraintTop_toTopOf="@id/minus_btn_order"
+            app:layout_constraintBottom_toBottomOf="@id/minus_btn_order"
+            app:layout_constraintStart_toEndOf="@id/minus_btn_order"
+            app:layout_constraintEnd_toStartOf="@id/plus_btn_order"
+
+            />
+
+        <ImageView
+            android:id="@+id/plus_btn_order"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_add"
+            app:layout_constraintTop_toTopOf="@id/minus_btn_order"
+            app:layout_constraintBottom_toBottomOf="@id/minus_btn_order"
+            app:layout_constraintEnd_toEndOf="@id/img_order"
+            />
+
+        <TextView
+            android:id="@+id/tv_order_total_price_per_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_purple"
+            android:text="12.00"
+            app:layout_constraintBottom_toTopOf="@+id/line"
+            app:layout_constraintEnd_toEndOf="@+id/line" />
+
+        <ImageView
+            android:id="@+id/remove_btn_order"
+            android:paddingHorizontal="5dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_trash"
+            app:layout_constraintEnd_toEndOf="@+id/tv_order_total_price_per_item"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
