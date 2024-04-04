@@ -42,8 +42,8 @@ class CheckoutFragment: Fragment() {
 
 
     private fun updateUI() {
-        binding.tvCheckoutCVoucherCode.text = cartOrder.coffeeVoucher?._id?.toUpperCase()?: "No voucher"
-        binding.tvCheckoutDVoucherCode.text = cartOrder.discountVoucher?._id?.toUpperCase()?: "No voucher"
+        binding.tvCheckoutCVoucherCode.text = cartOrder.coffeeVoucher?._id?.toUpperCase()?: "No Voucher"
+        binding.tvCheckoutDVoucherCode.text = cartOrder.discountVoucher?._id?.toUpperCase()?: "No Voucher"
         updatePrices()
     }
 

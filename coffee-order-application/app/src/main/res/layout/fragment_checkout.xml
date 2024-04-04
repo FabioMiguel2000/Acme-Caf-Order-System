@@ -107,7 +107,7 @@
                 android:layout_marginTop="15dp"
                 android:text="Vouchers Used"
                 android:textStyle="bold"
-                android:textSize="16sp"
+
                 android:textColor="@color/dark_purple"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:textSize="12sp"
+                android:textSize="11sp"
 
                 android:text="dafjhdkjahkjsdhakjdhaskjsdhaskj"
                 android:textColor="@color/light_purple"
@@ -139,7 +139,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-
                 android:text="Coffee Voucher"
                 android:textColor="@color/dark_purple"
                 app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +148,7 @@
                 android:id="@+id/tv_checkout_c_voucher_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="11sp"
 
                 android:text="dafjhdkjahkjsdhakjdhaskjsdhaskj"
                 android:textColor="@color/light_purple"
