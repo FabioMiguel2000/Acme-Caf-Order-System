@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Used Vouchers"
+            android:text="Order Details"
             android:textColor="@color/light_purple"
             android:textSize="30sp"
             android:textStyle="bold"
