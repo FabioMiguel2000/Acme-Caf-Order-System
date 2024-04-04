@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.text.toUpperCase
 import androidx.fragment.app.Fragment
@@ -20,7 +22,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import kotlin.math.round
 
-class CheckoutFragment: Fragment() {
+interface OnBackPressedInCheckout {
+    fun onBackPressed(): Boolean
+}
+
+class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
     private var _binding: FragmentCheckoutBinding? = null
     private lateinit var cartOrder: Order
     private val binding get() = _binding!!
@@ -35,7 +41,13 @@ class CheckoutFragment: Fragment() {
         setupRecyclerView()
         updateUI()
         setNavBarVisibility(View.GONE)
-
+        if (activity is AppCompatActivity) {
+            (activity as AppCompatActivity).onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    onBackPressed()
+                }
+            })
+        }
     }
     private fun setNavBarVisibility(visibility: Int){
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
@@ -93,6 +105,22 @@ class CheckoutFragment: Fragment() {
         cartOrder.discountVoucher?.let { round(subtotalPrice * 0.05 * 100) / 100 } ?: 0.0
 
     private fun calculateTotalPrice(subtotalPrice: Double, discountPrice: Double) = subtotalPrice - discountPrice
+
+    override fun onBackPressed(): Boolean {
+        showExitConfirmationDialog()
+        return true
+    }
+
+    private fun showExitConfirmationDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Confirm Exit")
+            .setMessage("Are you sure you want to exit the checkout process?\n\nIf you exit, your order will be lost.")
+            .setPositiveButton("Yes") { dialog, which ->
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+            .setNegativeButton("No", null)
+            .show()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
