@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const { returnResponse } = require("../services/general");
+const { returnResponse } = require("../services/responseHandler");
 const { createVoucher } = require("./voucherController");
 
 

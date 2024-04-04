@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const { encryptPassword } = require("../utils/crypto/bcryptPassword");
-const { returnResponse } = require("../services/general");
+const { returnResponse } = require("../services/responseHandler");
 
 const loginUser = async (req, res) => {
   try {
@@ -43,11 +43,7 @@ const loginUser = async (req, res) => {
         }
       ).select("-password -publicKey");
   
-      return res.status(200).json({
-        success: true,
-        message: `User authenticated ${user}`,
-        data: user,
-      });
+      return returnResponse(res, 200, true, `User authenticated ${user}`, user);
 
     } else {
       return res.status(500).json({

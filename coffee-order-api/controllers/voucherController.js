@@ -1,5 +1,5 @@
 const Voucher = require('../models/voucher');
-const { returnResponse } = require('../services/general');
+const { returnResponse } = require('../services/responseHandler');
 
 const getAllVouchers = async (req, res) => {
     try {

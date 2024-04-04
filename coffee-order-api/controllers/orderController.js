@@ -6,7 +6,7 @@ const {
   updateUserAccumulatedExpenses,
 } = require("./userController");
 const { validateVoucher, useVoucher } = require("./voucherController");
-const { returnResponse } = require("../services/general");
+const { returnResponse } = require("../services/responseHandler");
 
 const getAllOrders = async (req, res) => {
   try {
