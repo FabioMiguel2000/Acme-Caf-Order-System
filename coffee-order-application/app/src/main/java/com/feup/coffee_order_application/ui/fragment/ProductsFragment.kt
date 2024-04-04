@@ -35,7 +35,7 @@ class ProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            title = category
+            title = category?.toDisplayFormat()
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
@@ -57,6 +57,12 @@ class ProductsFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_products)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+    }
+
+    fun String.toDisplayFormat(): String {
+        return this.split("_") // Split the string by underscores
+            .joinToString(" ") { it.capitalize() } // Capitalize each word and join with a space
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } // Ensure the first character is capitalized
     }
 
 }
