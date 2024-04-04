@@ -11,7 +11,7 @@ import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.core.utils.OrderStorageUtils
 import com.feup.coffee_order_application.databinding.FragmentCheckoutBinding
 import com.feup.coffee_order_application.domain.model.Order
-import com.feup.coffee_order_application.ui.adapter.CartAdapter
+import com.feup.coffee_order_application.ui.adapter.CheckoutAdapter
 import kotlin.math.round
 
 class CheckoutFragment: Fragment() {
@@ -30,10 +30,7 @@ class CheckoutFragment: Fragment() {
         updateUI()
     }
     private fun setupRecyclerView() {
-        val adapter = CartAdapter(cartOrder.cartProducts) {
-            OrderStorageUtils.saveOrderToFile(cartOrder, requireContext())
-            updatePrices()
-        }
+        val adapter = CheckoutAdapter(cartOrder.cartProducts)
 
         binding.rvCheckoutOrder.apply {
             layoutManager = LinearLayoutManager(context)
