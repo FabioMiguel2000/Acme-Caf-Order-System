@@ -23,4 +23,21 @@ class QRCodeGenerator {
         }
         return null
     }
+    fun generateQRCode(contentBytes: ByteArray, width: Int = 320, height: Int = 320): Bitmap? {
+        val qrCodeWriter = QRCodeWriter()
+        try {
+            val bitMatrix: BitMatrix = qrCodeWriter.encode(String(contentBytes), BarcodeFormat.QR_CODE, width, height)
+
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            for (x in 0 until width) {
+                for (y in 0 until height) {
+                    bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.TRANSPARENT)
+                }
+            }
+            return bitmap
+        } catch (e: WriterException) {
+            e.printStackTrace()
+        }
+        return null
+    }
 }

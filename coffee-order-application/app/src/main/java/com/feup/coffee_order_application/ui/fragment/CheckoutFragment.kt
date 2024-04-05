@@ -79,7 +79,8 @@ class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
             discountVoucher = cartOrder.discountVoucher?._id ,
             freeCoffeeVoucher = cartOrder.freeCoffeeVoucher?._id
         )
-        val orderJson = Gson().toJson(orderRequest)
+
+        val orderJson = Gson().toJson(orderRequest).toByteArray(Charsets.UTF_8)
         val qrCodeBitmap = QRCodeGenerator().generateQRCode(orderJson)
 
         qrCodeBitmap?.let {
