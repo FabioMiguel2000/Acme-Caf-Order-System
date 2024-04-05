@@ -1,6 +1,7 @@
 package com.feup.coffee_order_application.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,17 +10,19 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.R
+import com.feup.coffee_order_application.core.service.ServiceLocator
 import com.feup.coffee_order_application.ui.adapter.ProductsAdapter
 import com.feup.coffee_order_application.domain.model.CartProduct
-
-val products = mutableListOf<CartProduct>(
-    CartProduct("Hot Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-    CartProduct("Cold Coffee", 2.99, R.drawable.ice_coffee, "", 1),
-    CartProduct("Coffee", 1.99, R.drawable.hot_coffee, "", 1),
-    CartProduct("Coffee 2", 2.99, R.drawable.ice_coffee, "", 1),
-)
+import com.feup.coffee_order_application.domain.model.Product
 
 class ProductsFragment : Fragment() {
+    private var category: String? = null
+    private val products = mutableListOf<Product>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        category = arguments?.getString("category", "default_category")
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,16 +35,34 @@ class ProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            title = "Hot Coffee"
+            title = category?.toDisplayFormat()
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
 
-        val adapter = ProductsAdapter(requireContext(), products)
+        category?.let { safeCategory ->
+            ServiceLocator.productRepository.fetchProductsByCategory(safeCategory) { fetchedProducts ->
+                fetchedProducts?.let {
+                    products.clear()
+                    products.addAll(it)
+                    updateRecyclerView(view, products)
+                }
+            }
+        }
+        updateRecyclerView(view, products)
+    }
 
+    private fun updateRecyclerView(view: View, products: List<Product>) {
+        val adapter = ProductsAdapter(requireContext(), products)
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_products)
-        recyclerView.layoutManager =
-            LinearLayoutManager(context)
+        recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
     }
+
+    private fun String.toDisplayFormat(): String {
+        return this.split("_") // Split the string by underscores
+            .joinToString(" ") { it.capitalize() } // Capitalize each word and join with a space
+            .replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() } // Ensure the first character is capitalized
+    }
+
 }

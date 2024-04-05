@@ -13,10 +13,12 @@ import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.databinding.FragmentProfileBinding
 import com.feup.coffee_order_application.domain.model.User
 import com.feup.coffee_order_application.core.service.ServiceLocator
+import com.feup.coffee_order_application.core.service.SessionManager
 
 class ProfileFragment : Fragment() {
-    private var user_id: String = "ecf585f7874bc0d4c5f4f622dc93730b" // hardcoded user id, TODO: get from shared preferences (session)
+    private var userId: String = ""
     private var _binding: FragmentProfileBinding? = null
+
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,9 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sessionManager = SessionManager(requireContext())
+        userId = sessionManager.fetchUserToken() ?: ""
 
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
             title = "Hi User!"
@@ -50,7 +55,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun fetchUserData() {
-        ServiceLocator.userRepository.getUserById(user_id) { user ->
+        ServiceLocator.userRepository.getUserById(userId) { user ->
             user?.let {
                 updateUI(it)
             }
@@ -69,7 +74,6 @@ class ProfileFragment : Fragment() {
             "More Drinks To Receive 1 Drink For Free"
         )
 
-        // Update Discount Progress
         updateProgress(
             user.accumulatedExpenses.toInt(),
             MAX_EXPENSES_POINTS,

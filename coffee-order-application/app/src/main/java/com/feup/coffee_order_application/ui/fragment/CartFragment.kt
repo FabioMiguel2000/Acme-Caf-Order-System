@@ -108,7 +108,7 @@ class CartFragment : Fragment() {
         }
     }
 
-    private fun calculateSubtotalPrice() = round(cartOrder.cartProducts.sumOf { it.price * it.quantity } * 100) / 100
+    private fun calculateSubtotalPrice() = round(cartOrder.cartProducts.sumOf { it.product.price * it.quantity } * 100) / 100
 
     private fun calculateDiscountPrice(subtotalPrice: Double) =
         cartOrder.discountVoucher?.let { round(subtotalPrice * 0.05 * 100) / 100 } ?: 0.0

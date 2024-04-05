@@ -18,7 +18,7 @@
             app:shapeAppearanceOverlay="@style/RoundedSquare"
             android:layout_width="140dp"
             android:layout_height="120dp"
-            android:background="@drawable/cappucino"
+            android:background="@drawable/loading"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:scaleType="centerCrop"

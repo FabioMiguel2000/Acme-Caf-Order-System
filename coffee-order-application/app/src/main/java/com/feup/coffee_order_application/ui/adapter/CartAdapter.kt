@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.feup.coffee_order_application.core.utils.ImageUtils
 import com.feup.coffee_order_application.databinding.OrderItemCardBinding
 import com.feup.coffee_order_application.domain.model.CartProduct
 import kotlin.math.round
@@ -21,20 +22,24 @@ class CartAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         with(holder.binding) {
-            val product = products[position]
-            tvOrderQuantity.text = product.quantity.toString()
+            val cartProduct = products[position]
+            val product = cartProduct.product
+            tvOrderQuantity.text = cartProduct.quantity.toString()
             tvOrderName.text = product.name
             tvOrderPricePerPiece.text = "${product.price} € / per piece"
-            imgOrder.setImageResource(product.imageUrl)
-            tvOrderTotalPricePerItem.text = "${round(product.price * product.quantity * 100) / 100} €"
+
+            // Assuming ImageUtils is updated to handle loading images from URLs
+            ImageUtils().loadImageFromUrlIntoView(product.imgURL, imgOrder)
+
+            tvOrderTotalPricePerItem.text = "${round(product.price * cartProduct.quantity * 100) / 100} €"
 
             val isFreeCoffee = product.name == "Free Coffee"
             plusBtnOrder.isVisible = !isFreeCoffee
             minusBtnOrder.isVisible = !isFreeCoffee
             removeBtnOrder.isVisible = !isFreeCoffee
 
-            setClickListener(plusBtnOrder) { increaseQuantity(product, position) }
-            setClickListener(minusBtnOrder) { decreaseQuantity(product, position) }
+            setClickListener(plusBtnOrder) { increaseQuantity(cartProduct, position) }
+            setClickListener(minusBtnOrder) { decreaseQuantity(cartProduct, position) }
             setClickListener(removeBtnOrder) { removeProduct(position) }
         }
     }

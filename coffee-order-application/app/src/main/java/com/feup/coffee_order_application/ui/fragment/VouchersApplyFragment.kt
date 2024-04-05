@@ -13,12 +13,14 @@ import com.feup.coffee_order_application.ui.adapter.VoucherAdapter
 import com.feup.coffee_order_application.domain.model.CartProduct
 import com.feup.coffee_order_application.domain.model.Voucher
 import com.feup.coffee_order_application.core.service.ServiceLocator
+import com.feup.coffee_order_application.core.service.SessionManager
 import com.feup.coffee_order_application.core.utils.OrderStorageUtils
+import com.feup.coffee_order_application.domain.model.Product
 import com.google.android.material.button.MaterialButton
 
 class VouchersApplyFragment : Fragment() {
     private val cartOrder by lazy { OrderStorageUtils.readOrderFromFile(requireContext()) }
-    private var userId: String = "ecf585f7874bc0d4c5f4f622dc93730b" // hardcoded user id, TODO: get from shared preferences (session)
+    private var userId: String = ""
     private val vouchers = mutableListOf<Voucher>()
     private var voucherType: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,10 @@ class VouchersApplyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sessionManager = SessionManager(requireContext())
+        userId = sessionManager.fetchUserToken() ?: ""
+
         setupActionBar()
         setupRecyclerView(view)
         fetchVouchers()
@@ -107,9 +113,10 @@ class VouchersApplyFragment : Fragment() {
     }
 
     private fun addFreeCoffeeIfNecessary() {
-        val hasFreeCoffee = cartOrder.cartProducts.any { it.name == "Free Coffee" }
+        val hasFreeCoffee = cartOrder.cartProducts.any { it.product.name == "Free Coffee" }
         if (!hasFreeCoffee) {
-            cartOrder.cartProducts.add(CartProduct("Free Coffee", 0.0, R.drawable.cappucino, "Coffee", 1))
+            val freeCoffeeProduct = Product("FreeCoffee","Free Coffee", 0.0, "https://drive.google.com/file/d/1WcY2FAQ2LV4b4WfJ2Un6HcXMEXKdhxY-/view?usp=sharing", "free" )
+            cartOrder.cartProducts.add(CartProduct(freeCoffeeProduct, 1))
         }
     }
 
@@ -117,7 +124,7 @@ class VouchersApplyFragment : Fragment() {
         if (voucherType == Voucher.TYPE_DISCOUNT) cartOrder.discountVoucher = null
         if (voucherType == Voucher.TYPE_FREE_COFFEE) {
             cartOrder.coffeeVoucher = null
-            cartOrder.cartProducts.removeAll { it.name == "Free Coffee" }
+            cartOrder.cartProducts.removeAll { it.product.name == "Free Coffee" }
         }
     }
 
