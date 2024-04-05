@@ -9,4 +9,8 @@
         <item name="android:textColor">@color/dark_purple</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="RoundedSquare">
+        <item name="cornerSize">10%</item>
+    </style>
 </resources>
