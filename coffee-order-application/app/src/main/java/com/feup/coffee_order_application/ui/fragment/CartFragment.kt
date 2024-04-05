@@ -84,7 +84,9 @@ class CartFragment : Fragment() {
         binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance(Voucher.TYPE_FREE_COFFEE)) }
 
         binding.btnCheckout.setOnClickListener {
-            createOrderAndNavigate()
+//            createOrderAndNavigate()
+            navigateToFragment(CheckoutFragment())
+            Toast.makeText(requireContext(), "Order created successfully", Toast.LENGTH_SHORT).show()
         }
     }
 

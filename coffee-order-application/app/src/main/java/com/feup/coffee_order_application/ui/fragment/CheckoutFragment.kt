@@ -2,6 +2,7 @@ package com.feup.coffee_order_application.ui.fragment
 
 import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,8 @@ import com.feup.coffee_order_application.core.utils.OrderStorageUtils
 import com.feup.coffee_order_application.core.utils.QRCodeGenerator
 import com.feup.coffee_order_application.databinding.FragmentCheckoutBinding
 import com.feup.coffee_order_application.domain.model.Order
+import com.feup.coffee_order_application.domain.model.OrderRequest
+import com.feup.coffee_order_application.domain.model.ProductItem
 import com.feup.coffee_order_application.ui.adapter.CheckoutAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
@@ -70,7 +73,13 @@ class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
     }
 
     private fun displayQRCode() {
-        val orderJson = Gson().toJson(cartOrder)
+        val orderRequest = OrderRequest(
+            client = SessionManager(requireContext()).fetchUserToken()!!,
+            products = cartOrder.cartProducts.map { cartProduct -> ProductItem(cartProduct.product._id, cartProduct.quantity)  },
+            discountVoucher = cartOrder.discountVoucher?._id ,
+            freeCoffeeVoucher = cartOrder.freeCoffeeVoucher?._id
+        )
+        val orderJson = Gson().toJson(orderRequest)
         val qrCodeBitmap = QRCodeGenerator().generateQRCode(orderJson)
 
         qrCodeBitmap?.let {
