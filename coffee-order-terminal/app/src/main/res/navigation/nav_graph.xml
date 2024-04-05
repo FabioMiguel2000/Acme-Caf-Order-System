@@ -9,7 +9,7 @@
         android:id="@+id/FirstFragment"
         android:name="com.feup.coffee_order_terminal.FirstFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/order_list_fragment">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -19,7 +19,7 @@
         android:id="@+id/SecondFragment"
         android:name="com.feup.coffee_order_terminal.SecondFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/qrcode_reader_fragment">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
