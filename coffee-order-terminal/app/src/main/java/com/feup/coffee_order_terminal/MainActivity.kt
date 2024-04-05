@@ -14,20 +14,20 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val order_list = OrderList()
-        val qrcode = QRCodeFragment()
-
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.setTitle("Orders")
         setSupportActionBar(toolbar)
 
+        val orderList = OrderList()
+        val qrcode = QRCodeFragment()
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
-        setCurrentPage(order_list)
+
+        toolbar.setTitle("Orders")
+        setCurrentPage(orderList)
+
         bottomNav.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.order_list_fragment ->setCurrentPage(order_list)
-                R.id.qr_code_reader_fragment ->setCurrentPage(qrcode)
+                R.id.home_terminal ->setCurrentPage(orderList)
+                R.id.qrcode ->setCurrentPage(qrcode)
             }
             true
         }
@@ -39,10 +39,5 @@ class MainActivity : AppCompatActivity() {
             addToBackStack(null)
             commit()
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        //menuInflater.inflate(R.)
-        return super.onCreateOptionsMenu(menu)
     }
 }
