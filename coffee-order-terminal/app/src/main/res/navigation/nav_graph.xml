@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.feup.coffee_order_terminal.FirstFragment"
+        android:name="com.feup.coffee_order_terminal.OrderList"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/order_list_fragment">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.feup.coffee_order_terminal.SecondFragment"
+        android:name="com.feup.coffee_order_terminal.QRCodeFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/qrcode_reader_fragment">
 
