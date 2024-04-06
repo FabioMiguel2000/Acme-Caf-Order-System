@@ -54,7 +54,7 @@ class ReceiptFragment(val order: Order): Fragment() {
 
     private fun setupActionBar() {
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-            title = "Order Details"
+            title = "Receipt"
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
