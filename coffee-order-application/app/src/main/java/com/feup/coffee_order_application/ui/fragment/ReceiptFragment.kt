@@ -1,13 +1,16 @@
 package com.feup.coffee_order_application.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.ui.text.toUpperCase
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.feup.coffee_order_application.R
+import com.feup.coffee_order_application.core.utils.DateFormatter
 import com.feup.coffee_order_application.databinding.FragmentReceiptBinding
 import com.feup.coffee_order_application.domain.model.Order
 import com.feup.coffee_order_application.ui.adapter.CheckoutAdapter
@@ -22,7 +25,6 @@ class ReceiptFragment(val order: Order): Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        cartOrder = OrderStorageUtils.readOrderFromFile(requireContext())
         setupActionBar()
         setupRecyclerView()
         updateUI()
@@ -37,9 +39,15 @@ class ReceiptFragment(val order: Order): Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateUI() {
-//        binding.tvCheckoutCVoucherCode.text = order.freeCoffeeVoucher?._id?.toUpperCase()?: "No Voucher"
-//        binding.tvCheckoutDVoucherCode.text = order.discountVoucher?._id?.toUpperCase()?: "No Voucher"
+        binding.let{
+            it.tvOrderCode.text = "#${order._id!!.toUpperCase()}"
+            it.tvOrderDate.text = DateFormatter().formatDate(order.date!!)
+            it.tvOrderTotalPrice.text = " - ${order.total} €"
+            it.tvOrderCVoucherCode.text = order.freeCoffeeVoucher?._id?.toUpperCase()?: "No Voucher"
+            it.tvOrderDVoucherCode.text = order.discountVoucher?._id?.toUpperCase()?: "No Voucher"
+        }
         updatePrices()
     }
 
