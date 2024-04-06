@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.feup.coffee_order_application.core.utils.DateFormatter
 import com.feup.coffee_order_application.databinding.ReceiptCardBinding
 import com.feup.coffee_order_application.domain.model.Order
 import kotlin.math.round
@@ -21,7 +22,7 @@ class ReceiptListAdapter(
 
         holder.binding.tvReceiptCode.text = receipt._id
         holder.binding.tvReceiptTotalPrice.text = "${round(receipt.total!! * 100) / 100} €"
-        holder.binding.tvReceiptDate.text = receipt.date
+        holder.binding.tvReceiptDate.text = DateFormatter().formatDate(receipt.date!!)
     }
     override fun getItemCount() = receipts.size
 
