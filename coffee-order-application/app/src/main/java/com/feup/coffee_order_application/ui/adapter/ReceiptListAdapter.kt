@@ -20,7 +20,9 @@ class ReceiptListAdapter(
     override fun onBindViewHolder(holder: ReceiptListViewHolder, position: Int) {
         val receipt = receipts[position]
 
-        holder.binding.tvReceiptCode.text = receipt._id
+        val totalProducts = receipt.products.sumOf { it.quantity }
+
+        holder.binding.tvReceiptProductSize.text = "$totalProducts products"
         holder.binding.tvReceiptTotalPrice.text = "${round(receipt.total!! * 100) / 100} €"
         holder.binding.tvReceiptDate.text = DateFormatter().formatDate(receipt.date!!)
     }

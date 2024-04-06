@@ -3,7 +3,7 @@ package com.feup.coffee_order_application.domain.model
 class Order(
     var _id: String? = null,
     var client: User? = null,
-    var cartProducts: MutableList<CartProduct> = mutableListOf(),
+    var products: MutableList<CartProduct> = mutableListOf(),
     var freeCoffeeVoucher: Voucher? = null,
     var discountVoucher: Voucher? = null,
     val status: String = STATUS_PENDING,

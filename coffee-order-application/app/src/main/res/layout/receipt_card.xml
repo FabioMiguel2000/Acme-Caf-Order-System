@@ -37,14 +37,14 @@
             />
 
         <TextView
-            android:id="@+id/tv_receipt_code"
+            android:id="@+id/tv_receipt_product_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/tv_receipt_date"
             app:layout_constraintStart_toEndOf="@id/img_order"
             android:layout_marginStart="12dp"
             android:textColor="@color/light_purple"
-            android:text="#FHFHF34VNJ34JNCN4NCJNDJN"/>
+            android:text="12 products"/>
 
         <TextView
             android:id="@+id/tv_receipt_date"
