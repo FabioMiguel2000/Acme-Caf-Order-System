@@ -33,4 +33,7 @@ interface ApiInterface {
 
     @POST("orders/create")
     fun createOrder(@Body orderRequest: OrderRequest): Call<Void>
+
+    @GET("orders/client")
+    fun getClientOrders(@Query("client") clientId: String): Call<ApiResponse<List<Order>>>
 }
