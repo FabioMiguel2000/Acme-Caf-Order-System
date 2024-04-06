@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.feup.coffee_order_terminal.databinding.QrcodeReaderFragmentBinding
 import com.google.zxing.integration.android.IntentIntegrator
@@ -20,22 +19,15 @@ import org.json.JSONObject
 class QRCodeFragment : Fragment() {
 
     var qrScanIntegrator : IntentIntegrator? = null
-
     private var _binding: QrcodeReaderFragmentBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = QrcodeReaderFragmentBinding.inflate(inflater, container, false)
-
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,7 +64,6 @@ class QRCodeFragment : Fragment() {
             //no data
             if(result.contents == null){
                 Log.e("scanning", "No data found");
-                //Toast.makeText(this, "No data found", Toast.LENGTH_LONG ).show()
             } else {
                 try {
                     val obj = JSONObject(result.contents)
