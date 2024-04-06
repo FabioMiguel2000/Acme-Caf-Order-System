@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_application.databinding.ReceiptCardBinding
-import com.feup.coffee_order_application.domain.model.CartProduct
+import com.feup.coffee_order_application.domain.model.Order
 import kotlin.math.round
 
 class ReceiptListAdapter(
-    private val products: MutableList<CartProduct>
+    val receipts: MutableList<Order>
 ) : RecyclerView.Adapter<ReceiptListAdapter.ReceiptListViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReceiptListViewHolder {
         val binding = ReceiptCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,9 +17,13 @@ class ReceiptListAdapter(
     }
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ReceiptListViewHolder, position: Int) {
-        val product = products[position]
+        val receipt = receipts[position]
+
+        holder.binding.tvReceiptCode.text = receipt._id
+        holder.binding.tvReceiptTotalPrice.text = "${round(receipt.total!! * 100) / 100} €"
+        holder.binding.tvReceiptDate.text = receipt.date
     }
-    override fun getItemCount() = products.size
+    override fun getItemCount() = receipts.size
 
     class ReceiptListViewHolder(val binding: ReceiptCardBinding) : RecyclerView.ViewHolder(binding.root)
 }
