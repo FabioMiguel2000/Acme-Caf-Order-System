@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.ui.text.toUpperCase
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.feup.coffee_order_application.R
@@ -47,6 +46,9 @@ class ReceiptFragment(val order: Order): Fragment() {
             it.tvOrderTotalPrice.text = " - ${order.total} €"
             it.tvOrderCVoucherCode.text = order.freeCoffeeVoucher?._id?.toUpperCase()?: "No Voucher"
             it.tvOrderDVoucherCode.text = order.discountVoucher?._id?.toUpperCase()?: "No Voucher"
+            it.tvClientName.text = "Name: ${order.client!!.name}"
+            it.tvEmail.text = "Email: ${order.client!!.email}"
+            it.tvNif.text = "VAT Number: ${order.client!!.nif}"
         }
         updatePrices()
     }

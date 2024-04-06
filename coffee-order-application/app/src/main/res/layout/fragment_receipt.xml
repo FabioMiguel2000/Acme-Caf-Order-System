@@ -26,40 +26,92 @@
             app:layout_constraintGuide_percent="0.05" />
 
         <TextView
+            android:id="@+id/tv_client_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Client Details"
+            android:textColor="@color/dark_purple"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/left_guideline"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_client_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Name: Fabio"
+            android:textColor="@color/dark_purple"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/left_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/tv_client_details" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+
+            android:text="E-mail: fabmiguel@gmail.com"
+            android:textColor="@color/dark_purple"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/left_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/tv_client_name" />
+
+        <TextView
+            android:id="@+id/tv_nif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+
+            android:text="NIF: 123456789"
+            android:textColor="@color/dark_purple"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/left_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/tv_email" />
+
+
+        <TextView
             android:id="@+id/tv_order_summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:text="Order Summary"
+            android:textColor="@color/dark_purple"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/dark_purple"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_nif" />
 
         <TextView
             android:id="@+id/tv_order_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#Purchased on 24 Jun 24"
-            android:textSize="12sp"
+            android:layout_marginTop="5dp"
             android:textColor="@color/dark_purple"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_order_code"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_order_code" />
 
         <TextView
             android:id="@+id/tv_order_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+
             android:text="#F34JNV4K34DSNC4KD"
-            android:textSize="12sp"
             android:textColor="@color/dark_purple"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_order_summary"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_order_summary" />
 
         <TextView
             android:id="@+id/tv_order_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:text=" - 12$"
             android:textColor="@color/dark_purple"
             android:textSize="12sp"
@@ -70,7 +122,7 @@
             android:id="@+id/rv_order"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="@+id/right_guideline"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintTop_toBottomOf="@id/tv_order_total_price"
@@ -80,7 +132,7 @@
             android:id="@+id/bottom_box_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="@id/right_guideline"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintTop_toBottomOf="@id/rv_order">
@@ -90,17 +142,17 @@
                 android:id="@+id/tv_vouchers_used"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:text="Vouchers Used"
-                android:textStyle="bold"
                 android:textColor="@color/dark_purple"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tv_order_d_voucher"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="5dp"
                 android:text="Discount Voucher"
                 android:textColor="@color/dark_purple"
                 app:layout_constraintStart_toStartOf="parent"
@@ -110,13 +162,13 @@
                 android:id="@+id/tv_order_d_voucher_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textSize="11sp"
+                android:layout_marginTop="5dp"
                 android:text="dafjhdkjahkjsdhakjdhaskjsdhaskj"
                 android:textColor="@color/light_purple"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_order_d_voucher"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_order_d_voucher"
-                app:layout_constraintBottom_toBottomOf="@id/tv_order_d_voucher"/>
+                app:layout_constraintTop_toTopOf="@id/tv_order_d_voucher" />
 
             <TextView
                 android:id="@+id/tv_order_c_voucher"
@@ -125,18 +177,18 @@
                 android:text="Coffee Voucher"
                 android:textColor="@color/dark_purple"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_order_d_voucher"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_order_d_voucher" />
 
             <TextView
                 android:id="@+id/tv_order_c_voucher_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
                 android:text="dafjhdkjahkjsdhakjdhaskjsdhaskj"
                 android:textColor="@color/light_purple"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_order_c_voucher"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_order_c_voucher"
-                app:layout_constraintBottom_toBottomOf="@id/tv_order_c_voucher"/>
+                app:layout_constraintTop_toTopOf="@id/tv_order_c_voucher" />
 
             <TextView
                 android:id="@+id/tv_summary"
@@ -144,10 +196,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:text="Summary"
-                android:textStyle="bold"
                 android:textColor="@color/dark_purple"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_order_c_voucher"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_order_c_voucher" />
 
             <TextView
                 android:layout_width="0dp"
@@ -156,7 +208,7 @@
                 android:text="Subtotal"
                 android:textColor="@color/light_purple"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_summary"/>
+                app:layout_constraintTop_toBottomOf="@id/tv_summary" />
 
             <TextView
                 android:id="@+id/tv_subtotal_price"
@@ -166,8 +218,7 @@
                 android:text="12.00 EUR"
                 android:textColor="@color/light_purple"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_summary"
-                />
+                app:layout_constraintTop_toBottomOf="@id/tv_summary" />
 
             <TextView
                 android:id="@+id/textView"
