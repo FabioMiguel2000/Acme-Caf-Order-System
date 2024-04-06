@@ -52,6 +52,14 @@ class ProfileFragment : Fragment() {
                 commit()
             }
         }
+
+        binding.receiptsOptionContainer.setOnClickListener {
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.fLayout, ReceiptListFragment())
+                addToBackStack(null)
+                commit()
+            }
+        }
     }
 
     private fun fetchUserData() {
