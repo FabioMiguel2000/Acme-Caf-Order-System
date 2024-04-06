@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.core.service.SessionManager
+import com.feup.coffee_order_application.core.utils.OrderStorageUtils
 import com.feup.coffee_order_application.ui.fragment.CartFragment
 import com.feup.coffee_order_application.ui.fragment.CheckoutFragment
 import com.feup.coffee_order_application.ui.fragment.HomeFragment
@@ -25,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         val profile = ProfileFragment()
         val cart = CartFragment()
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
+
+        OrderStorageUtils.clearOrderFile(this)
 
         setCurrentPage(home)
 
@@ -60,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.logout -> {
                 SessionManager(this).clearSession()
+                OrderStorageUtils.clearOrderFile(this)
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 true
