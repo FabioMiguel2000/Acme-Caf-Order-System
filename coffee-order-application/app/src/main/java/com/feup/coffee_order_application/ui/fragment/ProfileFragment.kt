@@ -15,6 +15,7 @@ import com.feup.coffee_order_application.databinding.FragmentProfileBinding
 import com.feup.coffee_order_application.domain.model.User
 import com.feup.coffee_order_application.core.service.ServiceLocator
 import com.feup.coffee_order_application.core.service.SessionManager
+import com.feup.coffee_order_application.core.utils.OrderStorageUtils
 import com.feup.coffee_order_application.ui.activity.LoginActivity
 
 class ProfileFragment : Fragment() {
@@ -65,6 +66,7 @@ class ProfileFragment : Fragment() {
 
         binding.btnLogout.setOnClickListener {
             SessionManager(requireContext()).clearSession()
+            OrderStorageUtils.clearOrderFile(requireContext())
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
         }
