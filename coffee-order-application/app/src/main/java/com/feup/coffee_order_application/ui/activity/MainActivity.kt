@@ -58,12 +58,6 @@ class MainActivity : AppCompatActivity() {
                 onBackPressed()
                 true
             }
-            R.id.logout -> {
-                SessionManager(this).clearSession()
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }
