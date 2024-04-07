@@ -27,8 +27,6 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.MainActivity"
-            android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation"
             android:exported="false">
         </activity>
         <activity
