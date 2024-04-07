@@ -1,18 +1,24 @@
 package com.feup.coffee_order_application.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.feup.coffee_order_application.R
+import com.feup.coffee_order_application.core.service.ServiceLocator
+import com.feup.coffee_order_application.core.service.SessionManager
 import com.feup.coffee_order_application.ui.adapter.CartAdapter
 import com.feup.coffee_order_application.databinding.FragmentCartBinding
 import com.feup.coffee_order_application.domain.model.Order
 import com.feup.coffee_order_application.domain.model.Voucher
 import com.feup.coffee_order_application.core.utils.OrderStorageUtils
+import com.feup.coffee_order_application.domain.model.OrderRequest
+import com.feup.coffee_order_application.domain.model.ProductItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlin.math.round
 
@@ -24,6 +30,12 @@ class CartFragment : Fragment() {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root
     }
+    override fun onResume() {
+        super.onResume()
+        cartOrder = OrderStorageUtils.readOrderFromFile(requireContext())
+        updateUI()
+        setupRecyclerView()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         cartOrder = OrderStorageUtils.readOrderFromFile(requireContext())
@@ -33,10 +45,10 @@ class CartFragment : Fragment() {
         setupListeners()
     }
     private fun setupRecyclerView() {
-        val adapter = CartAdapter(cartOrder.cartProducts) {
+        val adapter = CartAdapter(cartOrder.products) {
             OrderStorageUtils.saveOrderToFile(cartOrder, requireContext())
             updatePrices()
-            updateCartRendering(cartOrder.cartProducts.isEmpty())
+            updateCartRendering(cartOrder.products.isEmpty())
         }
 
         binding.rvCart.apply {
@@ -47,12 +59,12 @@ class CartFragment : Fragment() {
 
     private fun updateUI() {
         updatePrices()
-        updateCartRendering(cartOrder.cartProducts.isEmpty())
+        updateCartRendering(cartOrder.products.isEmpty())
         updateVoucherStatus()
     }
     private fun updateVoucherStatus() {
         binding.tvSelectCoffeeVoucher.text = getString(
-            if (cartOrder.coffeeVoucher == null) R.string.voucher_not_selected else R.string.voucher_selected
+            if (cartOrder.freeCoffeeVoucher == null) R.string.voucher_not_selected else R.string.voucher_selected
         )
         binding.tvSelectDiscountVoucher.text = getString(
             if (cartOrder.discountVoucher == null) R.string.voucher_not_selected else R.string.voucher_selected
@@ -70,6 +82,31 @@ class CartFragment : Fragment() {
         binding.discountVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance(
             Voucher.TYPE_DISCOUNT)) }
         binding.coffeeVoucherContainer.setOnClickListener { navigateToFragment(VouchersApplyFragment.newInstance(Voucher.TYPE_FREE_COFFEE)) }
+
+        binding.btnCheckout.setOnClickListener {
+//            createOrderAndNavigate()
+            navigateToFragment(CheckoutFragment())
+            Toast.makeText(requireContext(), "Order created successfully", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun createOrderAndNavigate (){
+        val orderRequest = OrderRequest(
+            client = SessionManager(requireContext()).fetchUserToken()!!,
+            products = cartOrder.products.map { cartProduct -> ProductItem(cartProduct.product._id, cartProduct.quantity)  },
+            discountVoucher = cartOrder.discountVoucher?._id ,
+            freeCoffeeVoucher = cartOrder.freeCoffeeVoucher?._id
+            )
+
+        ServiceLocator.orderRepository.createOrder(orderRequest) { isSuccess, statusCode ->
+            if (isSuccess) {
+                navigateToFragment(CheckoutFragment())
+                Toast.makeText(requireContext(), "Order created successfully", Toast.LENGTH_SHORT).show()
+            } else {
+                Log.e("CartFragment", "Failed to create order, status code: $statusCode")
+                Toast.makeText(requireContext(), "Failed to create order, status code: $statusCode", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun navigateToFragment(fragment: Fragment) {
@@ -108,7 +145,7 @@ class CartFragment : Fragment() {
         }
     }
 
-    private fun calculateSubtotalPrice() = round(cartOrder.cartProducts.sumOf { it.price * it.quantity } * 100) / 100
+    private fun calculateSubtotalPrice() = round(cartOrder.products.sumOf { it.product.price * it.quantity } * 100) / 100
 
     private fun calculateDiscountPrice(subtotalPrice: Double) =
         cartOrder.discountVoucher?.let { round(subtotalPrice * 0.05 * 100) / 100 } ?: 0.0

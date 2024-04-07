@@ -4,6 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.feup.coffee_order_application.BuildConfig
 import com.feup.coffee_order_application.core.network.ApiInterface
+import com.feup.coffee_order_application.domain.repository.OrderRepository
 import com.feup.coffee_order_application.domain.repository.ProductRepository
 import com.feup.coffee_order_application.domain.repository.UserRepository
 
@@ -22,6 +23,10 @@ object ServiceLocator {
     }
     val productRepository by lazy {
         ProductRepository(apiService)
+    }
+
+    val orderRepository by lazy {
+        OrderRepository(apiService)
     }
 
 }

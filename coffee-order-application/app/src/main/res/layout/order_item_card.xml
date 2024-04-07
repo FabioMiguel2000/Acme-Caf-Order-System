@@ -28,7 +28,7 @@
             app:shapeAppearanceOverlay="@style/RoundedSquare"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:background="@drawable/cappucino"
+            android:background="@drawable/loading"
             app:layout_constraintBottom_toTopOf="@id/tv_order_quantity"
             app:layout_constraintStart_toStartOf="parent"
             android:scaleType="centerCrop"
@@ -96,8 +96,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/dark_purple"
             android:text="12.00"
-            app:layout_constraintBottom_toTopOf="@+id/line"
-            app:layout_constraintEnd_toEndOf="@+id/line" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_order_quantity"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
             android:id="@+id/remove_btn_order"
