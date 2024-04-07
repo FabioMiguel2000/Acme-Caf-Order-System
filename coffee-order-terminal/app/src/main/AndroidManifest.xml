@@ -25,6 +25,8 @@
             android:theme="@style/Theme.Coffeeorderterminal" />
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

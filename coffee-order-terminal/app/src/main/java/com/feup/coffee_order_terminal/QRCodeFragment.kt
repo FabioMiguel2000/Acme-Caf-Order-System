@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.feup.coffee_order_terminal.databinding.QrcodeReaderFragmentBinding
 import com.google.zxing.integration.android.IntentIntegrator
@@ -33,10 +34,6 @@ class QRCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnOpen.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
-
         setUpScanner()
         setOnClickListener()
     }
@@ -48,6 +45,7 @@ class QRCodeFragment : Fragment() {
 
     private fun setUpScanner(){
         qrScanIntegrator = IntentIntegrator.forSupportFragment(this)
+        qrScanIntegrator?.setOrientationLocked(false)
     }
 
     private fun setOnClickListener(){
@@ -63,11 +61,12 @@ class QRCodeFragment : Fragment() {
         if(result != null){
             //no data
             if(result.contents == null){
-                Log.e("scanning", "No data found");
+                Toast.makeText(requireActivity(), "Something went wrong", Toast.LENGTH_LONG).show()
             } else {
                 try {
                     val obj = JSONObject(result.contents)
-                    Log.e("result", obj.toString())
+                    Toast.makeText(requireActivity(), "Order not validated", Toast.LENGTH_LONG).show();
+                    //make here http request to create order on the server
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
