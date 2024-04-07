@@ -10,9 +10,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.feup.coffee_order_terminal.databinding.QrcodeReaderFragmentBinding
+import com.feup.coffee_order_terminal.models.Product
+import com.google.gson.Gson
 import com.google.zxing.integration.android.IntentIntegrator
 import org.json.JSONException
 import org.json.JSONObject
+import java.util.Objects
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -64,8 +67,18 @@ class QRCodeFragment : Fragment() {
                 Toast.makeText(requireActivity(), "Something went wrong", Toast.LENGTH_LONG).show()
             } else {
                 try {
+                    val gson = Gson();
                     val obj = JSONObject(result.contents)
-                    Toast.makeText(requireActivity(), "Order not validated", Toast.LENGTH_LONG).show();
+                    val client = obj.getString("client")//ok
+                    val status = obj.getString("status")//ok
+
+                    //continuar aqui
+                    val products = obj.getString("cartProducts")
+                    var pdt: List<Product> = gson.fromJson(products, Array<Product>::class.java).asList()
+                    val coffeeVoucher = obj.getString("coffeeVoucher")
+                    val discountVoucher = obj.getString("discountVoucher")
+                    Log.e("result", pdt.toString())
+                    Toast.makeText(requireActivity(), "Order validated", Toast.LENGTH_LONG).show();
                     //make here http request to create order on the server
                 } catch (e: JSONException) {
                     e.printStackTrace()
