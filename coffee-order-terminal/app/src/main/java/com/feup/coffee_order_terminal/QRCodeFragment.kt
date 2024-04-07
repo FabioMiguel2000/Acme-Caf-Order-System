@@ -10,8 +10,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.feup.coffee_order_terminal.databinding.QrcodeReaderFragmentBinding
+import com.feup.coffee_order_terminal.models.CoffeeVoucher
+import com.feup.coffee_order_terminal.models.DiscountVoucher
+import com.feup.coffee_order_terminal.models.Order
 import com.feup.coffee_order_terminal.models.Product
+import com.feup.coffee_order_terminal.models.ProductItem
+import com.feup.coffee_order_terminal.service.OrderApiComunicator
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.google.zxing.integration.android.IntentIntegrator
 import org.json.JSONException
 import org.json.JSONObject
@@ -71,17 +77,22 @@ class QRCodeFragment : Fragment() {
                     val obj = JSONObject(result.contents)
                     val client = obj.getString("client")//ok
                     val status = obj.getString("status")//ok
-
-                    //continuar aqui
                     val products = obj.getString("cartProducts")
-                    var pdt: List<Product> = gson.fromJson(products, Array<Product>::class.java).asList()
+                    val pdt: List<ProductItem> = gson.fromJson(products, object : TypeToken<List<ProductItem>>() {}.type)
                     val coffeeVoucher = obj.getString("coffeeVoucher")
                     val discountVoucher = obj.getString("discountVoucher")
-                    Log.e("result", pdt.toString())
+                    val cfv = gson.fromJson(coffeeVoucher, CoffeeVoucher::class.java)//ok
+                    val dtv = gson.fromJson(coffeeVoucher, DiscountVoucher::class.java)//ok
+
+                    val orderApiComunicator = OrderApiComunicator()
+                    //continuar aqui
+                    orderApiComunicator.validateOrder(requireContext(), client, status, pdt, cfv, dtv)
+
+                    Log.e("result", cfv.toString())
                     Toast.makeText(requireActivity(), "Order validated", Toast.LENGTH_LONG).show();
                     //make here http request to create order on the server
                 } catch (e: JSONException) {
-                    e.printStackTrace()
+                    Log.e("error", e.toString())
                 }
             }
         }
