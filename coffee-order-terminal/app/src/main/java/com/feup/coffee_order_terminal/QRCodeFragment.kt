@@ -75,21 +75,43 @@ class QRCodeFragment : Fragment() {
                 try {
                     val gson = Gson();
                     val obj = JSONObject(result.contents)
-                    val client = obj.getString("client")//ok
-                    val status = obj.getString("status")//ok
-                    val products = obj.getString("cartProducts")
-                    val pdt: List<ProductItem> = gson.fromJson(products, object : TypeToken<List<ProductItem>>() {}.type)
-                    val coffeeVoucher = obj.getString("coffeeVoucher")
-                    val discountVoucher = obj.getString("discountVoucher")
-                    val cfv = gson.fromJson(coffeeVoucher, CoffeeVoucher::class.java)//ok
-                    val dtv = gson.fromJson(coffeeVoucher, DiscountVoucher::class.java)//ok
+                    var client = "";
+                    var status = "Pending"
+                    var products: List<ProductItem> = emptyList()
+                    //var discountVoucherObj: DiscountVoucher
+                    //var freeCoffeeVoucherObj: CoffeeVoucher
+                    var discountVoucherObj = ""
+                    var freeCoffeeVoucherObj = ""
+                    if(obj.has("client")){
+                        val client = obj.getString("client")//ok
+                    }
+
+                    if(obj.has("status")){
+                        status = obj.getString("status")
+                    }
+
+                    if(obj.has("products")){
+                        val cartProducts = obj.getString("products")
+                        products = gson.fromJson(cartProducts, object : TypeToken<List<ProductItem>>() {}.type)
+                    }
+
+                    if(obj.has("coffeeVoucher")){
+                        val coffeeVoucher = obj.getString("coffeeVoucher")
+
+                        //freeCoffeeVoucherObj = gson.fromJson(coffeeVoucher, CoffeeVoucher::class.java)
+                    }
+
+                    if(obj.has("discountVoucher")){
+                        val discountVoucher = obj.getString("coffeeVoucher")
+                        //discountVoucherObj = gson.fromJson(discountVoucher, DiscountVoucher::class.java)
+                    }
 
                     val orderApiComunicator = OrderApiComunicator()
-                    //continuar aqui
-                    orderApiComunicator.validateOrder(requireContext(), client, status, pdt, cfv, dtv)
 
-                    Log.e("result", cfv.toString())
-                    Toast.makeText(requireActivity(), "Order validated", Toast.LENGTH_LONG).show();
+                    orderApiComunicator.validateOrder(requireContext(), client, "pending", products, freeCoffeeVoucherObj, discountVoucherObj)
+
+
+                    //Toast.makeText(requireActivity(), "Order validated", Toast.LENGTH_LONG).show();
                     //make here http request to create order on the server
                 } catch (e: JSONException) {
                     Log.e("error", e.toString())
