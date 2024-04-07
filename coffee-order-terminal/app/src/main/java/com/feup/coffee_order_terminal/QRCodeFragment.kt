@@ -8,20 +8,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.feup.coffee_order_terminal.databinding.QrcodeReaderFragmentBinding
 import com.feup.coffee_order_terminal.models.CoffeeVoucher
 import com.feup.coffee_order_terminal.models.DiscountVoucher
-import com.feup.coffee_order_terminal.models.Order
-import com.feup.coffee_order_terminal.models.Product
-import com.feup.coffee_order_terminal.models.ProductItem
-import com.feup.coffee_order_terminal.service.OrderApiComunicator
+import com.feup.coffee_order_terminal.models.ProductCartItem
+import com.feup.coffee_order_terminal.service.OrderApiCommunicator
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.zxing.integration.android.IntentIntegrator
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.Objects
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -77,13 +73,11 @@ class QRCodeFragment : Fragment() {
                     val obj = JSONObject(result.contents)
                     var client = "";
                     var status = "Pending"
-                    var products: List<ProductItem> = emptyList()
-                    //var discountVoucherObj: DiscountVoucher
-                    //var freeCoffeeVoucherObj: CoffeeVoucher
-                    var discountVoucherObj = ""
-                    var freeCoffeeVoucherObj = ""
+                    var products: List<ProductCartItem> = emptyList()
+                    var discountVoucherObj: DiscountVoucher? = null
+                    var freeCoffeeVoucherObj: CoffeeVoucher? = null
                     if(obj.has("client")){
-                        val client = obj.getString("client")//ok
+                        client = obj.getString("client")//ok
                     }
 
                     if(obj.has("status")){
@@ -92,27 +86,22 @@ class QRCodeFragment : Fragment() {
 
                     if(obj.has("products")){
                         val cartProducts = obj.getString("products")
-                        products = gson.fromJson(cartProducts, object : TypeToken<List<ProductItem>>() {}.type)
+                        products = gson.fromJson(cartProducts, object : TypeToken<List<ProductCartItem>>() {}.type)
                     }
 
                     if(obj.has("coffeeVoucher")){
                         val coffeeVoucher = obj.getString("coffeeVoucher")
-
-                        //freeCoffeeVoucherObj = gson.fromJson(coffeeVoucher, CoffeeVoucher::class.java)
+                        freeCoffeeVoucherObj = gson.fromJson(coffeeVoucher, CoffeeVoucher::class.java)
                     }
 
                     if(obj.has("discountVoucher")){
                         val discountVoucher = obj.getString("coffeeVoucher")
-                        //discountVoucherObj = gson.fromJson(discountVoucher, DiscountVoucher::class.java)
+                        discountVoucherObj = gson.fromJson(discountVoucher, DiscountVoucher::class.java)
                     }
 
-                    val orderApiComunicator = OrderApiComunicator()
+                    val orderApiComunicator = OrderApiCommunicator()
 
-                    orderApiComunicator.validateOrder(requireContext(), client, "pending", products, freeCoffeeVoucherObj, discountVoucherObj)
-
-
-                    //Toast.makeText(requireActivity(), "Order validated", Toast.LENGTH_LONG).show();
-                    //make here http request to create order on the server
+                    orderApiComunicator.validateOrder(requireContext(), client, status, products, freeCoffeeVoucherObj, discountVoucherObj)
                 } catch (e: JSONException) {
                     Log.e("error", e.toString())
                 }

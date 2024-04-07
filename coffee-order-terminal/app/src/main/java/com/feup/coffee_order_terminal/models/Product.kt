@@ -1,3 +1,9 @@
 package com.feup.coffee_order_terminal.models
 
-class Product : ArrayList<ProductItem>()
+data class Product(
+    val _id: String,
+    val name: String,
+    val price: Int,
+    val imgURL: String,
+    val category: Category
+)

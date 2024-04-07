@@ -5,7 +5,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface ApiInterface {
-    @POST("/orders/create")
+    @POST("orders/create")
     @JvmSuppressWildcards
-    fun createOrder(@Body body: Map<String, Any>): retrofit2.Call<ApiResponse<Order>>
+    fun createOrder(@Body body: Map<String, Any?>): retrofit2.Call<ApiResponse<Order>>
 }
