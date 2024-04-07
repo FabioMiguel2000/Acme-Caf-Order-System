@@ -6,10 +6,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import com.feup.coffee_order_application.R
 import com.feup.coffee_order_application.core.service.SessionManager
+import com.feup.coffee_order_application.core.utils.OrderStorageUtils
 import com.feup.coffee_order_application.ui.fragment.CartFragment
+import com.feup.coffee_order_application.ui.fragment.CheckoutFragment
 import com.feup.coffee_order_application.ui.fragment.HomeFragment
 import com.feup.coffee_order_application.ui.fragment.ProfileFragment
 
@@ -25,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         val cart = CartFragment()
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
+        OrderStorageUtils.clearOrderFile(this)
+
         setCurrentPage(home)
 
         bottomNav.setOnNavigationItemSelectedListener {
@@ -35,6 +40,15 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.fLayout)
+        if (currentFragment is CheckoutFragment) {
+            currentFragment.onBackPressed()
+            return true
+        }
+        return super.onSupportNavigateUp()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -50,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.logout -> {
                 SessionManager(this).clearSession()
+                OrderStorageUtils.clearOrderFile(this)
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 true

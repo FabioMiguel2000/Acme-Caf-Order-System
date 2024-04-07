@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardUseCompatPadding="true"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_purple"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/img_order"
+            app:shapeAppearanceOverlay="@style/RoundedSquare"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/ic_receipt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="5dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_receipt_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/receipt_date"
+            app:layout_constraintStart_toEndOf="@id/img_order"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/light_purple"
+            android:text="#FHFHF34VNJ34JNCN4NCJNDJN"/>
+
+        <TextView
+            android:id="@+id/receipt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Caffe Americanno"
+            android:textColor="@color/dark_purple"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@+id/img_order"
+            app:layout_constraintStart_toEndOf="@id/img_order" />
+
+
+
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

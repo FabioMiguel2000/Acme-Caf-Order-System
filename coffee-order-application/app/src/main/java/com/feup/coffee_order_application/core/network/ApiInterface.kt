@@ -1,6 +1,8 @@
 package com.feup.coffee_order_application.core.network
 
 import com.feup.coffee_order_application.domain.model.Category
+import com.feup.coffee_order_application.domain.model.Order
+import com.feup.coffee_order_application.domain.model.OrderRequest
 import com.feup.coffee_order_application.domain.model.Product
 import com.feup.coffee_order_application.domain.model.User
 import com.feup.coffee_order_application.domain.model.Voucher
@@ -28,4 +30,7 @@ interface ApiInterface {
 
     @GET("products/category")
     fun getProductsByCategory(@Query("category") category: String): Call<ApiResponse<List<Product>>>
+
+    @POST("orders/create")
+    fun createOrder(@Body orderRequest: OrderRequest): Call<Void>
 }

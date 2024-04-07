@@ -82,7 +82,7 @@ class VouchersApplyFragment : Fragment() {
         cartOrder.discountVoucher?.let { discountVoucher ->
             vouchers.find { it._id == discountVoucher._id }?.isSelected = true
         }
-        cartOrder.coffeeVoucher?.let { coffeeVoucher ->
+        cartOrder.freeCoffeeVoucher?.let { coffeeVoucher ->
             vouchers.find { it._id == coffeeVoucher._id }?.isSelected = true
         }
     }
@@ -106,7 +106,7 @@ class VouchersApplyFragment : Fragment() {
         when (voucher.type) {
             Voucher.TYPE_DISCOUNT -> cartOrder.discountVoucher = voucher
             Voucher.TYPE_FREE_COFFEE -> {
-                cartOrder.coffeeVoucher = voucher
+                cartOrder.freeCoffeeVoucher = voucher
                 addFreeCoffeeIfNecessary()
             }
         }
@@ -123,7 +123,7 @@ class VouchersApplyFragment : Fragment() {
     private fun clearVoucherSelection() {
         if (voucherType == Voucher.TYPE_DISCOUNT) cartOrder.discountVoucher = null
         if (voucherType == Voucher.TYPE_FREE_COFFEE) {
-            cartOrder.coffeeVoucher = null
+            cartOrder.freeCoffeeVoucher = null
             cartOrder.cartProducts.removeAll { it.product.name == "Free Coffee" }
         }
     }

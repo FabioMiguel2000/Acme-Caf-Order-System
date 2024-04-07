@@ -19,10 +19,17 @@ class OrderStorageUtils {
         fun readOrderFromFile(context: Context): Order {
             val gson = Gson()
             val file = File(context.filesDir, ORDER_FILE_NAME)
-            if (!file.exists()) return Order() // Return a new order if the file doesn't exist
+            if (!file.exists()) return Order()
 
             val jsonOrder = file.readText()
             return gson.fromJson(jsonOrder, Order::class.java)
+        }
+
+        fun clearOrderFile(context: Context) {
+            val file = File(context.filesDir, ORDER_FILE_NAME)
+            if (file.exists()) {
+                file.delete()
+            }
         }
     }
 }
