@@ -45,10 +45,10 @@ class CartFragment : Fragment() {
         setupListeners()
     }
     private fun setupRecyclerView() {
-        val adapter = CartAdapter(cartOrder.cartProducts) {
+        val adapter = CartAdapter(cartOrder.products) {
             OrderStorageUtils.saveOrderToFile(cartOrder, requireContext())
             updatePrices()
-            updateCartRendering(cartOrder.cartProducts.isEmpty())
+            updateCartRendering(cartOrder.products.isEmpty())
         }
 
         binding.rvCart.apply {
@@ -59,7 +59,7 @@ class CartFragment : Fragment() {
 
     private fun updateUI() {
         updatePrices()
-        updateCartRendering(cartOrder.cartProducts.isEmpty())
+        updateCartRendering(cartOrder.products.isEmpty())
         updateVoucherStatus()
     }
     private fun updateVoucherStatus() {
@@ -93,7 +93,7 @@ class CartFragment : Fragment() {
     private fun createOrderAndNavigate (){
         val orderRequest = OrderRequest(
             client = SessionManager(requireContext()).fetchUserToken()!!,
-            products = cartOrder.cartProducts.map { cartProduct -> ProductItem(cartProduct.product._id, cartProduct.quantity)  },
+            products = cartOrder.products.map { cartProduct -> ProductItem(cartProduct.product._id, cartProduct.quantity)  },
             discountVoucher = cartOrder.discountVoucher?._id ,
             freeCoffeeVoucher = cartOrder.freeCoffeeVoucher?._id
             )
@@ -145,7 +145,7 @@ class CartFragment : Fragment() {
         }
     }
 
-    private fun calculateSubtotalPrice() = round(cartOrder.cartProducts.sumOf { it.product.price * it.quantity } * 100) / 100
+    private fun calculateSubtotalPrice() = round(cartOrder.products.sumOf { it.product.price * it.quantity } * 100) / 100
 
     private fun calculateDiscountPrice(subtotalPrice: Double) =
         cartOrder.discountVoucher?.let { round(subtotalPrice * 0.05 * 100) / 100 } ?: 0.0

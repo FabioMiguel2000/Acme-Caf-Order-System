@@ -9,6 +9,7 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/receipt_card"
         android:layout_width="match_parent"
         android:layout_height="80dp">
         <View
@@ -16,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
-            android:background="@color/light_purple"
+            android:background="@color/light_bg_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +28,7 @@
             app:shapeAppearanceOverlay="@style/RoundedSquare"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:src="@drawable/ic_receipt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -37,36 +38,50 @@
             />
 
         <TextView
-            android:id="@+id/tv_receipt_code"
+            android:id="@+id/tv_receipt_product_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/receipt_date"
+            app:layout_constraintTop_toBottomOf="@id/tv_receipt_date"
             app:layout_constraintStart_toEndOf="@id/img_order"
             android:layout_marginStart="12dp"
             android:textColor="@color/light_purple"
-            android:text="#FHFHF34VNJ34JNCN4NCJNDJN"/>
+            android:text="12 products"/>
 
         <TextView
-            android:id="@+id/receipt_date"
+            android:id="@+id/tv_receipt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="Caffe Americanno"
+            android:text="14 Jan"
             android:textColor="@color/dark_purple"
             android:textStyle="bold"
             android:textSize="16sp"
             app:layout_constraintTop_toTopOf="@+id/img_order"
             app:layout_constraintStart_toEndOf="@id/img_order" />
 
+        <TextView
+            android:id="@+id/tv_receipt_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:textSize="16sp"
+            android:text="$ 3.13"
+            android:textColor="@color/dark_purple"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-
-
-
-
-
-
-
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

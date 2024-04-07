@@ -113,10 +113,10 @@ class VouchersApplyFragment : Fragment() {
     }
 
     private fun addFreeCoffeeIfNecessary() {
-        val hasFreeCoffee = cartOrder.cartProducts.any { it.product.name == "Free Coffee" }
+        val hasFreeCoffee = cartOrder.products.any { it.product.name == "Free Coffee" }
         if (!hasFreeCoffee) {
             val freeCoffeeProduct = Product("FreeCoffee","Free Coffee", 0.0, "https://drive.google.com/file/d/1WcY2FAQ2LV4b4WfJ2Un6HcXMEXKdhxY-/view?usp=sharing", "free" )
-            cartOrder.cartProducts.add(CartProduct(freeCoffeeProduct, 1))
+            cartOrder.products.add(CartProduct(freeCoffeeProduct, 1))
         }
     }
 
@@ -124,7 +124,7 @@ class VouchersApplyFragment : Fragment() {
         if (voucherType == Voucher.TYPE_DISCOUNT) cartOrder.discountVoucher = null
         if (voucherType == Voucher.TYPE_FREE_COFFEE) {
             cartOrder.freeCoffeeVoucher = null
-            cartOrder.cartProducts.removeAll { it.product.name == "Free Coffee" }
+            cartOrder.products.removeAll { it.product.name == "Free Coffee" }
         }
     }
 

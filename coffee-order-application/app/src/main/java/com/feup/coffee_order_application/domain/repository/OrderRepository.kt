@@ -2,6 +2,7 @@ package com.feup.coffee_order_application.domain.repository
 
 import android.util.Log
 import com.feup.coffee_order_application.core.network.ApiInterface
+import com.feup.coffee_order_application.core.network.ApiResponse
 import com.feup.coffee_order_application.domain.model.Order
 import com.feup.coffee_order_application.domain.model.OrderRequest
 import kotlinx.coroutines.CoroutineScope
@@ -22,6 +23,23 @@ class OrderRepository(private val api: ApiInterface) {
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     Log.e("OrderRepo", "Error sending order", t)
                     callback(false, 0)
+                }
+            })
+        }
+    }
+    fun getOrdersByClientId(clientId: String, callback: (List<Order>?) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            api.getClientOrders(clientId).enqueue(object : Callback<ApiResponse<List<Order>>> {
+
+                override fun onResponse(
+                    call: Call<ApiResponse<List<Order>>>,
+                    response: Response<ApiResponse<List<Order>>>
+                ) {
+                    callback(response.body()?.data)
+                }
+
+                override fun onFailure(call: Call<ApiResponse<List<Order>>>, t: Throwable) {
+                    callback(null)
                 }
             })
         }

@@ -70,28 +70,7 @@ const getProductsByCategory = async (req, res) => {
       .select("_id")
       .lean();
 
-      const products = await Product.aggregate([
-        { $match: { category: categoryObjectId._id } },
-        {
-          $lookup: {
-            from: 'categories', 
-            localField: 'category', 
-            foreignField: '_id', 
-            as: 'categoryDetails',
-          },
-        },
-        {
-          $unwind: '$categoryDetails',
-        },
-        {
-          $project: {
-            name: 1,
-            price: 1,
-            imgURL: 1,
-            category: '$categoryDetails._name',
-          },
-        },
-      ]);
+      const products = await Product.find({ category: categoryObjectId._id });
 
     if (products.length === 0) {
       return returnResponse(res, 404, false, `Products with category: ${category} not found`);

@@ -57,7 +57,7 @@ class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
         bottomNav.visibility = visibility
     }
     private fun setupRecyclerView() {
-        val adapter = CheckoutAdapter(cartOrder.cartProducts)
+        val adapter = CheckoutAdapter(cartOrder.products)
 
         binding.rvCheckoutOrder.apply {
             layoutManager = LinearLayoutManager(context)
@@ -75,7 +75,7 @@ class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
     private fun displayQRCode() {
         val orderRequest = OrderRequest(
             client = SessionManager(requireContext()).fetchUserToken()!!,
-            products = cartOrder.cartProducts.map { cartProduct -> ProductItem(cartProduct.product._id, cartProduct.quantity)  },
+            products = cartOrder.products.map { cartProduct -> ProductItem(cartProduct.product._id, cartProduct.quantity)  },
             discountVoucher = cartOrder.discountVoucher?._id ,
             freeCoffeeVoucher = cartOrder.freeCoffeeVoucher?._id
         )
@@ -108,7 +108,7 @@ class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
         }
     }
 
-    private fun calculateSubtotalPrice() = round(cartOrder.cartProducts.sumOf { it.product.price * it.quantity } * 100) / 100
+    private fun calculateSubtotalPrice() = round(cartOrder.products.sumOf { it.product.price * it.quantity } * 100) / 100
 
     private fun calculateDiscountPrice(subtotalPrice: Double) =
         cartOrder.discountVoucher?.let { round(subtotalPrice * 0.05 * 100) / 100 } ?: 0.0
