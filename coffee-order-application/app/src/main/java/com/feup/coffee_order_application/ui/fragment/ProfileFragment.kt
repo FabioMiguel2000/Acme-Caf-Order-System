@@ -1,6 +1,7 @@
 package com.feup.coffee_order_application.ui.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,8 @@ import com.feup.coffee_order_application.databinding.FragmentProfileBinding
 import com.feup.coffee_order_application.domain.model.User
 import com.feup.coffee_order_application.core.service.ServiceLocator
 import com.feup.coffee_order_application.core.service.SessionManager
+import com.feup.coffee_order_application.core.utils.OrderStorageUtils
+import com.feup.coffee_order_application.ui.activity.LoginActivity
 
 class ProfileFragment : Fragment() {
     private var userId: String = ""
@@ -59,6 +62,13 @@ class ProfileFragment : Fragment() {
                 addToBackStack(null)
                 commit()
             }
+        }
+
+        binding.btnLogout.setOnClickListener {
+            SessionManager(requireContext()).clearSession()
+            OrderStorageUtils.clearOrderFile(requireContext())
+            val intent = Intent(context, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 
