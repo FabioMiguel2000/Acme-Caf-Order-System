@@ -15,14 +15,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
 
         val orderList = OrderList()
         val qrcode = QRCodeFragment()
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 
-        toolbar.setTitle("Orders")
+
         setCurrentPage(orderList)
 
         bottomNav.setOnNavigationItemSelectedListener {
