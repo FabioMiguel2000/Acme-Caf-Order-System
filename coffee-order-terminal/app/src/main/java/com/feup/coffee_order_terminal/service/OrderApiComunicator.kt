@@ -32,6 +32,7 @@ class OrderApiComunicator {
                 if(response.code() == 201){
                     Toast.makeText(context, "Order validated", Toast.LENGTH_LONG).show()
                 } else {
+                    Log.e("codigo", response.code().toString())
                   Toast.makeText(context, "Something went wrong, please try again later", Toast.LENGTH_LONG).show()
                 }
             }

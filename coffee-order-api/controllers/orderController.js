@@ -126,12 +126,13 @@ const validateOrder = async (req, res) => {
 };
 
 const createOrder = async (req, res) => {
+  console.log("AQUI");
   try {
     const { client, products, discountVoucher, freeCoffeeVoucher, status } =
       req.body;
 
     if (status !== "Pending") {
-      returnResponse (res, 400, false, `Invalid status: ${status}`);
+      return returnResponse (res, 400, false, `Invalid status: ${status}`);
     }
 
     const clientExists = await User.findById({
