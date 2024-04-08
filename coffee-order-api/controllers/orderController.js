@@ -179,8 +179,7 @@ const createOrder = async (req, res) => {
     returnResponse(res, 201, true, `Order created with id: ${newOrder._id}`, newOrder);
 
   } catch (error) {
-
-    returnResponse(res, 500, false, `Failed to create order: ${error}`);
+    return returnResponse(res, 500, false, `Failed to create order: ${error}`);
   }
 };
 
