@@ -14,7 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class OrderApiCommunicator {
-    fun validateOrder(context: Context, client: String, status: String, products: List<ProductCartItem>, freeCoffeeVoucher: CoffeeVoucher?, discountVoucher: DiscountVoucher?/*, publicKey: String*/) {
+    fun createOrder(context: Context, client: String, status: String, products: List<ProductCartItem>, freeCoffeeVoucher: CoffeeVoucher?, discountVoucher: DiscountVoucher?/*, publicKey: String*/) {
 
         val body = mapOf(
             "client" to client,
@@ -30,7 +30,10 @@ class OrderApiCommunicator {
                 response: Response<ApiResponse<Order>>
             ) {
                 if(response.code() == 201){
-                    Toast.makeText(context, "Order validated", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Order created", Toast.LENGTH_LONG).show()
+                    val response = response.body();
+                    Log.e("response", response.toString())
+
                 } else {
                   Toast.makeText(context, "Something went wrong, please try again later", Toast.LENGTH_LONG).show()
                 }

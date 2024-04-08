@@ -1,5 +1,7 @@
 package com.feup.coffee_order_terminal
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -99,9 +101,25 @@ class QRCodeFragment : Fragment() {
                         discountVoucherObj = gson.fromJson(discountVoucher, DiscountVoucher::class.java)
                     }
 
-                    val orderApiComunicator = OrderApiCommunicator()
+                    val builder = AlertDialog.Builder(this.requireContext())
+                    builder.setTitle("Order details:")
+                    builder.setMessage(client)
+                    builder.setCancelable(false)
+                    builder.setPositiveButton("Validate order")   {
+                            _, _ ->
+                        run {
+                            val orderApiComunicator = OrderApiCommunicator()
+                            orderApiComunicator.createOrder(requireContext(), client, status, products, freeCoffeeVoucherObj, discountVoucherObj)
+                            Log.e("DataResponse", "Informação")
+                        }
+                    }
 
-                    orderApiComunicator.validateOrder(requireContext(), client, status, products, freeCoffeeVoucherObj, discountVoucherObj)
+                     builder.setNegativeButton("Cancel") {
+                             dialog, _ -> dialog.cancel()
+                     }
+                    val alertDialog = builder.create()
+                    alertDialog.show()
+
                 } catch (e: JSONException) {
                     Log.e("error", e.toString())
                 }
