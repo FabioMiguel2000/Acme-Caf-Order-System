@@ -13,7 +13,7 @@ const getAllOrders = async (req, res) => {
     const orders = await Order.find();
     returnResponse(res, 200, true, `Retrieved ${orders.length} orders`, orders);
   } catch (error) {
-    returnResponse(res, 500, false, `Failed to retrieve orders`);
+    return returnResponse(res, 500, false, `Failed to retrieve orders`);
   }
 };
 
@@ -26,7 +26,7 @@ const getOrderByID = async (req, res) => {
         return returnResponse(res, 404, false, `Order with id: ${id} not found`);
       }
       console.log(order);
-      return returnResponse(res, 200, true, `Retrieved order with id: ${id}`, order);
+      returnResponse(res, 200, true, `Retrieved order with id: ${id}`, order);
     } else {
       return returnResponse(res, 400, false, `Invalid id: ${id}`);
     }
@@ -40,10 +40,10 @@ const getOrderByUser = async (req, res) => {
     const { client } = req.query;
     const orders = await Order.find({ client });
 
-    returnResponse(res, 200, true, `Retrieved ${orders.length} orders from client: ${client}`, orders);
+    return returnResponse(res, 200, true, `Retrieved ${orders.length} orders from client: ${client}`, orders);
 
   } catch (error) {
-    returnResponse(res, 500, false, `Failed to retrieve orders`);
+    return returnResponse(res, 500, false, `Failed to retrieve orders`);
   }
 };
 
@@ -102,7 +102,7 @@ const validateOrder = async (req, res) => {
     }
 
     if (order.status !== "Pending") {
-      returnResponse(res, 400, false, `Order with id: ${id} is not pending`);
+      return returnResponse(res, 400, false, `Order with id: ${id} is not pending`);
     }
 
     if (order.discountVoucher) {
@@ -121,10 +121,10 @@ const validateOrder = async (req, res) => {
     order.status = "Verified";
     await order.save();
     
-    returnResponse(res, 200, true, `Order with id: ${id} verified`, order);
+    return returnResponse(res, 200, true, `Order with id: ${id} verified`, order);
     
   } catch (error) {
-    returnResponse(res, 500, false, `Failed to validate order: ${error}`);
+    return returnResponse(res, 500, false, `Failed to validate order: ${error}`);
   }
 };
 
@@ -142,7 +142,7 @@ const createOrder = async (req, res) => {
     });
 
     if (!clientExists) {
-      returnResponse(res, 404, false, `Client with id: ${client} not found`);
+      return returnResponse(res, 404, false, `Client with id: ${client} not found`);
     }
 
     const productObjs = await getProductObjs(products);
@@ -159,7 +159,7 @@ const createOrder = async (req, res) => {
       (!vFreeCoffeeVoucher && freeCoffeeProductExist)
     ) {
 
-      returnResponse(res, 400, false, `Free Coffee Voucher not valid or Free Coffee product not in order`);
+      return returnResponse(res, 400, false, `Free Coffee Voucher not valid or Free Coffee product not in order`);
 
     }
 
@@ -179,7 +179,7 @@ const createOrder = async (req, res) => {
       freeCoffeeVoucher: vFreeCoffeeVoucher,
     }).save();
 
-    returnResponse(res, 201, true, `Order created with id: ${newOrder._id}`, newOrder);
+    return returnResponse(res, 201, true, `Order created with id: ${newOrder._id}`, newOrder);
 
   } catch (error) {
     return returnResponse(res, 500, false, `Failed to create order: ${error}`);

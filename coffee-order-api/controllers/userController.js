@@ -47,17 +47,22 @@ const getAllUsers = async (req, res) => {
         returnResponse(res, 200, true, `Retrieved ${users.length} users`, users);
     } catch (error) {
         returnResponse(res, 500, false, `Failed to retrieve users`);
-    }
+    } 
 }
 
 const getSingleUser = async (req, res) => {
     try {   
         const { id } = req.params;
-        const user = await User.findById(id).select('-password -publicKey');
-        if (!user) {
-            returnResponse (res, 404, false, `User with id: ${id} not found`);
+        if(id){
+            const user = await User.findById(id).select('-password -publicKey');
+            if (!user) {
+                return returnResponse (res, 404, false, `User with id: ${id} not found`);
+            }
+            returnResponse(res, 200, true, `Retrieved user with id: ${id}`, user);
+        } else {
+            return returnResponse(res, 200, true, `No user provided`);
         }
-        returnResponse(res, 200, true, `Retrieved user with id: ${id}`, user);
+        
     } catch (error) {
         return returnResponse(res, 500, false, `Failed to retrieve user`);
     }

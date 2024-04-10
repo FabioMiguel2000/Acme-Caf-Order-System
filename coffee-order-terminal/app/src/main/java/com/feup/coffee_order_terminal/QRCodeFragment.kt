@@ -102,15 +102,14 @@ class QRCodeFragment : Fragment() {
                     }
 
                     val builder = AlertDialog.Builder(this.requireContext())
-                    builder.setTitle("Order details:")
+                    //builder.setTitle("Order details:")
                     builder.setMessage(client)
                     builder.setCancelable(false)
-                    builder.setPositiveButton("Validate order")   {
+                    builder.setPositiveButton("Accept order")   {
                             _, _ ->
                         run {
                             val orderApiComunicator = OrderApiCommunicator()
                             orderApiComunicator.createOrder(requireContext(), client, status, products, freeCoffeeVoucherObj, discountVoucherObj)
-                            Log.e("DataResponse", "Informação")
                         }
                     }
 
@@ -119,7 +118,6 @@ class QRCodeFragment : Fragment() {
                      }
                     val alertDialog = builder.create()
                     alertDialog.show()
-
                 } catch (e: JSONException) {
                     Log.e("error", e.toString())
                 }

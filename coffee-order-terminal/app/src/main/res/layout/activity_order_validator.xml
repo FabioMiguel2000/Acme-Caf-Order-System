@@ -25,7 +25,7 @@
                 android:id="@+id/order_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:text="TextView"
                 app:layout_constraintTop_toBottomOf="@+id/order_number_id"
                 tools:layout_editor_absoluteX="72dp" />
@@ -43,7 +43,7 @@
                 android:id="@+id/order_owner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="12dp"
                 android:text="TextView"
                 app:layout_constraintTop_toBottomOf="@+id/order_status"
                 tools:layout_editor_absoluteX="72dp" />
@@ -52,27 +52,36 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
                 android:text="Order:"
                 android:textSize="16sp"
-                tools:layout_editor_absoluteX="3dp"
+                app:layout_constraintEnd_toStartOf="@+id/order_number_id"
+                app:layout_constraintHorizontal_bias="0.941"
+                app:layout_constraintStart_toStartOf="parent"
                 tools:layout_editor_absoluteY="0dp" />
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
                 android:text="Status:"
-                app:layout_constraintTop_toBottomOf="@+id/textView6"
-                tools:layout_editor_absoluteX="2dp" />
+                app:layout_constraintEnd_toStartOf="@+id/order_status"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
             <TextView
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
                 android:text="NIF:"
-                tools:layout_editor_absoluteX="3dp"
-                tools:layout_editor_absoluteY="43dp" />
+                app:layout_constraintEnd_toStartOf="@+id/order_owner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.Guideline
@@ -120,20 +129,13 @@
 
             <Button
                 android:id="@+id/btn_validate_order"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="Validate Order"
+                app:cornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:layout_editor_absoluteY="0dp" />
 
-            <Button
-                android:id="@+id/btn_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Back"
-                app:layout_constraintEnd_toStartOf="@+id/btn_validate_order"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="0dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
