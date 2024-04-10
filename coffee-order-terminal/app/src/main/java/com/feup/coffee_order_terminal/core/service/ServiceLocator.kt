@@ -1,10 +1,10 @@
-package com.feup.coffee_order_terminal.core
+package com.feup.coffee_order_terminal.core.service
 
 import com.feup.coffee_order_terminal.BuildConfig
 import com.feup.coffee_order_terminal.domain.repository.OrderRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import com.feup.coffee_order_terminal.network.ApiInterface
+import com.feup.coffee_order_terminal.core.network.ApiInterface
 
 object ServiceLocator {
     private val retrofit = Retrofit.Builder()

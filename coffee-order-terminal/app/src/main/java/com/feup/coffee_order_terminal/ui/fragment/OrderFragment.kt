@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.R
-import com.feup.coffee_order_terminal.core.ServiceLocator
+import com.feup.coffee_order_terminal.core.service.ServiceLocator
 import com.feup.coffee_order_terminal.domain.model.Order
+import com.feup.coffee_order_terminal.ui.adapter.OrdersAdapter
 
 class OrderFragment : Fragment() {
     private val orders = mutableListOf<Order>()
@@ -32,9 +35,21 @@ class OrderFragment : Fragment() {
         }
     }
     private fun setupRecyclerView(view: View) {
+        val adapter = OrdersAdapter(mutableListOf())
+        view.findViewById<RecyclerView>(R.id.rv_orders).apply {
+            layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
+            this.adapter = adapter
+        }
     }
 
     private fun updateRecyclerView() {
+        if (isAdded) {
+            val recyclerView = requireView().findViewById<RecyclerView>(R.id.rv_orders)
+            (recyclerView.adapter as? OrdersAdapter)?.let { adapter ->
+                adapter.orders.clear()
+                adapter.orders.addAll(this.orders)
+                adapter.notifyDataSetChanged()
+            }
+        }
     }
-
 }

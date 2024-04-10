@@ -1,6 +1,5 @@
-package com.feup.coffee_order_terminal.network
+package com.feup.coffee_order_terminal.core.network
 
-import com.feup.coffee_order_terminal.core.ApiResponse
 import com.feup.coffee_order_terminal.domain.model.Order
 import retrofit2.Call
 import retrofit2.http.GET

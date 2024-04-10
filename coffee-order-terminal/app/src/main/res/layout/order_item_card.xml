@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="0dp"
+    android:layout_margin="8dp"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="6dp"
     app:cardBackgroundColor="@android:color/transparent"
     app:cardUseCompatPadding="true">
 
@@ -33,6 +35,7 @@
             android:textColor="@color/dark_purple"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="@id/right_guideline" />
@@ -49,29 +52,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_client_details"
             app:layout_constraintEnd_toEndOf="@id/right_guideline" />
 
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="E-mail: fabmiguel@gmail.com"
-            android:textColor="@color/dark_purple"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_client_name"
-            app:layout_constraintEnd_toEndOf="@id/right_guideline" />
-
-        <TextView
-            android:id="@+id/tv_nif"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="NIF: 123456789"
-            android:textColor="@color/dark_purple"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_email"
-            app:layout_constraintEnd_toEndOf="@id/right_guideline" />
 
         <TextView
             android:id="@+id/tv_order_summary"
@@ -83,7 +63,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@id/tv_nif"
+            app:layout_constraintTop_toBottomOf="@id/tv_client_name"
             app:layout_constraintEnd_toEndOf="@id/right_guideline" />
 
         <TextView
@@ -110,16 +90,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_order_date"
             app:layout_constraintEnd_toEndOf="@id/right_guideline" />
 
-        <TextView
-            android:id="@+id/tv_order_total_price"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Total Price - 12$"
-            android:textColor="@color/dark_purple"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/tv_order_code"
-            app:layout_constraintEnd_toEndOf="@id/right_guideline" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_order"
@@ -129,7 +99,7 @@
             android:layout_height="80dp"
             android:background="@drawable/loading"
             android:scaleType="centerCrop"
-            app:layout_constraintTop_toBottomOf="@id/tv_order_total_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_order_code"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             android:layout_marginTop="16dp" />
 
@@ -271,7 +241,7 @@
             android:layout_marginTop="8dp" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_promotion_discount"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Promotion Discount -2.00 EUR"
@@ -289,9 +259,9 @@
             android:textColor="@color/dark_purple"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintEnd_toEndOf="@id/right_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/tv_promotion_discount"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp" />
+            android:paddingBottom="15dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
