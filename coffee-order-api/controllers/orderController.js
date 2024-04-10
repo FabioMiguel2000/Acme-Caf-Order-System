@@ -20,12 +20,11 @@ const getAllOrders = async (req, res) => {
 const getOrderByID = async (req, res) => {
   try {
     const { id } = req.params;
-    if(!id){
+    if(id){
       const order = await Order.findById(id);
       if (!order) {
         return returnResponse(res, 404, false, `Order with id: ${id} not found`);
       }
-      console.log(order);
       returnResponse(res, 200, true, `Retrieved order with id: ${id}`, order);
     } else {
       return returnResponse(res, 400, false, `Invalid id: ${id}`);
