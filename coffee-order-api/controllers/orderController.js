@@ -28,7 +28,7 @@ const getOrderByID = async (req, res) => {
     returnResponse(res, 200, true, `Retrieved order with id: ${id}`, order);
     
   } catch (error) {
-    returnResponse(res, 500, false, `Failed to retrieve order`);
+    return returnResponse(res, 500, false, `Failed to retrieve order`);
   }
 };
 
