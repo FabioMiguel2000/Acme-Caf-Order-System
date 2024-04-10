@@ -15,5 +15,5 @@ interface ApiInterface {
     @POST("orders/validation/{id}")
     fun validateOrder(@Path("id") orderId: String): Call<ApiResponse<Order>>
     @GET("orders/{id}")
-    fun getOrder(@Query("id") orderId: String): Call<ApiResponse<Order>>
+    fun getOrder(@Path("id") orderId: String): Call<ApiResponse<Order>>
 }

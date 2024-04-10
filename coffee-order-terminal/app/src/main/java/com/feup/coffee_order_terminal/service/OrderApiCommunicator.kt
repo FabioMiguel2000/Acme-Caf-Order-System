@@ -49,7 +49,7 @@ class OrderApiCommunicator {
         })
     }
 
-    fun getOrder(context: Context, orderId: String){
+    fun getOrder(context: Context, orderId: String, callback: (Order?)->Unit){
         HttpHandlerClass.getInstance().retrofitBuilder.getOrder(orderId).enqueue(object : Callback<ApiResponse<Order>> {
             override fun onResponse(
                 call: Call<ApiResponse<Order>>,
@@ -57,11 +57,15 @@ class OrderApiCommunicator {
             ) {
                 if(response.code() == 200) {
                     Toast.makeText(context, " Operation done successful ", Toast.LENGTH_LONG).show()
+                    val order = response.body()?.data
+                    callback(order)
                 } else {
                     Toast.makeText(context, "Something went wrong, unable to get order ", Toast.LENGTH_LONG).show()
+                    callback(null)
                 }
             }
             override fun onFailure(call: Call<ApiResponse<Order>>, t: Throwable) {
+                Log.e("erroP", t.toString())
                 Toast.makeText(context, "Something went wrong, unable to get order ", Toast.LENGTH_LONG).show()
             }
         })
