@@ -107,7 +107,7 @@ const registerUser = async (req, res) => {
     );
       returnResponse(res, 201, true, `User created ${filteredUser}`, filteredUser);
   } catch (error) {
-    returnResponse(res, 500, false, `Failed to register user ${error}`);
+    return returnResponse(res, 500, false, `Failed to register user ${error}`);
   }
 };
 
