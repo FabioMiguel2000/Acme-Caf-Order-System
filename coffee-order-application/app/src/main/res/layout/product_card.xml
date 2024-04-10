@@ -62,9 +62,6 @@
             app:iconPadding="0dp"
             />
 
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
