@@ -1,6 +1,7 @@
 package com.feup.coffee_order_terminal.service
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,8 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.R
 import com.feup.coffee_order_terminal.models.Product
+import com.feup.coffee_order_terminal.models.ProductOrder
 
-class ProductAdapter (val products: MutableList<Product>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(){
+class ProductAdapter (val products: MutableList<ProductOrder>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(){
     class ProductViewHolder(view: View): RecyclerView.ViewHolder(view){
         val pNome: TextView = view.findViewById(R.id.prod_name)
             //val pCategory: TextView = view.findViewById(R.id.prod_category)
@@ -27,7 +29,7 @@ class ProductAdapter (val products: MutableList<Product>): RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]
-        holder.pNome.text = product.name
+        holder.pNome.text = product.product.name
         //holder.pCategory.text = product.category.name
         //holder.pQtd.text = "3"
     }

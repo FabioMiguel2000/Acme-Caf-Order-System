@@ -2,6 +2,7 @@ package com.feup.coffee_order_terminal
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
@@ -11,11 +12,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.models.Order
 import com.feup.coffee_order_terminal.models.Product
+import com.feup.coffee_order_terminal.models.ProductOrder
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
 import com.feup.coffee_order_terminal.service.ProductAdapter
 
 class OrderValidatorActivity : AppCompatActivity() {
-    private val products = mutableListOf<Product>()
+    private val products = mutableListOf<ProductOrder>()
     private val userNif: String = ""
     private val orderStatus: String = ""
 
@@ -38,6 +40,7 @@ class OrderValidatorActivity : AppCompatActivity() {
                 updateRecyclerView()
             }
             changeOrderInformation(order!!.status, order.client.nif)
+            Log.e("products", order.products.toString())
         }
     }
 
