@@ -59,7 +59,7 @@ const getSingleUser = async (req, res) => {
         }
         returnResponse(res, 200, true, `Retrieved user with id: ${id}`, user);
     } catch (error) {
-        returnResponse(res, 500, false, `Failed to retrieve user`);
+        return returnResponse(res, 500, false, `Failed to retrieve user`);
     }
 }
 
