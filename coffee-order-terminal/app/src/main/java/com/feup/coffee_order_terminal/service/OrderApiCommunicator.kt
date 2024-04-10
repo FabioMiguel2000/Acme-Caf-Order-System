@@ -60,6 +60,7 @@ class OrderApiCommunicator {
                     val order = response.body()?.data
                     callback(order)
                 } else {
+                    Log.e("erroCode", response.code().toString())
                     Toast.makeText(context, "Something went wrong, unable to get order ", Toast.LENGTH_LONG).show()
                     callback(null)
                 }

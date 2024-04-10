@@ -21,7 +21,17 @@
         tools:targetApi="31">
         <activity
             android:name=".OrderValidatorActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+
+
         <activity
             android:name=".fragment_orders"
             android:exported="false" />
@@ -34,11 +44,11 @@
             android:exported="true"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
     </application>
 
