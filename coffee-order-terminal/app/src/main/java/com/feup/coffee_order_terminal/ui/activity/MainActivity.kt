@@ -1,15 +1,13 @@
-package com.feup.coffee_order_terminal
+package com.feup.coffee_order_terminal.ui.activity
 
 import android.os.Bundle
-import android.view.Menu
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.feup.coffee_order_terminal.ui.fragment.QRCodeFragment
+import com.feup.coffee_order_terminal.R
+import com.feup.coffee_order_terminal.ui.fragment.OrderFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.zxing.integration.android.IntentIntegrator
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val orderList = OrderList()
+        val orderList = OrderFragment()
         val qrcode = QRCodeFragment()
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
 

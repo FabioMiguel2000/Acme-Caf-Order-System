@@ -1,4 +1,4 @@
-package com.feup.coffee_order_terminal
+package com.feup.coffee_order_terminal.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.feup.coffee_order_terminal.R
 import com.feup.coffee_order_terminal.databinding.QrcodeReaderFragmentBinding
 import com.google.zxing.integration.android.IntentIntegrator
 import org.json.JSONException

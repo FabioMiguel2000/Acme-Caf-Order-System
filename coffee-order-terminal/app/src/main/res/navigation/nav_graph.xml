@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.feup.coffee_order_terminal.QRCodeFragment"
+        android:name="com.feup.coffee_order_terminal.ui.fragment.QRCodeFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/qrcode_reader_fragment">
 
