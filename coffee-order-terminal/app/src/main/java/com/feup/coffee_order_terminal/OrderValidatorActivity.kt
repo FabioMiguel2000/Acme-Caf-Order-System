@@ -1,21 +1,14 @@
 package com.feup.coffee_order_terminal
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.feup.coffee_order_terminal.models.Order
-import com.feup.coffee_order_terminal.models.Product
 import com.feup.coffee_order_terminal.models.ProductOrder
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
-import com.feup.coffee_order_terminal.service.ProductAdapter
+import com.feup.coffee_order_terminal.ui.adapter.ProductAdapter
 
 class OrderValidatorActivity : AppCompatActivity() {
     private val products = mutableListOf<ProductOrder>()
