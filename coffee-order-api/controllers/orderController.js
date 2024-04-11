@@ -120,7 +120,7 @@ const validateOrder = async (req, res) => {
     order.status = "Verified";
     await order.save();
     
-    return returnResponse(res, 200, true, `Order with id: ${id} verified`, order);
+    return returnResponse(res, 201, true, `Order with id: ${id} verified`, order);
     
   } catch (error) {
     return returnResponse(res, 500, false, `Failed to validate order: ${error}`);
