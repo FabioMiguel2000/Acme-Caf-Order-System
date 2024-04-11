@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.R
-import com.feup.coffee_order_terminal.models.Product
 import com.feup.coffee_order_terminal.models.ProductOrder
 
 class ProductAdapter (val products: MutableList<ProductOrder>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(){

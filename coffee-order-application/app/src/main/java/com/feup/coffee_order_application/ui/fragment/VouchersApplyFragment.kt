@@ -59,7 +59,7 @@ class VouchersApplyFragment : Fragment() {
         (recyclerView.adapter as? VoucherAdapter)?.let { adapter ->
             adapter.vouchers.clear()
             adapter.vouchers.addAll(filteredVouchers)
-            adapter.notifyDataSetChanged() // Notify the adapter of the data change
+            adapter.notifyDataSetChanged() // Notify the adapter of the data change, there's a pub sub inside
         }
     }
 

@@ -53,7 +53,7 @@
             <LinearLayout
                 android:id="@+id/box_container_2"
                 android:orientation="vertical"
-                android:layout_width="250dp"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@+id/top_box_container"
                 tools:layout_editor_absoluteY="0dp">

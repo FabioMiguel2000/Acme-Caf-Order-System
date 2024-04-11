@@ -36,6 +36,8 @@ class OrderValidatorActivity : AppCompatActivity() {
             val orderApiCommunicator = OrderApiCommunicator()
             orderApiCommunicator.validateOrder(this.baseContext, order)
         }
+
+        val completeOrder = getOrder(order)
     }
 
     private fun getOrder(orderId: String){
