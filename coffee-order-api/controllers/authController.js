@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const { encryptPassword } = require("../utils/crypto/bcryptPassword");
-const { returnResponse } = require("../services/general");
+const { returnResponse } = require("../services/responseHandler");
 
 const loginUser = async (req, res) => {
   try {
@@ -16,10 +16,7 @@ const loginUser = async (req, res) => {
         email: userInput.email,
       });
       if (!user) {
-        return res.status(409).json({
-          success: false,
-          message: `Authentication Failed: The username that you've entered doesn't match any account.`,
-        });
+        return returnResponse(res, 409, false, `Authentication Failed: The username that you've entered doesn't match any account.`);
       }
   
       const isPasswordCorrect = await bcrypt.compare(
@@ -28,10 +25,7 @@ const loginUser = async (req, res) => {
       );
   
       if (!isPasswordCorrect) {
-        return res.status(409).json({
-          success: false,
-          message: `Authentication Failed: Invalid logid name or password.`,
-        });
+        return returnResponse(res, 409, false, `Authentication Failed: Invalid logid name or password.`);
       }
   
       user = await User.findOneAndUpdate(
@@ -42,25 +36,14 @@ const loginUser = async (req, res) => {
           runValidators: true,
         }
       ).select("-password -publicKey");
-  
-      return res.status(200).json({
-        success: true,
-        message: `User authenticated ${user}`,
-        data: user,
-      });
+      return returnResponse(res, 200, true, `User authenticated ${user}`, user);
 
     } else {
-      return res.status(500).json({
-        success: false,
-        message: "Bad request"
-      })
+      return returnResponse(res, 400, false, `Bad request`);
     }
     
   } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Failed to retrieve users",
-    });
+    return returnResponse(res, 500, false, `Failed to authenticate user ${error}`);
   }
 };
 
@@ -79,7 +62,7 @@ const registerUser = async (req, res) => {
     });
 
     if (usernameExists) {
-      returnResponse(res, 409, false, `User already exists ${userInput.email}`);
+      return returnResponse(res, 409, false, `User already exists ${userInput.email}`);
     }
 
     const nifExists = await User.findOne({
@@ -87,7 +70,7 @@ const registerUser = async (req, res) => {
     });
 
     if (nifExists) {
-      returnResponse(res, 409, false, `NIF already registered ${userInput.nif}`);
+      return returnResponse(res, 409, false, `NIF already registered ${userInput.nif}`);
     }
 
     const encryptedPassword = await encryptPassword(userInput.password);
@@ -105,7 +88,7 @@ const registerUser = async (req, res) => {
     const filteredUser = await User.findById(newUser._id).select(
       "-password -publicKey"
     );
-      returnResponse(res, 201, true, `User created ${filteredUser}`, filteredUser);
+      return returnResponse(res, 201, true, `User created ${filteredUser}`, filteredUser);
   } catch (error) {
     return returnResponse(res, 500, false, `Failed to register user ${error}`);
   }

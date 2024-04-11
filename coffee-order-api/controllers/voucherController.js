@@ -1,16 +1,12 @@
 const Voucher = require('../models/voucher');
-const { returnResponse } = require('../services/general');
+const { returnResponse } = require('../services/responseHandler');
 
 const getAllVouchers = async (req, res) => {
     try {
         const vouchers = await Voucher.find();
-        return res.status(200).json({
-            success: true,
-            message: `Retrieved ${vouchers.length} vouchers`,
-            data: vouchers
-        });
+        return responseResponse(res, 200, true, `Retrieved ${vouchers.length} vouchers`, vouchers);
     } catch (error) {
-        returnResponse(res, 500, false, `Failed to retrieve vouchers`);
+        return returnResponse(res, 500, false, `Failed to retrieve vouchers`);
     }
 }
 
@@ -19,11 +15,11 @@ const getVoucherById = async (req, res) => {
         const { id } = req.params;
         const voucher = await Voucher.findById(id);
         if (!voucher) {
-            returnResponse(res, 404, false, `Voucher with id: ${id} not found`);
+            return returnResponse(res, 404, false, `Voucher with id: ${id} not found`);
         }
-        returnResponse(res, 200, true, `Retrieved voucher with id: ${id}`, voucher);
+        return returnResponse(res, 200, true, `Retrieved voucher with id: ${id}`, voucher);
     } catch (error) {
-        returnResponse(res, 500, false, `Failed to retrieve voucher`);
+        return returnResponse(res, 500, false, `Failed to retrieve voucher`);
     }
 }
 
@@ -31,9 +27,9 @@ const getVoucherByUser = async (req, res) => {
     try {
         const { client } = req.query;
         const vouchers = await Voucher.find({ client });
-        returnResponse(res, 200, true, `Retrieved ${vouchers.length} vouchers from client: ${client}`, vouchers);
+        return returnResponse(res, 200, true, `Retrieved ${vouchers.length} vouchers from client: ${client}`, vouchers);
     } catch (error) {
-        returnResponse(res, 500, false, `Failed to retrieve vouchers`);
+        return returnResponse(res, 500, false, `Failed to retrieve vouchers`);
     }
 }
 

@@ -81,4 +81,6 @@ dependencies {
     implementation("com.google.android.material:material:1.6.0")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 }

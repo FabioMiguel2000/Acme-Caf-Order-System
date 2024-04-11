@@ -1,5 +1,5 @@
 const User = require("../models/user");
-const { returnResponse } = require("../services/general");
+const { returnResponse } = require("../services/responseHandler");
 const { createVoucher } = require("./voucherController");
 
 
@@ -44,10 +44,10 @@ const updateUserAccumulatedCoffeeBuys = async (userId, cupsNum) => {
 const getAllUsers = async (req, res) => {
     try {   
         const users = await User.find().select('-password -publicKey');
-        returnResponse(res, 200, true, `Retrieved ${users.length} users`, users);
+        return returnResponse(res, 200, true, `Retrieved ${users.length} users`, users);
     } catch (error) {
-        returnResponse(res, 500, false, `Failed to retrieve users`);
-    } 
+        return returnResponse(res, 500, false, `Failed to retrieve users`);
+    }
 }
 
 const getSingleUser = async (req, res) => {
