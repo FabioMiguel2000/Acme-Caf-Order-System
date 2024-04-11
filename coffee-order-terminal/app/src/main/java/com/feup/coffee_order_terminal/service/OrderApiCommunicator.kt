@@ -57,7 +57,9 @@ class OrderApiCommunicator {
             ) {
                 if(response.code() == 200) {
                     Toast.makeText(context, " Operation done successful ", Toast.LENGTH_LONG).show()
+
                     val order = response.body()?.data
+                    Log.e("testingOrder", order!!.products.toString())
                     callback(order)
                 } else {
                     Toast.makeText(context, "Something went wrong, unable to get order ", Toast.LENGTH_LONG).show()

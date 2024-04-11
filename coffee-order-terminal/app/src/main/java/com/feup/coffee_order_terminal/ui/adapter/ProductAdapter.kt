@@ -1,6 +1,7 @@
 package com.feup.coffee_order_terminal.ui.adapter
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ class ProductAdapter (val products: MutableList<ProductOrder>): RecyclerView.Ada
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+        Log.e("produtshow", products.toString())
         val view = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
         return ProductViewHolder(view)
     }

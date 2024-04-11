@@ -1,10 +1,14 @@
 package com.feup.coffee_order_terminal
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.models.ProductOrder
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
@@ -12,12 +16,16 @@ import com.feup.coffee_order_terminal.ui.adapter.ProductAdapter
 
 class OrderValidatorActivity : AppCompatActivity() {
     private val products = mutableListOf<ProductOrder>()
-    private val userNif: String = ""
-    private val orderStatus: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_validator)
+
+        val adapter =  ProductAdapter(products)
+        requireViewById<RecyclerView>(R.id.rv_product_list).apply {
+            layoutManager = LinearLayoutManager(context)
+            this.adapter = adapter
+        }
 
         //val order = intent.getStringExtra("orderId")
         val order = "70480c83631156e7179f33ac9ca87f11"//apagar depois isso
@@ -33,10 +41,26 @@ class OrderValidatorActivity : AppCompatActivity() {
         val completeOrder = getOrder(order)
     }
 
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        return super.onCreateView(name, context, attrs)
+
+
+    }
+
+    /*
+    * val adapter = CheckoutAdapter(order.products)
+
+        binding.rvOrder.apply {
+            layoutManager = LinearLayoutManager(context)
+            this.adapter = adapter
+        }*/
+
     private fun getOrder(orderId: String){
+        Log.e("testing_", "Hi")
         val orderApiCommunicator = OrderApiCommunicator()
         orderApiCommunicator.getOrder(this.baseContext, orderId) {
             order -> order.let {
+                Log.e ("showingprod", it!!.products.toString())
                 this.products.addAll(it!!.products)
                 updateRecyclerView()
             }
@@ -46,9 +70,11 @@ class OrderValidatorActivity : AppCompatActivity() {
     }
 
     private fun updateRecyclerView() {
-        val recyclerView = requireViewById<RecyclerView>(R.id.product_list)
+        val recyclerView = requireViewById<RecyclerView>(R.id.rv_product_list)
         (recyclerView.adapter as? ProductAdapter)?.let { adapter ->
+
             adapter.products.clear()
+            Log.e("productUpdate", this.toString())
             adapter.products.addAll(products)
             adapter.notifyDataSetChanged() // Notify the adapter of the data change - there's a pub sub inside
         }
