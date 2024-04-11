@@ -3,6 +3,7 @@ package com.feup.coffee_order_terminal
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
@@ -26,10 +27,15 @@ class OrderValidatorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_order_validator)
 
         //val order = intent.getStringExtra("orderId")
-        val order = "70480c83631156e7179f33ac9ca87f11"
+        val order = "70480c83631156e7179f33ac9ca87f11"//apagar depois isso
         val orderIdTextView : TextView = findViewById(R.id.order_number_id)
         orderIdTextView.text = order
-        val completeOrder = getOrder(order)
+
+        val btnValidate : Button = findViewById(R.id.btn_validate_order)
+        btnValidate.setOnClickListener {
+            val orderApiCommunicator = OrderApiCommunicator()
+            orderApiCommunicator.validateOrder(this.baseContext, order)
+        }
     }
 
     private fun getOrder(orderId: String){

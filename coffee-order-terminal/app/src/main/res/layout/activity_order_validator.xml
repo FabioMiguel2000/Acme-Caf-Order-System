@@ -14,7 +14,6 @@
         app:layout_constraintEnd_toEndOf="@id/right_guideline"
         app:layout_constraintStart_toStartOf="@id/left_guideline">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/teste"
             android:layout_width="match_parent"
@@ -29,7 +28,6 @@
                 android:orientation="vertical"
                 tools:layout_editor_absoluteX="27dp"
                 tools:layout_editor_absoluteY="0dp">
-
 
                 <TextView
                     android:id="@+id/textView6"

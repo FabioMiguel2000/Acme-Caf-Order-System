@@ -60,15 +60,33 @@ class OrderApiCommunicator {
                     val order = response.body()?.data
                     callback(order)
                 } else {
-                    Log.e("erroCode", response.code().toString())
                     Toast.makeText(context, "Something went wrong, unable to get order ", Toast.LENGTH_LONG).show()
                     callback(null)
                 }
             }
             override fun onFailure(call: Call<ApiResponse<Order>>, t: Throwable) {
-                Log.e("erroP", t.toString())
                 Toast.makeText(context, "Something went wrong, unable to get order ", Toast.LENGTH_LONG).show()
             }
+        })
+    }
+
+    fun validateOrder(context: Context, orderId: String){
+        HttpHandlerClass.getInstance().retrofitBuilder.validateOrder(orderId).enqueue(object : Callback<ApiResponse<Order>>{
+            override fun onResponse(
+                call: Call<ApiResponse<Order>>,
+                response: Response<ApiResponse<Order>>
+            ) {
+                if(response.code() == 201){
+                    Toast.makeText(context, "Order validated", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, "Something went wrong, order not validated", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse<Order>>, t: Throwable) {
+                Toast.makeText(context, "Not internet connection", Toast.LENGTH_LONG).show()
+            }
+
         })
     }
 }
