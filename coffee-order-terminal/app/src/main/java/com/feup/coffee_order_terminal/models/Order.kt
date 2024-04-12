@@ -6,6 +6,7 @@ data class Order(
     val products: List<ProductOrder>,
     val client: Client,
     val status: String,
+    val date: String,
     val coffeeVoucher: CoffeeVoucher,
     val discountVoucher: DiscountVoucher
 )
