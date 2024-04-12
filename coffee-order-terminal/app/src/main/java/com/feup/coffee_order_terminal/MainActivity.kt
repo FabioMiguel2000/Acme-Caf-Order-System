@@ -8,6 +8,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.feup.coffee_order_terminal.ui.OrderFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.zxing.integration.android.IntentIntegrator
 
@@ -30,6 +32,10 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        //val manager: FragmentManager =supportFragmentManager
+        val orderFragment = OrderFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.main, orderFragment).addToBackStack(null).commit()
     }
 
     private fun setCurrentPage(fragment: Fragment){
@@ -39,6 +45,4 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
     }
-
-
 }

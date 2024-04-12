@@ -2,6 +2,7 @@ package com.feup.coffee_order_application.ui.adapter
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ class CategoriesAdapter(val categories: MutableList<Category>) : RecyclerView.Ad
         val layout: ConstraintLayout = view.findViewById(R.id.product_category_layout)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+        Log.e("categorieshow", categories.toString())
         val view = LayoutInflater.from(parent.context).inflate(R.layout.category_card, parent, false)
         return CategoryViewHolder(view)
     }

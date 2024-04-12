@@ -1,55 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="0dp"
-    app:cardUseCompatPadding="true"
     app:cardBackgroundColor="@android:color/transparent"
+    app:cardUseCompatPadding="true"
     >
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/product_single"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/light_purple"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
-        <ImageView
-            android:id="@+id/imageView"
+        <com.google.android.material.imageview.ShapeableImageView
+            app:cardCornerRadius="10dp"
+            android:id="@+id/pImage"
+            app:shapeAppearanceOverlay="@style/RoundedSquare"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/loading"
+            app:layout_constraintBottom_toTopOf="@id/prod_qtd"
+            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="5dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_order_price_per_piece"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintTop_toBottomOf="@id/prod_name"
+            app:layout_constraintStart_toEndOf="@id/pImage"
+            android:layout_marginStart="12dp"
+            android:textColor="@color/dark_purple"
+            android:layout_marginTop="20dp"
+            android:text="1.1EUR / piece"/>
 
         <TextView
             android:id="@+id/prod_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.059"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            tools:layout_editor_absoluteY="16dp" />
+            android:layout_marginStart="12dp"
+            android:text="Caffe Americanno"
+            android:textColor="@color/dark_purple"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@+id/pImage"
+            app:layout_constraintStart_toEndOf="@id/pImage" />
 
-        <TextView
-            android:id="@+id/prod_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.059"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            tools:layout_editor_absoluteY="55dp" />
 
         <TextView
             android:id="@+id/prod_qtd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.059"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            tools:layout_editor_absoluteY="93dp" />
+            android:textColor="@color/dark_purple"
+            android:text="1"
+            app:layout_constraintStart_toStartOf="@id/pImage"
+            app:layout_constraintTop_toBottomOf="@id/pImage"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_order_total_price_per_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_purple"
+            android:text="12.00"
+            app:layout_constraintBottom_toBottomOf="@+id/prod_qtd"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

@@ -32,11 +32,11 @@ class OrderValidatorActivity : AppCompatActivity() {
         val orderIdTextView : TextView = findViewById(R.id.order_number_id)
         orderIdTextView.text = order
 
-        val btnValidate : Button = findViewById(R.id.btn_validate_order)
+        /*val btnValidate : Button = findViewById(R.id.btn_validate_order)
         btnValidate.setOnClickListener {
             val orderApiCommunicator = OrderApiCommunicator()
             orderApiCommunicator.validateOrder(this.baseContext, order)
-        }
+        }*/
 
         val completeOrder = getOrder(order)
     }
@@ -47,13 +47,6 @@ class OrderValidatorActivity : AppCompatActivity() {
 
     }
 
-    /*
-    * val adapter = CheckoutAdapter(order.products)
-
-        binding.rvOrder.apply {
-            layoutManager = LinearLayoutManager(context)
-            this.adapter = adapter
-        }*/
 
     private fun getOrder(orderId: String){
         Log.e("testing_", "Hi")
@@ -71,19 +64,20 @@ class OrderValidatorActivity : AppCompatActivity() {
 
     private fun updateRecyclerView() {
         val recyclerView = requireViewById<RecyclerView>(R.id.rv_product_list)
+        Log.e("productUpdate", this.products.toString())
         (recyclerView.adapter as? ProductAdapter)?.let { adapter ->
 
             adapter.products.clear()
-            Log.e("productUpdate", this.toString())
+            Log.e("productUpdate", this.products.toString())
             adapter.products.addAll(products)
             adapter.notifyDataSetChanged() // Notify the adapter of the data change - there's a pub sub inside
         }
     }
 
     private fun changeOrderInformation(status: String, nif: String){
-        val orderStatus: TextView = findViewById(R.id.order_status)
-        val orderUser: TextView = findViewById(R.id.order_owner)
-        orderStatus.text = status
-        orderUser.text = nif
+        //val orderStatus: TextView = findViewById(R.id.order_status)
+        //val orderUser: TextView = findViewById(R.id.order_owner)
+        //orderStatus.text = status
+        //orderUser.text = nif
     }
 }
