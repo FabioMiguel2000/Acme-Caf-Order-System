@@ -85,7 +85,7 @@
             app:layout_constraintTop_toBottomOf="@id/order_owner" />
 
         <TextView
-            android:id="@+id/tv_order_date"
+            android:id="@+id/order_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#Purchased on 24 Jun 24"
@@ -115,8 +115,8 @@
             android:text=" - 12$"
             android:textColor="@color/dark_purple"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/tv_order_date"
-            app:layout_constraintTop_toTopOf="@+id/tv_order_date" />
+            app:layout_constraintStart_toEndOf="@+id/order_date"
+            app:layout_constraintTop_toTopOf="@+id/order_date" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_product_list"

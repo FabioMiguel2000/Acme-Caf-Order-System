@@ -47,7 +47,7 @@ class OrderFragment : Fragment() {
                 updateRecyclerView()
             }
 
-            changeOrderInformation(order!!.client.nif, order.client.email, order.client.name)
+            changeOrderInformation(order!!.client.nif, order.client.email, order.client.name, order._id, order.date)
         }
     }
 
@@ -71,13 +71,16 @@ class OrderFragment : Fragment() {
         }
     }
 
-    private fun changeOrderInformation(nif: String, email: String, name: String){
+    private fun changeOrderInformation(nif: String, email: String, name: String, orderId: String, date: String){
         val orderUser: TextView = requireView().findViewById(R.id.order_owner)
         val orderUserEmail: TextView = requireView().findViewById(R.id.order_owner_email)
         val orderUserName: TextView = requireView().findViewById(R.id.order_owner_name)
+        val orderIdentifier: TextView = requireView().findViewById(R.id.order_number_id)
+        val orderDate: TextView = requireView().findViewById(R.id.order_date)
         orderUserEmail.text = email
         orderUser.text = nif
         orderUserName.text = name
+        orderIdentifier.text = orderId
 
         //falta order information()
         //Id
