@@ -109,10 +109,14 @@ class QRCodeFragment : Fragment() {
                             _, _ ->
                         run {
                             val orderApiCommunicator = OrderApiCommunicator()
+                            val args = Bundle()
+
                             orderApiCommunicator.createOrder(requireContext(), client, status, products, freeCoffeeVoucherObj, discountVoucherObj) {
                                 order -> order
                                 if(order !== null) {
                                     val orderInfo = OrderFragment()
+                                    args.putString("order", order._id)
+                                    orderInfo.arguments = args
                                     fragmentManager?.beginTransaction()?.replace(R.id.qr_code_reader_fragment, orderInfo)?.commit()
                                     Log.e("callbackOrder", order.toString())
                                 } else {

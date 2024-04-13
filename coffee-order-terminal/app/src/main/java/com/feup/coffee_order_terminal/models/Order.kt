@@ -8,5 +8,7 @@ data class Order(
     val status: String,
     val date: String,
     val coffeeVoucher: CoffeeVoucher,
-    val discountVoucher: DiscountVoucher
+    val discountVoucher: DiscountVoucher,
+    val total: String,
+    val subtotal: String
 )

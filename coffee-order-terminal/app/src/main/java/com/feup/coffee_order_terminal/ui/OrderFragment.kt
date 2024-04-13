@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ import com.feup.coffee_order_terminal.service.OrderApiCommunicator
 import com.feup.coffee_order_terminal.ui.adapter.ProductAdapter
 
 class OrderFragment : Fragment() {
+    var orderId = this.arguments?.getString("order")
     private val products = mutableListOf<ProductOrder>()
 
 
@@ -34,19 +36,28 @@ class OrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(view)
         getOrder()
+
+        val btnValidate : Button = requireView().findViewById(R.id.btn_validate_order)
+        btnValidate.setOnClickListener {
+            val orderApiCommunicator = OrderApiCommunicator()
+            this.orderId?.let { it1 ->
+                orderApiCommunicator.validateOrder(this.requireContext(),
+                    it1
+                )
+            }
+        }
     }
 
     private fun getOrder(){
         val orderApiCommunicator = OrderApiCommunicator()
         orderApiCommunicator.getOrder( requireContext(), "752d04417455bbffa4af0b7b9fa58750" ){
             order -> order.let {
-                Log.e("PRODUCT", order.toString())
                 products.clear()
                 products.addAll(it!!.products)
                 updateRecyclerView()
             }
 
-            changeOrderInformation(order!!.client.nif, order.client.email, order.client.name, order._id, order.date)
+            changeOrderInformation(order!!.client.nif, order.client.email, order.client.name, order._id, order.date, order.total, order.subtotal)
         }
     }
 
@@ -70,22 +81,22 @@ class OrderFragment : Fragment() {
         }
     }
 
-    private fun changeOrderInformation(nif: String, email: String, name: String, orderId: String, date: String){
+    private fun changeOrderInformation(nif: String, email: String, name: String, orderId: String, date: String, total: String, subTotal: String){
         val orderUser: TextView = requireView().findViewById(R.id.order_owner)
         val orderUserEmail: TextView = requireView().findViewById(R.id.order_owner_email)
         val orderUserName: TextView = requireView().findViewById(R.id.order_owner_name)
         val orderIdentifier: TextView = requireView().findViewById(R.id.order_number_id)
         val orderDate: TextView = requireView().findViewById(R.id.order_date)
+        val orderTotal: TextView = requireView().findViewById(R.id.order_total_price)
+        val orderSubTotal: TextView = requireView().findViewById(R.id.order_subtotal_price)
+        val totalTV: TextView = requireView().findViewById(R.id.tv_total)
         orderUserEmail.text = email
         orderUser.text = nif
         orderUserName.text = name
         orderIdentifier.text = orderId
-
-        //falta order information()
-        //Id
-        //data
-        //vouchers
-        //summary
-        //botão validar
+        orderDate.text = date
+        orderTotal.text = total
+        orderSubTotal.text = subTotal
+        this.orderId = orderId
     }
 }

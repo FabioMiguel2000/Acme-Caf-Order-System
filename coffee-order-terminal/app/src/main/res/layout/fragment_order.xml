@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white"
     android:id="@+id/order_container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -110,7 +111,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_order_summary" />
 
         <TextView
-            android:id="@+id/tv_order_total_price"
+            android:id="@+id/order_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -127,18 +128,18 @@
             android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="@+id/right_guideline"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@id/tv_order_total_price"
+            app:layout_constraintTop_toBottomOf="@id/order_total_price"
             tools:listitem="@layout/product_item" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom_box_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="@id/right_guideline"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintTop_toBottomOf="@id/rv_product_list">
-
 
             <TextView
                 android:id="@+id/tv_vouchers_used"
@@ -213,7 +214,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_summary" />
 
             <TextView
-                android:id="@+id/tv_subtotal_price"
+                android:id="@+id/order_subtotal_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -230,7 +231,7 @@
                 android:text="Promotion Discount"
                 android:textColor="@color/button_color"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_subtotal_price" />
+                app:layout_constraintTop_toBottomOf="@id/order_subtotal_price" />
 
             <TextView
                 android:id="@+id/tv_promotion_discount"
@@ -240,7 +241,7 @@
                 android:text="-2.00 EUR"
                 android:textColor="@color/button_color"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_subtotal_price" />
+                app:layout_constraintTop_toBottomOf="@id/order_subtotal_price" />
 
             <TextView
                 android:layout_width="0dp"
@@ -265,6 +266,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_promotion_discount" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/right_guideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/left_guideline"
+        app:layout_constraintTop_toBottomOf="@id/bottom_box_container"
+            >
+
+        <Button
+            android:id="@+id/btn_validate_order"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Validate Order"
+            app:cornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:layout_editor_absoluteY="0dp" /></androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
