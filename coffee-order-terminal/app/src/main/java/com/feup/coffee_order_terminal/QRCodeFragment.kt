@@ -1,7 +1,6 @@
 package com.feup.coffee_order_terminal
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +14,7 @@ import com.feup.coffee_order_terminal.models.CoffeeVoucher
 import com.feup.coffee_order_terminal.models.DiscountVoucher
 import com.feup.coffee_order_terminal.models.ProductCartItem
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
+import com.feup.coffee_order_terminal.ui.OrderFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.zxing.integration.android.IntentIntegrator
@@ -103,17 +103,26 @@ class QRCodeFragment : Fragment() {
 
                     val builder = AlertDialog.Builder(this.requireContext())
                     //builder.setTitle("Order details:")
-                    builder.setMessage(client)
+                    builder.setMessage("Acept order?")
                     builder.setCancelable(false)
-                    builder.setPositiveButton("Accept order")   {
+                    builder.setPositiveButton("Yes")   {
                             _, _ ->
                         run {
-                            val orderApiComunicator = OrderApiCommunicator()
-                            orderApiComunicator.createOrder(requireContext(), client, status, products, freeCoffeeVoucherObj, discountVoucherObj)
+                            val orderApiCommunicator = OrderApiCommunicator()
+                            orderApiCommunicator.createOrder(requireContext(), client, status, products, freeCoffeeVoucherObj, discountVoucherObj) {
+                                order -> order
+                                if(order !== null) {
+                                    val orderInfo = OrderFragment()
+                                    fragmentManager?.beginTransaction()?.replace(R.id.qr_code_reader_fragment, orderInfo)?.commit()
+                                    Log.e("callbackOrder", order.toString())
+                                } else {
+                                    Log.e("callbackOrder", "Sem resultados a mostrar")
+                                }
+                            }
                         }
                     }
 
-                     builder.setNegativeButton("Cancel") {
+                     builder.setNegativeButton("Not") {
                              dialog, _ -> dialog.cancel()
                      }
                     val alertDialog = builder.create()
