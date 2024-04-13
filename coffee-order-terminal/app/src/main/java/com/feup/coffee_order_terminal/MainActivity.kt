@@ -34,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         //val manager: FragmentManager =supportFragmentManager
-        val orderFragment = OrderFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.main, orderFragment).addToBackStack(null).commit()
+        /*val orderFragment = OrderFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.main, orderFragment).addToBackStack(null).commit()*/
     }
 
     private fun setCurrentPage(fragment: Fragment){
