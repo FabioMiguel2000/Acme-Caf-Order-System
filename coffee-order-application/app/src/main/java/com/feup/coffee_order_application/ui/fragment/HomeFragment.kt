@@ -50,7 +50,6 @@ class HomeFragment : Fragment() {
         if (isAdded) {
             val recyclerView = requireView().findViewById<RecyclerView>(R.id.rv_categories)
             (recyclerView.adapter as? CategoriesAdapter)?.let { adapter ->
-                Log.e("productUpdate", this.categories.toString())
                 adapter.categories.clear()
                 adapter.categories.addAll(this.categories)
                 adapter.notifyDataSetChanged()
