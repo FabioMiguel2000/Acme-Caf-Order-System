@@ -1,6 +1,7 @@
 package com.feup.coffee_order_terminal.core.network
 
 import com.feup.coffee_order_terminal.models.Order
+import com.feup.coffee_order_terminal.models.OrderResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,5 +16,5 @@ interface ApiInterface {
     @POST("orders/validation/{id}")
     fun validateOrder(@Path("id") orderId: String): Call<ApiResponse<Order>>
     @GET("orders/{id}")
-    fun getOrder(@Path("id") orderId: String): Call<ApiResponse<Order>>
+    fun getOrder(@Path("id") orderId: String): Call<ApiResponse<OrderResponse>>
 }

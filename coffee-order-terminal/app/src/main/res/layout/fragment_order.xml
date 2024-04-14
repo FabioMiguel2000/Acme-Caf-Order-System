@@ -164,7 +164,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_vouchers_used" />
 
             <TextView
-                android:id="@+id/tv_order_d_voucher_code"
+                android:id="@+id/order_discount_voucher_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -176,7 +176,7 @@
                 app:layout_constraintTop_toTopOf="@id/tv_order_d_voucher" />
 
             <TextView
-                android:id="@+id/tv_order_c_voucher"
+                android:id="@+id/order_free_coffee_voucher"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Coffee Voucher"
@@ -185,15 +185,15 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_order_d_voucher" />
 
             <TextView
-                android:id="@+id/tv_order_c_voucher_code"
+                android:id="@+id/order_coffe_voucher_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="No voucher"
                 android:textColor="@color/light_purple"
                 android:textSize="11sp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_order_c_voucher"
+                app:layout_constraintBottom_toBottomOf="@id/order_free_coffee_voucher"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_order_c_voucher" />
+                app:layout_constraintTop_toTopOf="@id/order_free_coffee_voucher" />
 
             <TextView
                 android:id="@+id/tv_summary"
@@ -204,7 +204,7 @@
                 android:textColor="@color/dark_purple"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_order_c_voucher" />
+                app:layout_constraintTop_toBottomOf="@id/order_free_coffee_voucher" />
 
             <TextView
                 android:layout_width="0dp"

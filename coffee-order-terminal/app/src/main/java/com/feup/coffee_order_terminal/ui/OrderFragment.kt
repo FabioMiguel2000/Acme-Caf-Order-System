@@ -57,7 +57,7 @@ class OrderFragment : Fragment() {
                 products.addAll(it!!.products)
                 updateRecyclerView()
             }
-                changeOrderInformation(order!!.client.nif, order.client.email, order.client.name, order._id, order.date, order.total, order.subtotal, order.promotionDiscount)
+                changeOrderInformation(order!!.client.nif, order.client.email, order.client.name, order._id, order.date, order.total, order.subtotal, order.promotionDiscount, order.coffeeVoucher._id, order.discountVoucher._id)
             }
         }
     }
@@ -80,7 +80,7 @@ class OrderFragment : Fragment() {
         }
     }
 
-    private fun changeOrderInformation(nif: String, email: String, name: String, orderId: String, date: String, total: String, subTotal: String, orderPromotionDiscount: String){
+    private fun changeOrderInformation(nif: String, email: String, name: String, orderId: String, date: String, total: String, subTotal: String, orderPromotionDiscount: String, freeCoffeeVoucher: String, discountVoucher: String){
         val orderUser: TextView = requireView().findViewById(R.id.order_owner)
         val orderUserEmail: TextView = requireView().findViewById(R.id.order_owner_email)
         val orderUserName: TextView = requireView().findViewById(R.id.order_owner_name)
@@ -89,6 +89,8 @@ class OrderFragment : Fragment() {
         val orderTotal: TextView = requireView().findViewById(R.id.tv_total)
         val orderSubTotal: TextView = requireView().findViewById(R.id.order_subtotal_price)
         val promotionDiscount: TextView = requireView().findViewById(R.id.order_promotion_discount)
+        val freeCoffe: TextView = requireView().findViewById(R.id.order_coffe_voucher_code)
+        val discountVoucherV :TextView = requireView().findViewById(R.id.order_discount_voucher_code)
         orderUserEmail.text = email
         orderUser.text = nif
         orderUserName.text = name
@@ -97,6 +99,8 @@ class OrderFragment : Fragment() {
         orderTotal.text = total
         orderSubTotal.text = subTotal
         promotionDiscount.text = orderPromotionDiscount
+        freeCoffe.text = freeCoffeeVoucher
+        discountVoucherV.text = discountVoucher
         this.orderId = orderId
     }
 }

@@ -80,6 +80,8 @@ class QRCodeFragment : Fragment() {
                     var products: List<ProductCartItem> = emptyList()
                     var discountVoucherObj: DiscountVoucher? = null
                     var freeCoffeeVoucherObj: CoffeeVoucher? = null
+
+                    Log.e("obj", obj.toString())
                     if(obj.has("client")){
                         client = obj.getString("client")//ok
                     }
@@ -93,14 +95,15 @@ class QRCodeFragment : Fragment() {
                         products = gson.fromJson(cartProducts, object : TypeToken<List<ProductCartItem>>() {}.type)
                     }
 
-                    if(obj.has("coffeeVoucher")){
-                        freeCoffeeVoucher = obj.getString("coffeeVoucher")
-                        freeCoffeeVoucherObj = gson.fromJson(freeCoffeeVoucher, CoffeeVoucher::class.java)
-                        val coffeeVoucherId  =freeCoffeeVoucher
+                    if(obj.has("freeCoffeeVoucher")){
+                        freeCoffeeVoucher = obj.getString("freeCoffeeVoucher")
+                        Log.e("cfVoucher", freeCoffeeVoucher)
+                        //freeCoffeeVoucherObj = gson.fromJson(freeCoffeeVoucher, CoffeeVoucher::class.java)
+                        //val coffeeVoucherId  =freeCoffeeVoucher
                     }
 
                     if(obj.has("discountVoucher")){
-                        discountVoucher = obj.getString("coffeeVoucher")
+                        discountVoucher = obj.getString("discountVoucher")
                         discountVoucherObj = gson.fromJson(discountVoucher, DiscountVoucher::class.java)
                         val discountVoucherId = discountVoucher
                     }
