@@ -75,6 +75,8 @@ class QRCodeFragment : Fragment() {
                     val obj = JSONObject(result.contents)
                     var client = "";
                     var status = "Pending"
+                    var discountVoucher  = ""
+                    var freeCoffeeVoucher = ""
                     var products: List<ProductCartItem> = emptyList()
                     var discountVoucherObj: DiscountVoucher? = null
                     var freeCoffeeVoucherObj: CoffeeVoucher? = null
@@ -92,17 +94,18 @@ class QRCodeFragment : Fragment() {
                     }
 
                     if(obj.has("coffeeVoucher")){
-                        val coffeeVoucher = obj.getString("coffeeVoucher")
-                        freeCoffeeVoucherObj = gson.fromJson(coffeeVoucher, CoffeeVoucher::class.java)
+                        freeCoffeeVoucher = obj.getString("coffeeVoucher")
+                        freeCoffeeVoucherObj = gson.fromJson(freeCoffeeVoucher, CoffeeVoucher::class.java)
+                        val coffeeVoucherId  =freeCoffeeVoucher
                     }
 
                     if(obj.has("discountVoucher")){
-                        val discountVoucher = obj.getString("coffeeVoucher")
+                        discountVoucher = obj.getString("coffeeVoucher")
                         discountVoucherObj = gson.fromJson(discountVoucher, DiscountVoucher::class.java)
+                        val discountVoucherId = discountVoucher
                     }
 
                     val builder = AlertDialog.Builder(this.requireContext())
-                    //builder.setTitle("Order details:")
                     builder.setMessage("Acept order?")
                     builder.setCancelable(false)
                     builder.setPositiveButton("Yes")   {
@@ -111,7 +114,7 @@ class QRCodeFragment : Fragment() {
                             val orderApiCommunicator = OrderApiCommunicator()
                             val args = Bundle()
 
-                            orderApiCommunicator.createOrder(requireContext(), client, status, products, freeCoffeeVoucherObj, discountVoucherObj) {
+                            orderApiCommunicator.createOrder(requireContext(), client, status, products, freeCoffeeVoucher, discountVoucher) {
                                 order -> order
                                 if(order !== null) {
                                     val orderInfo = OrderFragment()

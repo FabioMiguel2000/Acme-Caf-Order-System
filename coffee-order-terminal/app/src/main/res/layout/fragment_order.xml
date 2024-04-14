@@ -122,16 +122,6 @@
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintTop_toBottomOf="@+id/tv_order_summary" />
 
-        <!--<TextView
-            android:id="@+id/order_total_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text=" - 12$"
-            android:textColor="@color/dark_purple"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/order_date"
-            app:layout_constraintTop_toTopOf="@+id/order_date" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_product_list"
@@ -178,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="dafjhdkjahkjsdhakjdhaskjsdhaskj"
+                android:text="No voucher"
                 android:textColor="@color/light_purple"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="@id/tv_order_d_voucher"
@@ -198,7 +188,7 @@
                 android:id="@+id/tv_order_c_voucher_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="dafjhdkjahkjsdhakjdhaskjsdhaskj"
+                android:text="No voucher"
                 android:textColor="@color/light_purple"
                 android:textSize="11sp"
                 app:layout_constraintBottom_toBottomOf="@id/tv_order_c_voucher"

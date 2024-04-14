@@ -16,7 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class OrderApiCommunicator {
-    fun createOrder(context: Context, client: String, status: String, products: List<ProductCartItem>, freeCoffeeVoucher: CoffeeVoucher?, discountVoucher: DiscountVoucher?, callback: (Order?) -> Unit) {
+    fun createOrder(context: Context, client: String, status: String, products: List<ProductCartItem>, freeCoffeeVoucher: String?, discountVoucher: String?, callback: (Order?) -> Unit) {
 
         val body = mapOf(
             "client" to client,
