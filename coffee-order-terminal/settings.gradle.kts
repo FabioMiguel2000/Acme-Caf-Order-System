@@ -16,6 +16,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://raw.github.com/embarkmobile/zxing-android-minimal/mvn-repo/maven-repository/")
     }
 }
 
