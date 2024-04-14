@@ -89,7 +89,6 @@ class OrderFragment : Fragment() {
         val orderTotal: TextView = requireView().findViewById(R.id.tv_total)
         val orderSubTotal: TextView = requireView().findViewById(R.id.order_subtotal_price)
         val promotionDiscount: TextView = requireView().findViewById(R.id.order_promotion_discount)
-        //val orderStatus: TextView = requireView().findViewById(R.id.)
         orderUserEmail.text = email
         orderUser.text = nif
         orderUserName.text = name

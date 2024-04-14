@@ -122,7 +122,7 @@
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintTop_toBottomOf="@+id/tv_order_summary" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/order_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
             android:textColor="@color/dark_purple"
             android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/order_date"
-            app:layout_constraintTop_toTopOf="@+id/order_date" />
+            app:layout_constraintTop_toTopOf="@+id/order_date" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_product_list"
@@ -140,7 +140,7 @@
             android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="@+id/right_guideline"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@id/order_total_price"
+            app:layout_constraintTop_toBottomOf="@id/order_date"
             tools:listitem="@layout/product_item" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
