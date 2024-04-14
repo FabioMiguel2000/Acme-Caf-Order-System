@@ -27,8 +27,8 @@ class OrdersAdapter(val orders: MutableList<Order>) : RecyclerView.Adapter<Order
             tvClientName.text = order.client?.name
 
             //Summary
-            tvOrderCode.text = "#${order._id}"
-            tvOrderDate.text = "#Purchased on ${DateFormatter().formatDate(order.date!!)}"
+            tvOrderCode.text = "#${order._id.toString().uppercase()}"
+            tvOrderDate.text = "Purchased on ${DateFormatter().formatDate(order.date!!)}"
 
             //PRODUCT
             rvProducts.layoutManager = LinearLayoutManager(holder.itemView.context, RecyclerView.VERTICAL, false)
