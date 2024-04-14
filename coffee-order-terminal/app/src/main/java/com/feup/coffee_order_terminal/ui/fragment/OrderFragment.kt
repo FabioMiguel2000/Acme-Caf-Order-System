@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.R
@@ -28,6 +29,7 @@ class OrderFragment : Fragment() {
         order?.let {
             orders.add(it)
         }
+        setupActionBar()
         setupRecyclerView(view)
         updateRecyclerView()
     }
@@ -39,11 +41,18 @@ class OrderFragment : Fragment() {
         }
     }
 
-    fun updateRecyclerView() {
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            title = "Order"
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
+    }
+
+    private fun updateRecyclerView() {
 
         val recyclerView = requireView().findViewById<RecyclerView>(R.id.rv_orders)
         (recyclerView.adapter as? OrdersAdapter)?.let { adapter ->
-            Log.d("orders", this.orders.toString())
             adapter.orders.clear()
             adapter.orders.addAll(this.orders)
             adapter.notifyDataSetChanged()
