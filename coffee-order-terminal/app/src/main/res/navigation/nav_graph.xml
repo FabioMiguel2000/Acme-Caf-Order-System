@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.feup.coffee_order_terminal.OrderList"
+        android:name="com.feup.coffee_order_terminal.ui.fragment.OrderListFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/order_list_fragment">
 
