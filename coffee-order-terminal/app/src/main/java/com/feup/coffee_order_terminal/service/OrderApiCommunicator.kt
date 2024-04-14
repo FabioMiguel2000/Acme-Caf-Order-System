@@ -31,20 +31,14 @@ class OrderApiCommunicator {
                 call: Call<ApiResponse<Order>>,
                 response: Response<ApiResponse<Order>>
             ) {
+                Log.e("errorStatus", response.code().toString())
                 if(response.code() == 201){
-
                     Toast.makeText(context, "Order created", Toast.LENGTH_LONG).show()
                     val response = response.body()?.data;
                     val orderId = response?._id
-
-
-
-                    /*val intent = Intent(context, OrderValidatorActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    intent.putExtra("orderId", _id)
-                    context.startActivity(intent)*/
                     callback(response)
                 } else {
+                    Log.e("errorStatus", response.code().toString())
                     callback(null)
                   Toast.makeText(context, "Something went wrong, please try again later", Toast.LENGTH_LONG).show()
                 }

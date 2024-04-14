@@ -116,7 +116,7 @@ const validateOrder = async (req, res) => {
     order.status = "Verified";
     await order.save();
     
-    return returnResponse(res, 200, true, `Order with id: ${id} verified`, order);
+    return returnResponse(res, 201, true, `Order with id: ${id} verified`, order);
     
   } catch (error) {
     return returnResponse(res, 500, false, `Failed to validate order: ${error}`);
@@ -128,8 +128,6 @@ const createOrder = async (req, res) => {
     console.log(req.body)
     const { client, products, discountVoucher, freeCoffeeVoucher, status } =
       req.body;
-
-    console.log( client, products, discountVoucher, freeCoffeeVoucher, status)
 
     if (status !== "Pending") {
       return returnResponse (res, 400, false, `Invalid status: ${status}`);
@@ -151,8 +149,6 @@ const createOrder = async (req, res) => {
       products.splice(freeCoffeeProductIndex, 1);
       freeCoffeeProductExist = true;
     }
-
-    console.log(products)
 
     const productObjs = await getProductObjs(products);
 
