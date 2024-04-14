@@ -10,5 +10,6 @@ data class Order(
     val coffeeVoucher: CoffeeVoucher,
     val discountVoucher: DiscountVoucher,
     val total: String,
-    val subtotal: String
+    val subtotal: String,
+    val promotionDiscount: String
 )

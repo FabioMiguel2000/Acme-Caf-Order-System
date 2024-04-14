@@ -246,7 +246,7 @@
                 app:layout_constraintTop_toBottomOf="@id/order_subtotal_price" />
 
             <TextView
-                android:id="@+id/tv_promotion_discount"
+                android:id="@+id/order_promotion_discount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -264,7 +264,7 @@
                 android:textColor="@color/dark_purple"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_promotion_discount" />
+                app:layout_constraintTop_toBottomOf="@id/order_promotion_discount" />
 
             <TextView
                 android:id="@+id/tv_total"
@@ -276,7 +276,7 @@
                 android:textColor="@color/dark_purple"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_promotion_discount" />
+                app:layout_constraintTop_toBottomOf="@id/order_promotion_discount" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

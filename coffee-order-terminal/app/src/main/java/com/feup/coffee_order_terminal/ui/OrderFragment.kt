@@ -57,7 +57,7 @@ class OrderFragment : Fragment() {
                 products.addAll(it!!.products)
                 updateRecyclerView()
             }
-                changeOrderInformation(order!!.client.nif, order.client.email, order.client.name, order._id, order.date, order.total, order.subtotal)
+                changeOrderInformation(order!!.client.nif, order.client.email, order.client.name, order._id, order.date, order.total, order.subtotal, order.promotionDiscount)
             }
         }
     }
@@ -80,14 +80,15 @@ class OrderFragment : Fragment() {
         }
     }
 
-    private fun changeOrderInformation(nif: String, email: String, name: String, orderId: String, date: String, total: String, subTotal: String){
+    private fun changeOrderInformation(nif: String, email: String, name: String, orderId: String, date: String, total: String, subTotal: String, orderPromotionDiscount: String){
         val orderUser: TextView = requireView().findViewById(R.id.order_owner)
         val orderUserEmail: TextView = requireView().findViewById(R.id.order_owner_email)
         val orderUserName: TextView = requireView().findViewById(R.id.order_owner_name)
         val orderIdentifier: TextView = requireView().findViewById(R.id.order_number_id)
         val orderDate: TextView = requireView().findViewById(R.id.order_date)
-        val orderTotal: TextView = requireView().findViewById(R.id.order_total_price)
+        val orderTotal: TextView = requireView().findViewById(R.id.tv_total)
         val orderSubTotal: TextView = requireView().findViewById(R.id.order_subtotal_price)
+        val promotionDiscount: TextView = requireView().findViewById(R.id.order_promotion_discount)
         //val orderStatus: TextView = requireView().findViewById(R.id.)
         orderUserEmail.text = email
         orderUser.text = nif
@@ -96,6 +97,7 @@ class OrderFragment : Fragment() {
         orderDate.text = date
         orderTotal.text = total
         orderSubTotal.text = subTotal
+        promotionDiscount.text = orderPromotionDiscount
         this.orderId = orderId
     }
 }
