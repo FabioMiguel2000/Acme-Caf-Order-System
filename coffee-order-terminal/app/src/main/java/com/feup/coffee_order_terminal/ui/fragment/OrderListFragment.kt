@@ -16,7 +16,6 @@ import com.feup.coffee_order_terminal.ui.adapter.OrderListAdapter
 import com.feup.coffee_order_terminal.ui.adapter.OrdersAdapter
 
 class OrderListFragment : Fragment() {
-//    private val orders = mutableListOf<Order>()
     private lateinit var orderListAdapter: OrderListAdapter
 
     override fun onCreateView(
@@ -37,8 +36,9 @@ class OrderListFragment : Fragment() {
 
         ServiceLocator.orderRepository.getOrders { orders ->
             orders?.let {
+                val verifiedOrder = orders.filter { it.status == Order.STATUS_VERIFIED }
                 orderListAdapter.orders.clear()
-                orderListAdapter.orders.addAll(it)
+                orderListAdapter.orders.addAll(verifiedOrder)
                 orderListAdapter.notifyDataSetChanged()
             }
         }
@@ -58,16 +58,5 @@ class OrderListFragment : Fragment() {
             setDisplayShowHomeEnabled(false)
         }
     }
-
-//    private fun updateRecyclerView() {
-//        if (isAdded) {
-//            val recyclerView = requireView().findViewById<RecyclerView>(R.id.rv_orders)
-//            (recyclerView.adapter as? OrdersAdapter)?.let { adapter ->
-//                adapter.orders.clear()
-//                adapter.orders.addAll(this.orders)
-//                adapter.notifyDataSetChanged()
-//            }
-//        }
-//    }
 
 }
