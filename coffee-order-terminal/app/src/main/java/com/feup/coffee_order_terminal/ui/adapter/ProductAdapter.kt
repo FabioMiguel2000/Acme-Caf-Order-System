@@ -25,16 +25,15 @@ class ProductAdapter (val products: MutableList<ProductOrder>): RecyclerView.Ada
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]
         holder.pNome.text = product.product.name
-        //holder.pCategory.text= product.product.category
+        holder.pPreco.text = product.product.price.toString()
         holder.pQtd.text= product.quantity.toString()
         ImageUtils().loadImageFromUrlIntoView(product.product.imgURL, holder.pImage)
     }
 
     class ProductViewHolder(view: View): RecyclerView.ViewHolder(view){
         val pNome: TextView = view.findViewById(R.id.prod_name)
-        //val pCategory: TextView = view.findViewById(R.id.prod_category)
+        val pPreco: TextView = view.findViewById(R.id.order_total_price_per_item)
         val pQtd: TextView = view.findViewById(R.id.prod_qtd)
         val pImage: ImageView = view.findViewById(R.id.pImage)
-
     }
 }
