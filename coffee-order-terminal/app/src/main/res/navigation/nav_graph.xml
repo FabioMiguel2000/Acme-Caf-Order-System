@@ -9,7 +9,7 @@
         android:id="@+id/FirstFragment"
         android:name="com.feup.coffee_order_terminal.ui.fragment.OrderListFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/order_list_fragment">
+        tools:layout="@layout/fragment_order_list">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
