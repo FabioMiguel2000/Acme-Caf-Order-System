@@ -52,11 +52,13 @@ class OrderFragment : Fragment() {
         val orderApiCommunicator = OrderApiCommunicator()
         this.orderId?.let {
             orderApiCommunicator.getOrder( requireContext(), it){
+
                 order -> order.let {
                 products.clear()
                 products.addAll(it!!.products)
                 updateRecyclerView()
             }
+                Log.e("orderId", order.toString())
                 changeOrderInformation(order!!.client.nif, order.client.email, order.client.name, order._id, order.date, order.total, order.subtotal, order.promotionDiscount, order.coffeeVoucher._id, order.discountVoucher._id)
             }
         }
