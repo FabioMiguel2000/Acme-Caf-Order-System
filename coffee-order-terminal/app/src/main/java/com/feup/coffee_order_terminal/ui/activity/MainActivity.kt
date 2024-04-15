@@ -1,8 +1,11 @@
-package com.feup.coffee_order_terminal
+package com.feup.coffee_order_terminal.ui.activity
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.feup.coffee_order_terminal.ui.fragment.QRCodeFragment
+import com.feup.coffee_order_terminal.R
 import com.feup.coffee_order_terminal.ui.fragment.OrderListFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -32,6 +35,15 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fLayout, fragment)
             addToBackStack(null)
             commit()
+        }
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

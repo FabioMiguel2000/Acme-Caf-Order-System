@@ -1,5 +1,4 @@
 package com.feup.coffee_order_terminal.core.service
-/*
 import com.feup.coffee_order_terminal.BuildConfig
 import com.feup.coffee_order_terminal.domain.repository.OrderRepository
 import retrofit2.Retrofit
@@ -21,4 +20,3 @@ object ServiceLocator {
     }
 
 }
- */

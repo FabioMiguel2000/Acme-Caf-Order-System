@@ -31,9 +31,9 @@ class ProductAdapter (val products: MutableList<ProductOrder>): RecyclerView.Ada
     }
 
     class ProductViewHolder(view: View): RecyclerView.ViewHolder(view){
-        val pNome: TextView = view.findViewById(R.id.prod_name)
-        val pPreco: TextView = view.findViewById(R.id.order_total_price_per_item)
-        val pQtd: TextView = view.findViewById(R.id.prod_qtd)
-        val pImage: ImageView = view.findViewById(R.id.pImage)
+        val pNome: TextView = view.findViewById(R.id.tv_product_name)
+        val pPreco: TextView = view.findViewById(R.id.tv_product_price_per_piece)
+        val pQtd: TextView = view.findViewById(R.id.tv_product_quantity)
+        val pImage: ImageView = view.findViewById(R.id.img_product)
     }
 }

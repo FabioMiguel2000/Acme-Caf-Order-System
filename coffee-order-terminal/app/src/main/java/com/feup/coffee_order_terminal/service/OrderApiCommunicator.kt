@@ -7,9 +7,9 @@ import android.util.Log
 import android.widget.Toast
 import com.feup.coffee_order_terminal.core.network.ApiResponse
 import com.feup.coffee_order_terminal.core.network.HttpHandlerClass
+import com.feup.coffee_order_terminal.domain.model.Order
 import com.feup.coffee_order_terminal.models.CoffeeVoucher
 import com.feup.coffee_order_terminal.models.DiscountVoucher
-import com.feup.coffee_order_terminal.models.Order
 import com.feup.coffee_order_terminal.models.OrderResponse
 import com.feup.coffee_order_terminal.models.ProductCartItem
 import retrofit2.Call

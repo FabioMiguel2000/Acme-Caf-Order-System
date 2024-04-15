@@ -1,4 +1,4 @@
-package com.feup.coffee_order_terminal
+package com.feup.coffee_order_terminal.ui.fragment
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -9,9 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.feup.coffee_order_terminal.R
 import com.feup.coffee_order_terminal.databinding.QrcodeReaderFragmentBinding
-import com.feup.coffee_order_terminal.models.CoffeeVoucher
-import com.feup.coffee_order_terminal.models.DiscountVoucher
 import com.feup.coffee_order_terminal.models.ProductCartItem
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
 import com.feup.coffee_order_terminal.ui.OrderFragment
