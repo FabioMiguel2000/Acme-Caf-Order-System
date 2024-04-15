@@ -78,8 +78,6 @@ class QRCodeFragment : Fragment() {
                     var discountVoucher  = ""
                     var freeCoffeeVoucher = ""
                     var products: List<ProductCartItem> = emptyList()
-                    var discountVoucherObj: DiscountVoucher? = null
-                    var freeCoffeeVoucherObj: CoffeeVoucher? = null
 
                     Log.e("obj", obj.toString())
                     if(obj.has("client")){
@@ -97,15 +95,10 @@ class QRCodeFragment : Fragment() {
 
                     if(obj.has("freeCoffeeVoucher")){
                         freeCoffeeVoucher = obj.getString("freeCoffeeVoucher")
-                        Log.e("cfVoucher", freeCoffeeVoucher)
-                        //freeCoffeeVoucherObj = gson.fromJson(freeCoffeeVoucher, CoffeeVoucher::class.java)
-                        //val coffeeVoucherId  =freeCoffeeVoucher
                     }
 
                     if(obj.has("discountVoucher")){
                         discountVoucher = obj.getString("discountVoucher")
-                        discountVoucherObj = gson.fromJson(discountVoucher, DiscountVoucher::class.java)
-                        val discountVoucherId = discountVoucher
                     }
 
                     val builder = AlertDialog.Builder(this.requireContext())
@@ -124,9 +117,8 @@ class QRCodeFragment : Fragment() {
                                     args.putString("order", order._id)
                                     orderInfo.arguments = args
                                     fragmentManager?.beginTransaction()?.replace(R.id.qr_code_reader_fragment, orderInfo)?.commit()
-                                    Log.e("callbackOrder", order.toString())
                                 } else {
-                                    Log.e("callbackOrder", "Sem resultados a mostrar")
+                                    Log.e("callbackOrder", "Not result to show")
                                 }
                             }
                         }

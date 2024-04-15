@@ -36,7 +36,6 @@ class OrderApiCommunicator {
                 if(response.code() == 201){
                     Toast.makeText(context, "Order created", Toast.LENGTH_LONG).show()
                     val response = response.body()?.data;
-                    val orderId = response?._id
                     callback(response)
                 } else {
                     Log.e("errorStatus", response.code().toString())
