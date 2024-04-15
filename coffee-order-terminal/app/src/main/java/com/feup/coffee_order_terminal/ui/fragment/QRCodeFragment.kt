@@ -55,7 +55,7 @@ class QRCodeFragment : Fragment() {
     }
 
     private fun setOnClickListener(){
-        binding.btnOpen.setOnClickListener{performAction()}
+        binding.imageReadQrCode.setOnClickListener{performAction()}
     }
 
     private fun performAction(){
