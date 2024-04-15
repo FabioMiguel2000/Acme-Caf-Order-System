@@ -11,13 +11,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.R
-import com.feup.coffee_order_terminal.models.ProductOrder
+import com.feup.coffee_order_terminal.domain.model.CartProduct
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
 import com.feup.coffee_order_terminal.ui.adapter.ProductAdapter
 
 class OrderFragment : Fragment() {
     var orderId = ""
-    private val products = mutableListOf<ProductOrder>()
+    private val products = mutableListOf<CartProduct>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,15 +50,15 @@ class OrderFragment : Fragment() {
 
     private fun getOrder(){
         val orderApiCommunicator = OrderApiCommunicator()
-        this.orderId?.let {
+        this.orderId.let {
             orderApiCommunicator.getOrder( requireContext(), it){
 
-                order -> order.let {
+                    order -> order.let {
                 products.clear()
                 products.addAll(it!!.products)
                 updateRecyclerView()
             }
-                changeOrderInformation(order!!.client.nif, order.client.email, order.client.name, order._id, order.date, order.total, order.subtotal, order.promotionDiscount, order?.freeCoffeeVoucher?._id,
+                changeOrderInformation(order!!.client!!.nif, order.client!!.email, order.client!!.name, order._id!!, order.date!!, order.total.toString(), order.subtotal.toString(), order.promotionDiscount.toString(), order?.freeCoffeeVoucher?._id,
                     order?.discountVoucher?._id
                 )
             }

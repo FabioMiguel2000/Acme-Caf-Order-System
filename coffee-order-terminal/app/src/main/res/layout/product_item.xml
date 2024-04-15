@@ -9,88 +9,71 @@
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/product_single"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <View
-            android:id="@+id/line"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/light_purple"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
 
-        <com.google.android.material.imageview.ShapeableImageView
+       <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/img_product"
             app:cardCornerRadius="10dp"
-            android:id="@+id/pImage"
             app:shapeAppearanceOverlay="@style/RoundedSquare"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/loading"
-            app:layout_constraintBottom_toTopOf="@id/prod_qtd"
-            app:layout_constraintStart_toStartOf="parent"
             android:scaleType="centerCrop"
-            android:layout_marginBottom="5dp"
-            />
-
-        <!--<TextView
-            android:id="@+id/tv_order_price_per_piece"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/prod_name"
-            app:layout_constraintStart_toEndOf="@id/pImage"
-            android:layout_marginStart="12dp"
-            android:textColor="@color/dark_purple"
-            android:layout_marginTop="20dp"
-            android:text="1.1EUR / piece"/>-->
+            android:layout_marginTop="16dp" />
 
         <TextView
-            android:id="@+id/prod_name"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_product_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="Caffe Americanno"
+            android:text="Caffe Americano"
             android:textColor="@color/dark_purple"
             android:textStyle="bold"
             android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="@+id/pImage"
-            app:layout_constraintStart_toEndOf="@id/pImage" />
-
-
-        <TextView
-            android:id="@+id/prod_qtd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dark_purple"
-            android:text="1"
-            app:layout_constraintStart_toStartOf="@id/pImage"
-            app:layout_constraintTop_toBottomOf="@id/pImage"
-
-            />
-
-        <!--<TextView
-            android:id="@+id/prod_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dark_purple"
-            android:text="Hot coffee"
-            app:layout_constraintStart_toEndOf="@id/prod_qtd"
-            app:layout_constraintTop_toBottomOf="@id/pImage"
-
-            />-->
+            app:layout_constraintStart_toEndOf="@+id/img_product"
+            app:layout_constraintTop_toTopOf="@+id/img_product" />
 
         <TextView
-            android:id="@+id/order_total_price_per_item"
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_product_price_per_piece"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text="1.1EUR / piece"
             android:textColor="@color/dark_purple"
-            android:text="12.00"
-            app:layout_constraintTop_toBottomOf="@id/prod_name"
-            app:layout_constraintStart_toEndOf="@id/pImage"
-            android:layout_marginStart="12dp" />
+            app:layout_constraintStart_toEndOf="@+id/img_product"
+            app:layout_constraintStart_toStartOf="@+id/tv_product_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/tv_product_quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Quantity: 1"
+            android:textColor="@color/dark_purple"
+            app:layout_constraintStart_toEndOf="@+id/img_product"
+            app:layout_constraintStart_toStartOf="@+id/tv_product_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_price_per_piece"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/tv_product_total_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Total: 12.00"
+            android:textColor="@color/dark_purple"
+            app:layout_constraintStart_toEndOf="@+id/img_product"
+            app:layout_constraintStart_toStartOf="@+id/tv_product_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_quantity"
+            android:layout_marginTop="8dp" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/light_purple"
+            app:layout_constraintTop_toBottomOf="@+id/tv_product_total_price"
+            android:layout_marginTop="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

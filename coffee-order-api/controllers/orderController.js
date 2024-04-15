@@ -78,10 +78,14 @@ const calculatePrices = (products, discountVoucher) => {
 
 const countCups = (products, freeCoffeeVoucher) => {
   let count = 0;
+  let freeCoffeeProductExist = false;
   products.forEach((p) => {
     count += p.quantity;
+    if (freeCoffeeVoucher && p.product.name === "Free Coffee") {
+      freeCoffeeProductExist = true;
+    }
   });
-  if (freeCoffeeVoucher) {
+  if (freeCoffeeProductExist) {
     return count - 1;
   }
   return count;

@@ -51,7 +51,8 @@ class VouchersApplyFragment : Fragment() {
     private fun fetchVouchers(){
         ServiceLocator.userRepository.getUserVouchers(userId) { vouchers ->
             vouchers?.let {
-                this.vouchers.addAll(it)
+                val unusedVouchers = it.filter { voucher -> !voucher.used }
+                this.vouchers.addAll(unusedVouchers)
                 updateRecyclerView()
                 markSelectedVouchers()
                 setupApplyVoucherButton(requireView())

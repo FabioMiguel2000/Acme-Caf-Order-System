@@ -49,16 +49,6 @@ const createVoucher = async (user, voucherType)=>{
     }
 }
 
-const createDirectVoucher  = async (req, res) => {
-    try {
-        createVoucher(req.body.client, req.body.type);
-        return returnResponse(res, 200, true, `Voucher created`);
-    } catch (error) {
-        return returnResponse(res, 500, false, `Failed to create voucher`);
-    }
-}
-
-
 const validateVoucher = async (voucherId, userId)=>{
     try{
         if (!voucherId ){
@@ -101,4 +91,4 @@ const useVoucher = async (voucherId)=>{
     }
 }
 
-module.exports = { getAllVouchers,  getVoucherById, createVoucher, getVoucherByUser, useVoucher, validateVoucher, createDirectVoucher};
+module.exports = { getAllVouchers,  getVoucherById, createVoucher, getVoucherByUser, useVoucher, validateVoucher};

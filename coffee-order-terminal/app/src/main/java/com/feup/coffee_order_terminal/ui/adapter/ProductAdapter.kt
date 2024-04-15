@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.R
-import com.feup.coffee_order_terminal.models.ProductOrder
 import com.feup.coffee_order_terminal.core.utils.ImageUtils
+import com.feup.coffee_order_terminal.domain.model.CartProduct
 
-class ProductAdapter (val products: MutableList<ProductOrder>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(){
+class ProductAdapter (val products: MutableList<CartProduct>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
@@ -31,9 +31,9 @@ class ProductAdapter (val products: MutableList<ProductOrder>): RecyclerView.Ada
     }
 
     class ProductViewHolder(view: View): RecyclerView.ViewHolder(view){
-        val pNome: TextView = view.findViewById(R.id.prod_name)
-        val pPreco: TextView = view.findViewById(R.id.order_total_price_per_item)
-        val pQtd: TextView = view.findViewById(R.id.prod_qtd)
-        val pImage: ImageView = view.findViewById(R.id.pImage)
+        val pNome: TextView = view.findViewById(R.id.tv_product_name)
+        val pPreco: TextView = view.findViewById(R.id.tv_product_price_per_piece)
+        val pQtd: TextView = view.findViewById(R.id.tv_product_quantity)
+        val pImage: ImageView = view.findViewById(R.id.img_product)
     }
 }
