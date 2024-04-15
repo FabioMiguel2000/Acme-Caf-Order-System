@@ -5,19 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.feup.coffee_order_terminal.databinding.OrderListFragmentBinding
+import com.feup.coffee_order_terminal.databinding.FragmentOrderListBinding
 
 
 class OrderListFragment : Fragment() {
 
-    private var _binding: OrderListFragmentBinding? = null
+    private var _binding: FragmentOrderListBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = OrderListFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentOrderListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
