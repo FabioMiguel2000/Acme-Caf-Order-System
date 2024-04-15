@@ -125,7 +125,6 @@ const validateOrder = async (req, res) => {
 
 const createOrder = async (req, res) => {
   try {
-    console.log(req.body)
     const { client, products, discountVoucher, freeCoffeeVoucher, status } =
       req.body;
 
@@ -163,7 +162,6 @@ const createOrder = async (req, res) => {
       (vFreeCoffeeVoucher && !freeCoffeeProductExist) ||
       (!vFreeCoffeeVoucher && freeCoffeeProductExist)
     ) {
-
       return returnResponse(res, 400, false, `Free Coffee Voucher not valid or Free Coffee product not in order`);
 
     }
