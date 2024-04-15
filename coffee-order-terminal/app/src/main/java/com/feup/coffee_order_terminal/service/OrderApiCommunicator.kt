@@ -1,23 +1,19 @@
 package com.feup.coffee_order_terminal.service
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import com.feup.coffee_order_terminal.core.network.ApiResponse
 import com.feup.coffee_order_terminal.core.network.HttpHandlerClass
+import com.feup.coffee_order_terminal.domain.model.CartProduct
 import com.feup.coffee_order_terminal.domain.model.Order
-import com.feup.coffee_order_terminal.models.CoffeeVoucher
-import com.feup.coffee_order_terminal.models.DiscountVoucher
-import com.feup.coffee_order_terminal.models.OrderResponse
-import com.feup.coffee_order_terminal.models.ProductCartItem
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class OrderApiCommunicator {
-    fun createOrder(context: Context, client: String, status: String, products: List<ProductCartItem>, freeCoffeeVoucher: String?, discountVoucher: String?, callback: (OrderResponse?) -> Unit) {
+    fun createOrder(context: Context, client: String, status: String, products: List<CartProduct>, freeCoffeeVoucher: String?, discountVoucher: String?, callback: (Order?) -> Unit) {
 
         val body = mapOf(
             "client" to client,
@@ -27,10 +23,10 @@ class OrderApiCommunicator {
             "discountVoucher" to discountVoucher
         )
 
-        HttpHandlerClass.getInstance().retrofitBuilder.createOrder(body).enqueue(object : Callback<ApiResponse<OrderResponse>> {
+        HttpHandlerClass.getInstance().retrofitBuilder.createOrder(body).enqueue(object : Callback<ApiResponse<Order>> {
             override fun onResponse(
-                call: Call<ApiResponse<OrderResponse>>,
-                response: Response<ApiResponse<OrderResponse>>
+                call: Call<ApiResponse<Order>>,
+                response: Response<ApiResponse<Order>>
             ) {
                 if(response.code() == 201){
                     Toast.makeText(context, "Order created", Toast.LENGTH_LONG).show()
@@ -42,30 +38,31 @@ class OrderApiCommunicator {
                   Toast.makeText(context, "Something went wrong, please try again later", Toast.LENGTH_LONG).show()
                 }
             }
-            override fun onFailure(call: Call<ApiResponse<OrderResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<Order>>, t: Throwable) {
                  Log.d("error", "Unable to process request: " + t.message)
+
+
             }
         })
     }
 
-    fun getOrder(context: Context, orderId: String, callback: (OrderResponse?)->Unit){
-        HttpHandlerClass.getInstance().retrofitBuilder.getOrder(orderId).enqueue(object : Callback<ApiResponse<OrderResponse>> {
+    fun getOrder(context: Context, orderId: String, callback: (Order?)->Unit){
+        HttpHandlerClass.getInstance().retrofitBuilder.getOrder(orderId).enqueue(object : Callback<ApiResponse<Order>> {
             override fun onResponse(
-                call: Call<ApiResponse<OrderResponse>>,
-                response: Response<ApiResponse<OrderResponse>>
+                call: Call<ApiResponse<Order>>,
+                response: Response<ApiResponse<Order>>
             ) {
-                if(response.code() == 200) {
-                    Toast.makeText(context, " Operation done successful ", Toast.LENGTH_LONG).show()
-
-                    val order = response.body()?.data
-                    callback(order)
+                if (response.isSuccessful) {
+                    Toast.makeText(context, "Operation done successfully", Toast.LENGTH_LONG).show()
+                    callback(response.body()?.data)
                 } else {
-                    Toast.makeText(context, "Something went wrong, unable to get order ", Toast.LENGTH_LONG).show()
-                    callback(null)
+                    Toast.makeText(context, "Something went wrong, unable to get order", Toast.LENGTH_LONG).show()
+                    callback(null) // Consider passing specific error information
                 }
             }
-            override fun onFailure(call: Call<ApiResponse<OrderResponse>>, t: Throwable) {
-                Toast.makeText(context, "Something went wrong, unable to get order ", Toast.LENGTH_LONG).show()
+            override fun onFailure(call: Call<ApiResponse<Order>>, t: Throwable) {
+                Toast.makeText(context, "Something went wrong, unable to get order", Toast.LENGTH_LONG).show()
+                callback(null) // Consider passing specific error information
             }
         })
     }

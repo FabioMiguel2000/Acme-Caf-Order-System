@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.R
-import com.feup.coffee_order_terminal.models.ProductOrder
 import com.feup.coffee_order_terminal.core.utils.ImageUtils
+import com.feup.coffee_order_terminal.domain.model.CartProduct
 
-class ProductAdapter (val products: MutableList<ProductOrder>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(){
+class ProductAdapter (val products: MutableList<CartProduct>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>(){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
