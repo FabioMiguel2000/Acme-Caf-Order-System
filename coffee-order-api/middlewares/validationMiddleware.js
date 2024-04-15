@@ -2,15 +2,14 @@ const crypto = require("crypto");
 const User = require("../models/user"); // Assuming you have a User model
 const { returnResponse } = require("../services/responseHandler"); // Assuming a response handler
 
-const MAX_TIMESTAMP_TOLERANCE = 10 * 1000; // 60 seconds tolerance (adjust as needed)
-
 const validateRequest = async (req, res, next) => {
   const signature = req.headers["x-signature"];
-  const headerTimestamp = parseInt(req.headers["x-timestamp"], 10);
+  const timestamp = req.headers["x-timestamp"];
+  const maxTimestampTolerance = 10 * 1000;
 
   console.log(signature);
 
-  if (!signature || !headerTimestamp) {
+  if (!signature) {
     return returnResponse(res, 400, false, `Unauthorized`);
   }
 
@@ -21,50 +20,45 @@ const validateRequest = async (req, res, next) => {
 
   const user = await User.findById(client).select("publicKey");
   if (!user) {
-    return returnResponse(res, 401, false, `Unauthorized`);
+    return returnResponse(res, 401, false, `Unauthorized user not found`);
   }
 
-  const publicKeyDerHex = user.publicKey;
-  const publicKeyDer = Buffer.from(publicKeyDerHex, "hex");
-  const publicKeyPem = `-----BEGIN PUBLIC KEY-----\n${publicKeyDer.toString(
-    "base64"
-  )}\n-----END PUBLIC KEY-----`;
+  const publicKeyPem = user.publicKey;
 
-  const signedData = constructDataForValidation(
+  let dataToVerify = constructDataForValidation(
     req.url,
     req.body,
-    headerTimestamp,
-    client
-  );
-  const isValidSignature = crypto.verify(
-    "SHA256",
-    Buffer.from(signedData, "base64"),
-    publicKeyPem,
-    Buffer.from(signature, "base64")
+    client,
+    timestamp
   );
 
-  if (!isValidSignature) {
-    return returnResponse(res, 401, false, "Unauthorized (Invalid signature)");
-  }
-  console.log(isValidSignature);
+  const verifier = crypto.createVerify("RSA-SHA256");
+  verifier.update(dataToVerify);
+  const isVerified = verifier.verify(publicKeyPem, signature, "base64");
 
-  // Compare timestamps for additional security
-  if (!validateTimestamp(headerTimestamp)) {
+  if (!isVerified) {
     return returnResponse(
       res,
-      401,
+      400,
       false,
-      "Unauthorized (Possible tampering or replay)"
+      `Unauthorized ( Invalid signature )`
     );
   }
 
-  // ... Proceed if both signature and timestamps are valid
+  if (!validateTimestamp(timestamp, maxTimestampTolerance)) {
+    return returnResponse(
+      res,
+      400,
+      false,
+      `Unauthorized ( Possible replay attack )`
+    );
+  }
+
   next();
 };
 
-const constructDataForValidation = (url, body, timestamp, client) => {
+const constructDataForValidation = (url, body, client, timestamp) => {
   const path = url.split("?")[0];
-  console.log(path);
   switch (path) {
     case `/orders/create`:
       return `${body}`;
@@ -76,10 +70,12 @@ const constructDataForValidation = (url, body, timestamp, client) => {
   }
 };
 
-const validateTimestamp = (headerTimestamp) => {
-  const currentTime = Date.now();
-  const timestampDifference = Math.abs(currentTime - headerTimestamp);
-  return timestampDifference <= MAX_TIMESTAMP_TOLERANCE;
+const validateTimestamp = (requestTimestamp, maxTimestampTolerance) => {
+  const currentTimestamp = Date.now();
+  const timestampDifference = Math.abs(currentTimestamp - requestTimestamp);
+  console.log(currentTimestamp, requestTimestamp, timestampDifference);
+
+  return timestampDifference <= maxTimestampTolerance;
 };
 
 module.exports = validateRequest;

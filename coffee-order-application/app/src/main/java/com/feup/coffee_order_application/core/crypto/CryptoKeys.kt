@@ -3,15 +3,19 @@ package com.feup.coffee_order_application.core.crypto
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Log
+import java.io.StringWriter
 import java.math.BigInteger
+import java.security.KeyFactory
 import java.security.KeyPairGenerator
 import java.security.KeyStore
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
+import java.security.spec.RSAPublicKeySpec
 import java.util.Calendar
 import java.util.GregorianCalendar
 import javax.security.auth.x500.X500Principal
-
+import org.bouncycastle.util.io.pem.PemObject
+import org.bouncycastle.util.io.pem.PemWriter
 
 
 class CryptoKeys {
@@ -58,7 +62,7 @@ class CryptoKeys {
         return true
     }
 
-    private fun getPubKey(): PubKey {
+    fun getPubKey(): PubKey {
         val pKey = PubKey(ByteArray(0), ByteArray(0))
         try {
             val pub = (entry as KeyStore.PrivateKeyEntry).certificate.publicKey
@@ -83,16 +87,20 @@ class CryptoKeys {
         return exp
     }
 
-    fun getPublicKey(): String {
-        val pkey = getPubKey()
-        val pkeyString = byteArrayToHex(pkey.modulus)
-        return pkeyString
+    fun pubKeyToPem(pubKey: PubKey): String {
+        // Step 1: Generate PublicKey from PubKey object
+        val keySpec = RSAPublicKeySpec(BigInteger(pubKey.modulus), BigInteger(pubKey.exponent))
+        val keyFactory = KeyFactory.getInstance("RSA")
+        val publicKey = keyFactory.generatePublic(keySpec)
+
+        // Step 2: Convert PublicKey to PEM format
+        val pemObject = PemObject("PUBLIC KEY", publicKey.encoded)
+        val stringWriter = StringWriter()
+        PemWriter(stringWriter).use { it.writeObject(pemObject) }
+
+        return stringWriter.toString()
     }
 
-    private fun byteArrayToHex(ba: ByteArray): String {
-        val sb = StringBuilder(ba.size * 2)
-        for (b in ba) sb.append(String.format("%02x", b))
-        return sb.toString()
-    }
+
 
 }

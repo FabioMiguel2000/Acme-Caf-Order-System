@@ -68,6 +68,8 @@ dependencies {
     implementation("androidx.compose.material:material:1.6.3")
     implementation("androidx.core:core-ktx:1.12.0")
 
+    implementation ("org.bouncycastle:bcpkix-jdk15on:1.69")
+
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("com.google.code.gson:gson:2.8.9")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")

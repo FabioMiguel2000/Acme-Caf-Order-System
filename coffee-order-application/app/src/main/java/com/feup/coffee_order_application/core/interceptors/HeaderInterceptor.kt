@@ -20,7 +20,6 @@ class HeaderInterceptor(private val cryptoKeys: CryptoKeys) : Interceptor {
         Log.d("Interceptor", "Request path: ${originalRequest.url.encodedPath}")
 
         if (targetEndpoints.contains(originalRequest.url.encodedPath)) {
-            Log.d("CONTAINSSSSS", "Request path: ${originalRequest.url.encodedPath}")
             val dataToSign = constructDataForSigning(originalRequest, timestamp)
             val signature = signContent(dataToSign)
             val signedRequest = originalRequest.newBuilder()
@@ -33,7 +32,6 @@ class HeaderInterceptor(private val cryptoKeys: CryptoKeys) : Interceptor {
     }
 
     private fun signContent(data: String): String {
-        Log.d("Data to Sign", "data: $data")
         try {
             // Retrieve the private key
             val privateKeyEntry = cryptoKeys.entry as KeyStore.PrivateKeyEntry
@@ -42,7 +40,6 @@ class HeaderInterceptor(private val cryptoKeys: CryptoKeys) : Interceptor {
             signature.initSign(privateKeyEntry.privateKey)
             signature.update(data.toByteArray())
             val signedBytes = signature.sign()
-            Log.d("Base64", "signature: ${Base64.encodeToString(signedBytes, Base64.NO_WRAP)}")
             return Base64.encodeToString(signedBytes, Base64.NO_WRAP)
         } catch (e: Exception) {
             throw RuntimeException("Error signing data", e)
@@ -62,8 +59,6 @@ class HeaderInterceptor(private val cryptoKeys: CryptoKeys) : Interceptor {
 
     private fun constructDataForSigning(originalRequest: Request, timestamp: String): String {
         val client = originalRequest.url.queryParameter("client")
-        Log.d("Data Signing - Client", "client: $client")
-        Log.d("Data Signing - Timestamp", "timestamp: $timestamp")
 
         return when (originalRequest.url.encodedPath) {
             "/api/orders/create" -> constructCreateOrderData(originalRequest) // Assuming this includes the timestamp
