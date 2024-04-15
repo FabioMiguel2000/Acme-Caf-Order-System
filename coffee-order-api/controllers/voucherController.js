@@ -4,9 +4,9 @@ const { returnResponse } = require('../services/responseHandler');
 const getAllVouchers = async (req, res) => {
     try {
         const vouchers = await Voucher.find();
-        return responseResponse(res, 200, true, `Retrieved ${vouchers.length} vouchers`, vouchers);
+        return returnResponse(res, 200, true, `Retrieved ${vouchers.length} vouchers`, vouchers);
     } catch (error) {
-        return returnResponse(res, 500, false, `Failed to retrieve vouchers`);
+        return returnResponse(res, 500, false, `Failed to retrieve vouchers ${error}`,);
     }
 }
 
@@ -43,8 +43,18 @@ const createVoucher = async (user, voucherType)=>{
             type: voucherType
         });
         await voucher.save();
+        console.log("Voucher created")
     }catch(error){
         throw new Error("Failed to create voucher");
+    }
+}
+
+const createDirectVoucher  = async (req, res) => {
+    try {
+        createVoucher(req.body.client, req.body.type);
+        return returnResponse(res, 200, true, `Voucher created`);
+    } catch (error) {
+        return returnResponse(res, 500, false, `Failed to create voucher`);
     }
 }
 
@@ -66,8 +76,6 @@ const validateVoucher = async (voucherId, userId)=>{
         }
 
         if (voucher.used){
-            console.log(voucher)
-
             throw new Error(`Voucher with id ${voucherId} already used`);
         }
 
@@ -93,4 +101,4 @@ const useVoucher = async (voucherId)=>{
     }
 }
 
-module.exports = { getAllVouchers,  getVoucherById, createVoucher, getVoucherByUser, useVoucher, validateVoucher};
+module.exports = { getAllVouchers,  getVoucherById, createVoucher, getVoucherByUser, useVoucher, validateVoucher, createDirectVoucher};

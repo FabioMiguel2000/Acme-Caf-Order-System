@@ -25,10 +25,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-        //val manager: FragmentManager =supportFragmentManager
-        /*val orderFragment = OrderFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.main, orderFragment).addToBackStack(null).commit()*/
     }
 
     private fun setCurrentPage(fragment: Fragment){

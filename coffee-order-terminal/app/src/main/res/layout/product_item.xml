@@ -36,7 +36,7 @@
             android:layout_marginBottom="5dp"
             />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tv_order_price_per_piece"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             android:layout_marginStart="12dp"
             android:textColor="@color/dark_purple"
             android:layout_marginTop="20dp"
-            android:text="1.1EUR / piece"/>
+            android:text="1.1EUR / piece"/>-->
 
         <TextView
             android:id="@+id/prod_name"
@@ -71,7 +71,7 @@
 
             />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/prod_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,16 +80,17 @@
             app:layout_constraintStart_toEndOf="@id/prod_qtd"
             app:layout_constraintTop_toBottomOf="@id/pImage"
 
-            />
+            />-->
 
         <TextView
-            android:id="@+id/tv_order_total_price_per_item"
+            android:id="@+id/order_total_price_per_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_purple"
             android:text="12.00"
-            app:layout_constraintBottom_toBottomOf="@+id/prod_qtd"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/prod_name"
+            app:layout_constraintStart_toEndOf="@id/pImage"
+            android:layout_marginStart="12dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

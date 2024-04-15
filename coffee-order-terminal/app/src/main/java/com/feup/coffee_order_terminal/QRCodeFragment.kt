@@ -75,9 +75,11 @@ class QRCodeFragment : Fragment() {
                     val obj = JSONObject(result.contents)
                     var client = "";
                     var status = "Pending"
+                    var discountVoucher  = ""
+                    var freeCoffeeVoucher = ""
                     var products: List<ProductCartItem> = emptyList()
-                    var discountVoucherObj: DiscountVoucher? = null
-                    var freeCoffeeVoucherObj: CoffeeVoucher? = null
+
+                    Log.e("obj", obj.toString())
                     if(obj.has("client")){
                         client = obj.getString("client")//ok
                     }
@@ -91,18 +93,15 @@ class QRCodeFragment : Fragment() {
                         products = gson.fromJson(cartProducts, object : TypeToken<List<ProductCartItem>>() {}.type)
                     }
 
-                    if(obj.has("coffeeVoucher")){
-                        val coffeeVoucher = obj.getString("coffeeVoucher")
-                        freeCoffeeVoucherObj = gson.fromJson(coffeeVoucher, CoffeeVoucher::class.java)
+                    if(obj.has("freeCoffeeVoucher")){
+                        freeCoffeeVoucher = obj.getString("freeCoffeeVoucher")
                     }
 
                     if(obj.has("discountVoucher")){
-                        val discountVoucher = obj.getString("coffeeVoucher")
-                        discountVoucherObj = gson.fromJson(discountVoucher, DiscountVoucher::class.java)
+                        discountVoucher = obj.getString("discountVoucher")
                     }
 
                     val builder = AlertDialog.Builder(this.requireContext())
-                    //builder.setTitle("Order details:")
                     builder.setMessage("Acept order?")
                     builder.setCancelable(false)
                     builder.setPositiveButton("Yes")   {
@@ -111,16 +110,15 @@ class QRCodeFragment : Fragment() {
                             val orderApiCommunicator = OrderApiCommunicator()
                             val args = Bundle()
 
-                            orderApiCommunicator.createOrder(requireContext(), client, status, products, freeCoffeeVoucherObj, discountVoucherObj) {
+                            orderApiCommunicator.createOrder(requireContext(), client, status, products, freeCoffeeVoucher, discountVoucher) {
                                 order -> order
                                 if(order !== null) {
                                     val orderInfo = OrderFragment()
                                     args.putString("order", order._id)
                                     orderInfo.arguments = args
                                     fragmentManager?.beginTransaction()?.replace(R.id.qr_code_reader_fragment, orderInfo)?.commit()
-                                    Log.e("callbackOrder", order.toString())
                                 } else {
-                                    Log.e("callbackOrder", "Sem resultados a mostrar")
+                                    Log.e("callbackOrder", "Not result to show")
                                 }
                             }
                         }
