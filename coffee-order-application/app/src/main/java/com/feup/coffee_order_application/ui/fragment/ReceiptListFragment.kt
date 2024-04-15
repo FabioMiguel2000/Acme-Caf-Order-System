@@ -17,6 +17,8 @@ import com.feup.coffee_order_application.domain.model.Voucher
 import com.feup.coffee_order_application.core.service.ServiceLocator
 import com.feup.coffee_order_application.core.service.SessionManager
 import com.feup.coffee_order_application.ui.adapter.ReceiptListAdapter
+import java.time.Instant
+import java.time.format.DateTimeParseException
 
 
 class ReceiptListFragment : Fragment() {
@@ -45,9 +47,16 @@ class ReceiptListFragment : Fragment() {
 
         ServiceLocator.orderRepository.getOrdersByClientId(userId) { fetchedOrders ->
             fetchedOrders?.let {
-//                Log.d("fetchedOrders", fetchedOrders.toString())
+                // Sorting the orders by date, most recent first
+                val sortedOrders = it.sortedByDescending {
+                    try {
+                        Instant.parse(it.date)
+                    } catch (e: DateTimeParseException) {
+                        Instant.MIN
+                    }
+                }
                 receiptListAdapter.receipts.clear()
-                receiptListAdapter.receipts.addAll(it)
+                receiptListAdapter.receipts.addAll(sortedOrders)
                 receiptListAdapter.notifyDataSetChanged()
             }
         }

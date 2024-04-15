@@ -14,6 +14,8 @@ import com.feup.coffee_order_terminal.core.service.ServiceLocator
 import com.feup.coffee_order_terminal.domain.model.Order
 import com.feup.coffee_order_terminal.ui.adapter.OrderListAdapter
 import com.feup.coffee_order_terminal.ui.adapter.OrdersAdapter
+import java.time.Instant
+import java.time.format.DateTimeParseException
 
 class OrderListFragment : Fragment() {
     private lateinit var orderListAdapter: OrderListAdapter
@@ -37,8 +39,16 @@ class OrderListFragment : Fragment() {
         ServiceLocator.orderRepository.getOrders { orders ->
             orders?.let {
                 val verifiedOrder = orders.filter { it.status == Order.STATUS_VERIFIED }
+                // Sorting the orders by date, most recent first
+                val sortedOrders = verifiedOrder.sortedByDescending {
+                    try {
+                        Instant.parse(it.date)
+                    } catch (e: DateTimeParseException) {
+                        Instant.MIN
+                    }
+                }
                 orderListAdapter.orders.clear()
-                orderListAdapter.orders.addAll(verifiedOrder)
+                orderListAdapter.orders.addAll(sortedOrders)
                 orderListAdapter.notifyDataSetChanged()
             }
         }
