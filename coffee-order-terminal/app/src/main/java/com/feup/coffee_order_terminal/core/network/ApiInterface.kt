@@ -12,7 +12,7 @@ import retrofit2.http.Query
 interface ApiInterface {
     @POST("orders/create")
     @JvmSuppressWildcards
-    fun createOrder(@Body body: Map<String, Any?>): retrofit2.Call<ApiResponse<Order>>
+    fun createOrder(@Body body: Map<String, Any?>): retrofit2.Call<ApiResponse<OrderResponse>>
     @POST("orders/validation/{id}")
     fun validateOrder(@Path("id") orderId: String): Call<ApiResponse<Order>>
     @GET("orders/{id}")

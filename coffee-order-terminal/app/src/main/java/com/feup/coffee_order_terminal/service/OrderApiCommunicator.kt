@@ -17,7 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class OrderApiCommunicator {
-    fun createOrder(context: Context, client: String, status: String, products: List<ProductCartItem>, freeCoffeeVoucher: String?, discountVoucher: String?, callback: (Order?) -> Unit) {
+    fun createOrder(context: Context, client: String, status: String, products: List<ProductCartItem>, freeCoffeeVoucher: String?, discountVoucher: String?, callback: (OrderResponse?) -> Unit) {
 
         val body = mapOf(
             "client" to client,
@@ -27,12 +27,11 @@ class OrderApiCommunicator {
             "discountVoucher" to discountVoucher
         )
 
-        HttpHandlerClass.getInstance().retrofitBuilder.createOrder(body).enqueue(object : Callback<ApiResponse<Order>> {
+        HttpHandlerClass.getInstance().retrofitBuilder.createOrder(body).enqueue(object : Callback<ApiResponse<OrderResponse>> {
             override fun onResponse(
-                call: Call<ApiResponse<Order>>,
-                response: Response<ApiResponse<Order>>
+                call: Call<ApiResponse<OrderResponse>>,
+                response: Response<ApiResponse<OrderResponse>>
             ) {
-                Log.e("errorStatus", response.code().toString())
                 if(response.code() == 201){
                     Toast.makeText(context, "Order created", Toast.LENGTH_LONG).show()
                     val response = response.body()?.data;
@@ -43,7 +42,7 @@ class OrderApiCommunicator {
                   Toast.makeText(context, "Something went wrong, please try again later", Toast.LENGTH_LONG).show()
                 }
             }
-            override fun onFailure(call: Call<ApiResponse<Order>>, t: Throwable) {
+            override fun onFailure(call: Call<ApiResponse<OrderResponse>>, t: Throwable) {
                  Log.d("error", "Unable to process request: " + t.message)
             }
         })
