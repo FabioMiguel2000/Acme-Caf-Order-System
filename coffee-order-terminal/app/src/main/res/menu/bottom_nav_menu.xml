@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_terminal"
+        android:icon="@drawable/home_icon"
+        android:title="" />
+
+    <item
+        android:id="@+id/qrcode"
+        android:icon="@drawable/qrcode_icon"
+        android:title="" />
+</menu>
