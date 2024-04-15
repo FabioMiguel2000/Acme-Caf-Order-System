@@ -7,7 +7,7 @@ data class OrderResponse(
     val client: Client,
     val status: String,
     val date: String,
-    val coffeeVoucher: CoffeeVoucher,
+    val freeCoffeeVoucher: CoffeeVoucher,
     val discountVoucher: DiscountVoucher,
     val total: String,
     val subtotal: String,

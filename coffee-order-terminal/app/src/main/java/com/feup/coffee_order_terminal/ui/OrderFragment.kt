@@ -58,8 +58,9 @@ class OrderFragment : Fragment() {
                 products.addAll(it!!.products)
                 updateRecyclerView()
             }
-                Log.e("orderId", order.toString())
-                changeOrderInformation(order!!.client.nif, order.client.email, order.client.name, order._id, order.date, order.total, order.subtotal, order.promotionDiscount, order.coffeeVoucher._id, order.discountVoucher._id)
+                changeOrderInformation(order!!.client.nif, order.client.email, order.client.name, order._id, order.date, order.total, order.subtotal, order.promotionDiscount, order?.freeCoffeeVoucher?._id,
+                    order?.discountVoucher?._id
+                )
             }
         }
     }
@@ -82,7 +83,7 @@ class OrderFragment : Fragment() {
         }
     }
 
-    private fun changeOrderInformation(nif: String, email: String, name: String, orderId: String, date: String, total: String, subTotal: String, orderPromotionDiscount: String, freeCoffeeVoucher: String, discountVoucher: String){
+    private fun changeOrderInformation(nif: String, email: String, name: String, orderId: String, date: String, total: String, subTotal: String, orderPromotionDiscount: String, freeCoffeeVoucher: String?, discountVoucher: String?){
         val orderUser: TextView = requireView().findViewById(R.id.order_owner)
         val orderUserEmail: TextView = requireView().findViewById(R.id.order_owner_email)
         val orderUserName: TextView = requireView().findViewById(R.id.order_owner_name)
