@@ -14,7 +14,7 @@ import com.feup.coffee_order_terminal.R
 import com.feup.coffee_order_terminal.core.utils.DateFormatter
 import com.feup.coffee_order_terminal.domain.model.CartProduct
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
-import com.feup.coffee_order_terminal.ui.adapter.ProductAdapter
+import com.feup.coffee_order_terminal.ui.adapter.ProductsAdapter
 
 class OrderConfirmationFragment : Fragment() {
     var orderId = ""
@@ -67,7 +67,7 @@ class OrderConfirmationFragment : Fragment() {
     }
 
     private fun setupRecyclerView(view: View){
-        val adapter = ProductAdapter(mutableListOf())
+        val adapter = ProductsAdapter(mutableListOf())
         view.findViewById<RecyclerView>(R.id.rv_product_list).apply {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
@@ -76,7 +76,7 @@ class OrderConfirmationFragment : Fragment() {
     private fun updateRecyclerView() {
         if(isAdded){
             val recyclerView = requireView().findViewById<RecyclerView>(R.id.rv_product_list)
-            (recyclerView.adapter as? ProductAdapter)?.let { adapter ->
+            (recyclerView.adapter as? ProductsAdapter)?.let { adapter ->
                 adapter.products.clear()
                 adapter.products.addAll(products)
                 adapter.notifyDataSetChanged() // Notify the adapter of the data change - there's a pub sub inside
