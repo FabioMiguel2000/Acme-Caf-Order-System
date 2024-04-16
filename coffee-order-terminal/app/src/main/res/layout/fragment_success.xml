@@ -44,8 +44,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_go_back"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
+        app:cornerRadius="4dp"
+        android:backgroundTint="@color/button_color"
         android:text="Go Back"
         app:layout_constraintTop_toTopOf="@+id/bottom_guideline"
         app:layout_constraintEnd_toEndOf="parent"
