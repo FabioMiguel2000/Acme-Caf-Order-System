@@ -1,6 +1,8 @@
 package com.feup.coffee_order_application.ui.fragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.feup.coffee_order_application.R
+import com.feup.coffee_order_application.core.service.ServiceLocator
 import com.feup.coffee_order_application.core.service.SessionManager
 import com.feup.coffee_order_application.core.utils.OrderStorageUtils
 import com.feup.coffee_order_application.core.utils.QRCodeGenerator
@@ -30,6 +33,15 @@ class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
     private var _binding: FragmentCheckoutBinding? = null
     private lateinit var cartOrder: Order
     private val binding get() = _binding!!
+    private var lastOrderCount = -1
+    private val handler = Handler()
+    private val orderCheckRunnable = object : Runnable {
+        override fun run() {
+            checkForNewOrders()
+            Log.d("CheckoutFragment", "Checking for new orders...")
+            handler.postDelayed(this, 5000) // Re-run every 5 seconds
+        }
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentCheckoutBinding.inflate(inflater, container, false)
         return binding.root
@@ -48,6 +60,7 @@ class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
                 }
             })
         }
+        handler.post(orderCheckRunnable)
     }
     private fun setNavBarVisibility(visibility: Int){
         val bottomNav = requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav)
@@ -135,5 +148,29 @@ class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
         OrderStorageUtils.clearOrderFile(requireContext())
 
         setNavBarVisibility(View.VISIBLE)
+    }
+
+    private fun checkForNewOrders() {
+        val sessionManager = SessionManager(requireContext())
+        val userId = sessionManager.fetchUserToken() ?: ""
+
+        ServiceLocator.orderRepository.getOrdersByClientId(userId) { fetchedOrders ->
+            fetchedOrders?.let {
+                if(lastOrderCount == -1) lastOrderCount = it.size
+                if (it.size > lastOrderCount) {
+                    Log.d("CheckoutFragment", "New order detected!")
+                    lastOrderCount = it.size
+                    navigateToSuccessFragment()
+                }
+            }
+        }
+    }
+
+    private fun navigateToSuccessFragment() {
+        handler.removeCallbacks(orderCheckRunnable) // Stop checking when navigating away
+        val successFragment = SuccessFragment()
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fLayout, successFragment)
+            .commit()
     }
 }
