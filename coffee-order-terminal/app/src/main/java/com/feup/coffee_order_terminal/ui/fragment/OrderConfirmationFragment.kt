@@ -32,6 +32,8 @@ class OrderConfirmationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView(view)
+
+        setupActionBar()
         this.orderId = this.arguments?.getString("order").toString()
         getOrder()
 
@@ -135,5 +137,13 @@ class OrderConfirmationFragment : Fragment() {
         freeCoffe.text = freeCoffeeVoucher?.uppercase() ?: "No Voucher"
         discountVoucherV.text = discountVoucher?.uppercase() ?: "No Voucher"
         this.orderId = orderId
+    }
+
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            title = "Order Validation"
+            setDisplayHomeAsUpEnabled(false)
+            setDisplayShowHomeEnabled(false)
+        }
     }
 }

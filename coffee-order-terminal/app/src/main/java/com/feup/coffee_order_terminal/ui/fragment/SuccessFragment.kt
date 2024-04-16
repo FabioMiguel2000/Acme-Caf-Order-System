@@ -30,7 +30,7 @@ class SuccessFragment : Fragment() {
 
     private fun setupActionBar() {
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-//            title = "Order"
+            title = "Success"
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }

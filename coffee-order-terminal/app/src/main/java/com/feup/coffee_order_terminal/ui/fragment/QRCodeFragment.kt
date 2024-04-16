@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.feup.coffee_order_terminal.R
 import com.feup.coffee_order_terminal.databinding.FragmentQrcodeReaderBinding
 import com.feup.coffee_order_terminal.domain.model.SimplifiedCartProduct
@@ -39,6 +40,7 @@ class QRCodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupActionBar()
         setUpScanner()
         setOnClickListener()
     }
@@ -133,5 +135,13 @@ class QRCodeFragment : Fragment() {
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun setupActionBar() {
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            title = "QRCode Reader"
+            setDisplayHomeAsUpEnabled(false)
+            setDisplayShowHomeEnabled(false)
+        }
     }
 }
