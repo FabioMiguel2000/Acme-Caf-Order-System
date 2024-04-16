@@ -131,5 +131,11 @@
         "price": 5.29,
         "imgURL": "https://drive.google.com/file/d/1lOHURQr4RmmDZWuXz7ZvUDlCdl1IhnOS/view",
         "category": "oleato"
+    },
+    {
+        "name": "Free Coffee",
+        "price": 0.00,
+        "imgURL": "https://drive.google.com/file/d/1lOHURQr4RmmDZWuXz7ZvUDlCdl1IhnOS/view",
+        "category": "free"
     }
 ]
