@@ -119,7 +119,7 @@
             app:layout_constraintEnd_toEndOf="@+id/right_guideline"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintTop_toBottomOf="@id/order_date"
-            tools:listitem="@layout/product_item" />
+            tools:listitem="@layout/product_card" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom_box_container"

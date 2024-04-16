@@ -6,19 +6,19 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.core.utils.ImageUtils
-import com.feup.coffee_order_terminal.databinding.ProductItemBinding
+import com.feup.coffee_order_terminal.databinding.ProductCardBinding
 import com.feup.coffee_order_terminal.domain.model.CartProduct
 import kotlin.math.round
 
 class ProductsAdapter(val products: MutableList<CartProduct>) :
     RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
-    class ProductViewHolder(val binding: ProductItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class ProductViewHolder(val binding: ProductCardBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ProductsAdapter.ProductViewHolder {
-        val binding = ProductItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ProductCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProductViewHolder(binding)
     }
 
