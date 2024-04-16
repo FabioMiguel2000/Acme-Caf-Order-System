@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.feup.coffee_order_terminal.R
-import com.feup.coffee_order_terminal.databinding.QrcodeReaderFragmentBinding
+import com.feup.coffee_order_terminal.databinding.FragmentQrcodeReaderBinding
 import com.feup.coffee_order_terminal.domain.model.SimplifiedCartProduct
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
 import com.google.gson.Gson
@@ -25,14 +25,14 @@ import org.json.JSONObject
 class QRCodeFragment : Fragment() {
 
     var qrScanIntegrator : IntentIntegrator? = null
-    private var _binding: QrcodeReaderFragmentBinding? = null
+    private var _binding: FragmentQrcodeReaderBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = QrcodeReaderFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentQrcodeReaderBinding.inflate(inflater, container, false)
         return binding.root
     }
 

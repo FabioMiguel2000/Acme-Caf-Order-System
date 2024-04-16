@@ -19,7 +19,7 @@
         android:id="@+id/SecondFragment"
         android:name="com.feup.coffee_order_terminal.ui.fragment.QRCodeFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/qrcode_reader_fragment">
+        tools:layout="@layout/fragment_qrcode_reader">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
