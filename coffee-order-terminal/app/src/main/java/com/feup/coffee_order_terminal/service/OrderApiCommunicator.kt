@@ -30,7 +30,6 @@ class OrderApiCommunicator {
                 response: Response<ApiResponse<Order>>
             ) {
                 if(response.code() == 201){
-                    Toast.makeText(context, "Order created", Toast.LENGTH_LONG).show()
                     val response = response.body()?.data;
                     callback(response)
                 } else {
@@ -54,7 +53,6 @@ class OrderApiCommunicator {
                 response: Response<ApiResponse<Order>>
             ) {
                 if (response.isSuccessful) {
-                    Toast.makeText(context, "Operation done successfully", Toast.LENGTH_LONG).show()
                     callback(response.body()?.data)
                 } else {
                     Toast.makeText(context, "Something went wrong, unable to get order", Toast.LENGTH_LONG).show()
@@ -75,7 +73,7 @@ class OrderApiCommunicator {
                 response: Response<ApiResponse<Order>>
             ) {
                 if(response.code() == 201){
-                    Toast.makeText(context, "Order validated", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Order Validated", Toast.LENGTH_LONG).show()
                 } else {
                     Toast.makeText(context, "Something went wrong, order not validated", Toast.LENGTH_LONG).show()
                 }
