@@ -74,18 +74,6 @@
             app:layout_constraintStart_toStartOf="@id/left_guideline"
             app:layout_constraintTop_toBottomOf="@+id/order_owner_email" />
 
-        <TextView
-            android:id="@+id/order_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-
-            android:text="Pending"
-            android:textColor="@color/dark_purple"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@+id/order_date" />
-
 
         <TextView
             android:id="@+id/tv_order_summary"

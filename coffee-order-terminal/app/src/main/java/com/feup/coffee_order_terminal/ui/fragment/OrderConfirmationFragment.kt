@@ -1,5 +1,6 @@
 package com.feup.coffee_order_terminal.ui.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.R
+import com.feup.coffee_order_terminal.core.utils.DateFormatter
 import com.feup.coffee_order_terminal.domain.model.CartProduct
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
 import com.feup.coffee_order_terminal.ui.adapter.ProductAdapter
@@ -82,6 +84,7 @@ class OrderConfirmationFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun changeOrderInformation(nif: String, email: String, name: String, orderId: String, date: String, total: String, subTotal: String, orderPromotionDiscount: String, freeCoffeeVoucher: String?, discountVoucher: String?){
         val orderUser: TextView = requireView().findViewById(R.id.order_owner)
         val orderUserEmail: TextView = requireView().findViewById(R.id.order_owner_email)
@@ -93,16 +96,16 @@ class OrderConfirmationFragment : Fragment() {
         val promotionDiscount: TextView = requireView().findViewById(R.id.order_promotion_discount)
         val freeCoffe: TextView = requireView().findViewById(R.id.order_coffe_voucher_code)
         val discountVoucherV :TextView = requireView().findViewById(R.id.order_discount_voucher_code)
-        orderUserEmail.text = email
-        orderUser.text = nif
-        orderUserName.text = name
-        orderIdentifier.text = orderId
-        orderDate.text = date
+        orderUserEmail.text = "Email: $email"
+        orderUser.text = "VAT Number: $nif"
+        orderUserName.text = "Name: $name"
+        orderIdentifier.text = "#${orderId.uppercase()}"
+        orderDate.text = DateFormatter().formatDate(date)
         orderTotal.text = total
         orderSubTotal.text = subTotal
         promotionDiscount.text = orderPromotionDiscount
-        freeCoffe.text = freeCoffeeVoucher
-        discountVoucherV.text = discountVoucher
+        freeCoffe.text = freeCoffeeVoucher?.uppercase()?: "No Voucher"
+        discountVoucherV.text = discountVoucher?.uppercase()?: "No Voucher"
         this.orderId = orderId
     }
 }
