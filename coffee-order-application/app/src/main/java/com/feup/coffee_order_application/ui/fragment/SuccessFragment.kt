@@ -20,7 +20,7 @@ class SuccessFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupActionBar()
         view.findViewById<MaterialButton>(R.id.btn_go_back).setOnClickListener {
-            val fragment = HomeFragment()
+            val fragment = CartFragment()
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fLayout, fragment)
             transaction.addToBackStack(null)
@@ -31,8 +31,8 @@ class SuccessFragment : Fragment() {
     private fun setupActionBar() {
         (requireActivity() as AppCompatActivity).supportActionBar?.apply {
             title = "Success"
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
+            setDisplayHomeAsUpEnabled(false)
+            setDisplayShowHomeEnabled(false)
         }
     }
 }
