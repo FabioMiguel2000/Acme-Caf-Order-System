@@ -11,10 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.feup.coffee_order_terminal.R
 import com.feup.coffee_order_terminal.databinding.QrcodeReaderFragmentBinding
-import com.feup.coffee_order_terminal.domain.model.CartProduct
 import com.feup.coffee_order_terminal.domain.model.SimplifiedCartProduct
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
-import com.feup.coffee_order_terminal.ui.OrderFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.zxing.integration.android.IntentIntegrator
@@ -113,7 +111,7 @@ class QRCodeFragment : Fragment() {
                             orderApiCommunicator.createOrder(requireContext(), client, status, products, freeCoffeeVoucher, discountVoucher) {
                                 order -> order
                                 if(order !== null) {
-                                    val orderInfo = OrderFragment()
+                                    val orderInfo = OrderConfirmationFragment()
                                     args.putString("order", order._id)
                                     orderInfo.arguments = args
                                     fragmentManager?.beginTransaction()?.replace(R.id.qr_code_reader_fragment, orderInfo)?.commit()

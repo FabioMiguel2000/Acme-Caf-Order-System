@@ -1,7 +1,6 @@
-package com.feup.coffee_order_terminal.ui
+package com.feup.coffee_order_terminal.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,7 @@ import com.feup.coffee_order_terminal.domain.model.CartProduct
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
 import com.feup.coffee_order_terminal.ui.adapter.ProductAdapter
 
-class OrderFragment : Fragment() {
+class OrderConfirmationFragment : Fragment() {
     var orderId = ""
     private val products = mutableListOf<CartProduct>()
 
