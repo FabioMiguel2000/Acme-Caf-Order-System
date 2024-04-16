@@ -156,10 +156,12 @@ class CheckoutFragment: Fragment(), OnBackPressedInCheckout{
 
         ServiceLocator.orderRepository.getOrdersByClientId(userId) { fetchedOrders ->
             fetchedOrders?.let {
-                if(lastOrderCount == -1) lastOrderCount = it.size
-                if (it.size > lastOrderCount) {
+                // filter out the pending orders
+                val verifiedOrders = it.filter { order -> order.status == Order.STATUS_VERIFIED }
+                if(lastOrderCount == -1) lastOrderCount = verifiedOrders.size
+                if (verifiedOrders.size > lastOrderCount) {
                     Log.d("CheckoutFragment", "New order detected!")
-                    lastOrderCount = it.size
+                    lastOrderCount = verifiedOrders.size
                     navigateToSuccessFragment()
                 }
             }
