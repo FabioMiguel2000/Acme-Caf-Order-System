@@ -153,7 +153,12 @@ const createOrder = async (req, res) => {
       freeCoffeeProductExist = true;
     }
 
-    const productObjs = await getProductObjs(products);
+    let productObjs = await getProductObjs(products);
+
+    if (freeCoffeeProductExist) {
+      freeCoffeeObject = await Product.findOne({ name: "Free Coffee" });
+      productObjs.push({ product: freeCoffeeObject, quantity: 1 });
+    }
 
     const vDiscountVoucher = await validateVoucher(discountVoucher, client);
     const vFreeCoffeeVoucher = await validateVoucher(freeCoffeeVoucher, client);
