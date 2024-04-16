@@ -1,7 +1,6 @@
 package com.feup.coffee_order_terminal.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import com.feup.coffee_order_terminal.R
 import com.feup.coffee_order_terminal.core.service.ServiceLocator
 import com.feup.coffee_order_terminal.domain.model.Order
 import com.feup.coffee_order_terminal.ui.adapter.OrderListAdapter
-import com.feup.coffee_order_terminal.ui.adapter.OrdersAdapter
 import java.time.Instant
 import java.time.format.DateTimeParseException
 
@@ -25,7 +23,7 @@ class OrderListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.order_list_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_order_list, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,5 +66,6 @@ class OrderListFragment : Fragment() {
             setDisplayShowHomeEnabled(false)
         }
     }
+
 
 }

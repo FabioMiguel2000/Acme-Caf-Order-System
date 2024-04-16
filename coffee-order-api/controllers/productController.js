@@ -6,7 +6,11 @@ const { returnResponse } = require("../services/responseHandler");
 const getProductCategories = async (req, res) => {
   try {
     const productCategories = await ProductCategory.find();
-    return returnResponse(res, 200, true, `Retrieved ${productCategories.length} categories`, productCategories);
+
+    // Filter out free category
+    const filteredCategories = productCategories.filter((category) => category.name !== "Free");
+
+    return returnResponse(res, 200, true, `Retrieved ${filteredCategories.length} categories`, filteredCategories);
   } catch (error) {
     return returnResponse(res, 404, false, "error " + error.message);
   }

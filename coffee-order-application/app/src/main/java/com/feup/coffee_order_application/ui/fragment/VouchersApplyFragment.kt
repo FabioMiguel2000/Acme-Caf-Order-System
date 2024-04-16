@@ -51,7 +51,8 @@ class VouchersApplyFragment : Fragment() {
     private fun fetchVouchers(){
         ServiceLocator.userRepository.getUserVouchers(userId) { vouchers ->
             vouchers?.let {
-                this.vouchers.addAll(it)
+                val unusedVouchers = it.filter { voucher -> !voucher.used }
+                this.vouchers.addAll(unusedVouchers)
                 updateRecyclerView()
                 markSelectedVouchers()
                 setupApplyVoucherButton(requireView())
@@ -65,7 +66,7 @@ class VouchersApplyFragment : Fragment() {
         (recyclerView.adapter as? VoucherAdapter)?.let { adapter ->
             adapter.vouchers.clear()
             adapter.vouchers.addAll(filteredVouchers)
-            adapter.notifyDataSetChanged() // Notify the adapter of the data change
+            adapter.notifyDataSetChanged() // Notify the adapter of the data change, there's a pub sub inside
         }
     }
 

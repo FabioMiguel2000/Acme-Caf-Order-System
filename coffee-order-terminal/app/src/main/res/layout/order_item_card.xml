@@ -52,6 +52,30 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_client_details"
             app:layout_constraintEnd_toEndOf="@id/right_guideline" />
 
+        <TextView
+            android:id="@+id/tv_client_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+
+            android:text="E-mail: fabmiguel@gmail.com"
+            android:textColor="@color/dark_purple"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/left_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/tv_client_name" />
+
+        <TextView
+            android:id="@+id/tv_client_nif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+
+            android:text="NIF: 123456789"
+            android:textColor="@color/dark_purple"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/left_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/tv_client_email" />
+
 
         <TextView
             android:id="@+id/tv_order_summary"
@@ -63,7 +87,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/left_guideline"
-            app:layout_constraintTop_toBottomOf="@id/tv_client_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_client_nif"
             app:layout_constraintEnd_toEndOf="@id/right_guideline" />
 
         <TextView

@@ -20,13 +20,15 @@ const getAllOrders = async (req, res) => {
 const getOrderByID = async (req, res) => {
   try {
     const { id } = req.params;
-    const order = await Order.findById(id);
-    if (!order) {
-      return returnResponse(res, 404, false, `Order with id: ${id} not found`);
+    if(id){
+      const order = await Order.findById(id);
+      if (!order) {
+        return returnResponse(res, 404, false, `Order with id: ${id} not found`);
+      }
+      returnResponse(res, 200, true, `Retrieved order with id: ${id}`, order);
+    } else {
+      return returnResponse(res, 400, false, `Invalid id: ${id}`);
     }
-
-    return returnResponse(res, 200, true, `Retrieved order with id: ${id}`, order);
-    
   } catch (error) {
     return returnResponse(res, 500, false, `Failed to retrieve order`);
   }
@@ -76,10 +78,14 @@ const calculatePrices = (products, discountVoucher) => {
 
 const countCups = (products, freeCoffeeVoucher) => {
   let count = 0;
+  let freeCoffeeProductExist = false;
   products.forEach((p) => {
     count += p.quantity;
+    if (freeCoffeeVoucher && p.product.name === "Free Coffee") {
+      freeCoffeeProductExist = true;
+    }
   });
-  if (freeCoffeeVoucher) {
+  if (freeCoffeeProductExist) {
     return count - 1;
   }
   return count;
@@ -114,7 +120,7 @@ const validateOrder = async (req, res) => {
     order.status = "Verified";
     await order.save();
     
-    return returnResponse(res, 200, true, `Order with id: ${id} verified`, order);
+    return returnResponse(res, 201, true, `Order with id: ${id} verified`, order);
     
   } catch (error) {
     return returnResponse(res, 500, false, `Failed to validate order: ${error}`);
@@ -123,11 +129,8 @@ const validateOrder = async (req, res) => {
 
 const createOrder = async (req, res) => {
   try {
-    console.log(req.body)
     const { client, products, discountVoucher, freeCoffeeVoucher, status } =
       req.body;
-
-    console.log( client, products, discountVoucher, freeCoffeeVoucher, status)
 
     if (status !== "Pending") {
       return returnResponse (res, 400, false, `Invalid status: ${status}`);
@@ -150,9 +153,12 @@ const createOrder = async (req, res) => {
       freeCoffeeProductExist = true;
     }
 
-    console.log(products)
+    let productObjs = await getProductObjs(products);
 
-    const productObjs = await getProductObjs(products);
+    if (freeCoffeeProductExist) {
+      freeCoffeeObject = await Product.findOne({ name: "Free Coffee" });
+      productObjs.push({ product: freeCoffeeObject, quantity: 1 });
+    }
 
     const vDiscountVoucher = await validateVoucher(discountVoucher, client);
     const vFreeCoffeeVoucher = await validateVoucher(freeCoffeeVoucher, client);
@@ -165,7 +171,6 @@ const createOrder = async (req, res) => {
       (vFreeCoffeeVoucher && !freeCoffeeProductExist) ||
       (!vFreeCoffeeVoucher && freeCoffeeProductExist)
     ) {
-
       return returnResponse(res, 400, false, `Free Coffee Voucher not valid or Free Coffee product not in order`);
 
     }
@@ -189,7 +194,6 @@ const createOrder = async (req, res) => {
     return returnResponse(res, 201, true, `Order created with id: ${newOrder._id}`, newOrder);
 
   } catch (error) {
-
     return returnResponse(res, 500, false, `Failed to create order: ${error}`);
   }
 };
