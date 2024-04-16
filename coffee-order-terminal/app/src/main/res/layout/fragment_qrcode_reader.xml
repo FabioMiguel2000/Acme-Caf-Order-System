@@ -7,30 +7,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.QRCodeFragment">
 
-
-        <Button
-            android:id="@+id/btn_open"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Open Camera"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="TAP TO READ QRCODE"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/dark_purple"
             app:layout_constraintBottom_toTopOf="@+id/image_read_qr_code"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.943" />
+
+             />
 
         <ImageButton
             android:id="@+id/image_read_qr_code"
@@ -38,11 +28,9 @@
             android:layout_height="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.431"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.499"
-            app:srcCompat="@drawable/qr_ode_reader"></ImageButton>
+            app:srcCompat="@drawable/qr_ode_reader" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
