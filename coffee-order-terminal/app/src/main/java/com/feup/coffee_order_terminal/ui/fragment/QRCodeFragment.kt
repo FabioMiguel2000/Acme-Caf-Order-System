@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.feup.coffee_order_terminal.R
 import com.feup.coffee_order_terminal.databinding.QrcodeReaderFragmentBinding
 import com.feup.coffee_order_terminal.domain.model.CartProduct
+import com.feup.coffee_order_terminal.domain.model.SimplifiedCartProduct
 import com.feup.coffee_order_terminal.service.OrderApiCommunicator
 import com.feup.coffee_order_terminal.ui.OrderFragment
 import com.google.gson.Gson
@@ -76,7 +77,7 @@ class QRCodeFragment : Fragment() {
                     var status = "Pending"
                     var discountVoucher  = ""
                     var freeCoffeeVoucher = ""
-                    var products: List<CartProduct> = emptyList()
+                    var products: List<SimplifiedCartProduct> = emptyList()
 
                     Log.e("obj", obj.toString())
                     if(obj.has("client")){
@@ -89,7 +90,7 @@ class QRCodeFragment : Fragment() {
 
                     if(obj.has("products")){
                         val cartProducts = obj.getString("products")
-                        products = gson.fromJson(cartProducts, object : TypeToken<List<CartProduct>>() {}.type)
+                        products = gson.fromJson(cartProducts, object : TypeToken<List<SimplifiedCartProduct>>() {}.type)
                     }
 
                     if(obj.has("freeCoffeeVoucher")){

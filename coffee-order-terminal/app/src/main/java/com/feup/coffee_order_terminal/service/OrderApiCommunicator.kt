@@ -7,13 +7,14 @@ import com.feup.coffee_order_terminal.core.network.ApiResponse
 import com.feup.coffee_order_terminal.core.network.HttpHandlerClass
 import com.feup.coffee_order_terminal.domain.model.CartProduct
 import com.feup.coffee_order_terminal.domain.model.Order
+import com.feup.coffee_order_terminal.domain.model.SimplifiedCartProduct
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class OrderApiCommunicator {
-    fun createOrder(context: Context, client: String, status: String, products: List<CartProduct>, freeCoffeeVoucher: String?, discountVoucher: String?, callback: (Order?) -> Unit) {
+    fun createOrder(context: Context, client: String, status: String, products: List<SimplifiedCartProduct>, freeCoffeeVoucher: String?, discountVoucher: String?, callback: (Order?) -> Unit) {
 
         val body = mapOf(
             "client" to client,
