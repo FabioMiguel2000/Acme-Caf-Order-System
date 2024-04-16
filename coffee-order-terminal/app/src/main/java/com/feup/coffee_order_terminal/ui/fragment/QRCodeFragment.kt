@@ -100,7 +100,7 @@ class QRCodeFragment : Fragment() {
                     }
 
                     val builder = AlertDialog.Builder(this.requireContext())
-                    builder.setMessage("Acept order?")
+                    builder.setMessage("Accept order?")
                     builder.setCancelable(false)
                     builder.setPositiveButton("Yes")   {
                             _, _ ->

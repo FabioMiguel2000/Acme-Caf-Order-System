@@ -43,8 +43,8 @@ class OrderConfirmationFragment : Fragment() {
                     this.requireContext(),
                     it1
                 )
-                // Navigate to the OrderListFragment
-                val fragment = OrderListFragment()
+                // Navigate to the SuccessFragment
+                val fragment = SuccessFragment()
                 val transaction = requireActivity().supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.fLayout, fragment)
                 transaction.addToBackStack(null)
