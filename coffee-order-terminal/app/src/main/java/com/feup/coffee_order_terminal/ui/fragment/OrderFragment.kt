@@ -1,7 +1,6 @@
 package com.feup.coffee_order_terminal.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.feup.coffee_order_terminal.R
-import com.feup.coffee_order_terminal.core.service.ServiceLocator
 import com.feup.coffee_order_terminal.domain.model.Order
 import com.feup.coffee_order_terminal.ui.adapter.OrdersAdapter
 
@@ -20,7 +18,7 @@ class OrderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.order_list_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_order_list, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

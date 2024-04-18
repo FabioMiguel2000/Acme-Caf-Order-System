@@ -24,7 +24,9 @@ class OrdersAdapter(val orders: MutableList<Order>) : RecyclerView.Adapter<Order
             val product = order.products
 
             //Client
-            tvClientName.text = order.client?.name
+            tvClientName.text = "Name: ${order.client?.name}"
+            tvClientEmail.text = "Email: ${order.client?.email}"
+            tvClientNif.text = "VAT Number: ${order.client?.nif}"
 
             //Summary
             tvOrderCode.text = "#${order._id.toString().uppercase()}"

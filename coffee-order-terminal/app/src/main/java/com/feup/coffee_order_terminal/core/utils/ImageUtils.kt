@@ -10,7 +10,7 @@ import com.feup.coffee_order_terminal.R
 class ImageUtils {
 
     open fun baseImageToBitMap(image: String): Bitmap? {
-        val imageBytes = android.util.Base64.decode(image, android.util.Base64.DEFAULT)
+        val imageBytes = Base64.decode(image, Base64.DEFAULT)
         return  BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
     }
 

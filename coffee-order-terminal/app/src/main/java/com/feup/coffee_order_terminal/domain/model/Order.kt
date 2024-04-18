@@ -21,5 +21,3 @@ class Order(
         const val STATUS_VERIFIED = "Verified"
     }
 }
-
-
