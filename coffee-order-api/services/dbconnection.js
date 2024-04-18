@@ -1,6 +1,7 @@
 const { connection } = require('mongoose');
 const mongoose = require('mongoose');
-require('dotenv').config({ path: __dirname + "/.env" });
+// require('dotenv').config({ path: __dirname + "/.env" });
+require('dotenv').config();
 
 const options = {
   useUnifiedTopology: true,
