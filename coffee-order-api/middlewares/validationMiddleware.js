@@ -7,8 +7,6 @@ const validateRequest = async (req, res, next) => {
   const timestamp = req.headers["x-timestamp"];
   const maxTimestampTolerance = 10 * 1000;
 
-  console.log(signature);
-
   if (!signature) {
     return returnResponse(res, 400, false, `Unauthorized`);
   }
@@ -73,7 +71,6 @@ const constructDataForValidation = (url, body, client, timestamp) => {
 const validateTimestamp = (requestTimestamp, maxTimestampTolerance) => {
   const currentTimestamp = Date.now();
   const timestampDifference = Math.abs(currentTimestamp - requestTimestamp);
-  console.log(currentTimestamp, requestTimestamp, timestampDifference);
 
   return timestampDifference <= maxTimestampTolerance;
 };
