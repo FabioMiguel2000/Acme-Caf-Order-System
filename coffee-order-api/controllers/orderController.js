@@ -227,6 +227,7 @@ const createOrderByProductNames = async (order) => {
       products: productObjs,
       subtotal,
       promotionDiscount,
+      status: "Verified",
       total,
     }).save();
   } catch (error) {
