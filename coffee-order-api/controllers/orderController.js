@@ -262,6 +262,7 @@ const createOrderByProductNames = async (order) => {
       client: clientExists._id,
       products: productObjs,
       subtotal,
+      status: "Verified",
       promotionDiscount,
       total,
     }).save();
