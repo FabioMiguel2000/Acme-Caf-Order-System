@@ -4,6 +4,10 @@ A cafeteria – the Acme Café – intends to implement a more efficient orderin
 
 The idea is for the customers compose previously their orders in the app, choosing items from a menu and their quantities, and transmit them, together with possible vouchers and identification data, to a terminal inside the house. After that, the customers only need to collect the ordered items at the counter when they are ready.
 
+## Demonstration Video 
+
+https://github.com/FabioMiguel2000/Acme-Caf-Order-System/assets/50105554/dc386684-2fd6-40fc-ac47-e690bd5ef79e
+
 ## Installing the Software Dependencies
 
 To prepare your computer for development you need to install [Docker Desktop](https://www.docker.com/products/docker-desktop/).
@@ -66,3 +70,6 @@ If you are running on an emulator you can keep with the default base URL:
 ```bash
 apiBaseUrl=http://10.0.2.2:3000/api/
 ```
+
+
+
