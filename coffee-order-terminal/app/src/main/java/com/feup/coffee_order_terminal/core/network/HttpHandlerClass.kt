@@ -1,5 +1,6 @@
 package com.feup.coffee_order_terminal.core.network
 
+import com.feup.coffee_order_terminal.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -17,7 +18,7 @@ class HttpHandlerClass private constructor(baseUrl: String, retrofitBuilder: Api
         @Volatile
         private var instance: HttpHandlerClass? = null
         fun getInstance() = instance ?: synchronized(this) {
-            val base = "http://192.168.31.241:3000/api/"
+            val base = BuildConfig.API_BASE_URL
             val retBuilder =
                 Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(base)
                     .build().create(ApiInterface::class.java)
