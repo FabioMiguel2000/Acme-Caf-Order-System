@@ -26,11 +26,13 @@
             android:id="@+id/image_read_qr_code"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/qr_ode_reader" />
+            app:srcCompat="@drawable/qr_code_reader" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
