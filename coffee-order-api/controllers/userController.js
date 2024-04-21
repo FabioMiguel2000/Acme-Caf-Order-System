@@ -61,7 +61,7 @@ const getSingleUser = async (req, res) => {
       if (!user) {
         return returnResponse(res, 404, false, `User with id: ${id} not found`);
       }
-      returnResponse(res, 200, true, `Retrieved user with id: ${id}`, user);
+      return returnResponse(res, 200, true, `Retrieved user with id: ${id}`, user);
     } else {
       return returnResponse(res, 200, true, `No user provided`);
     }
