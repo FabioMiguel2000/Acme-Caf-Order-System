@@ -1,5 +1,9 @@
 # Acme-Caf-Order-System
 
+![Kotlin](https://img.shields.io/badge/Kotlin-v1.9.0-purple?&color=7f52ff)
+![Node](https://img.shields.io/badge/node-v20.11.1-green)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 <p align="center">
   <img height="300" src="https://github.com/FabioMiguel2000/Acme-Caf-Order-System/assets/50105554/43adf4f2-69cf-4c31-b566-8962a2e98c79">
 
