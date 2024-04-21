@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import com.feup.coffee_order_application.core.crypto.PubKey
 import com.feup.coffee_order_application.core.network.ApiResponse
 import com.feup.coffee_order_application.ui.activity.MainActivity
 import com.feup.coffee_order_application.core.network.HttpHandlerClass
@@ -13,8 +14,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AuthManager {
-    fun login(context: Context, username: String, password: String, onSuccess: () -> Unit) {
-        val body = mapOf("email" to username, "password" to password)
+    fun login(context: Context, username: String, password: String, publicKeyPem: String, onSuccess: () -> Unit) {
+        val body = mapOf("email" to username, "password" to password, "publicKey" to publicKeyPem)
         HttpHandlerClass.getInstance().retrofitBuilder.login(body).enqueue(object : Callback<ApiResponse<User>> {
             override fun onResponse(call: Call<ApiResponse<User>>, response: Response<ApiResponse<User>>) {
                 if (response.code() == 200) {
@@ -37,14 +38,16 @@ class AuthManager {
         })
     }
 
-    fun register(context: Context, name: String, email: String, nif: String,  password: String, publicKey: String, callback: RegistrationCallback){
+    fun register(context: Context, name: String, email: String, nif: String, password: String, publicKeyPem: String, callback: RegistrationCallback){
+
+
         //preparing request body
         val body = mapOf(
             "name" to name,
             "email" to email,
             "nif" to nif,
             "password" to password,
-            "publicKey" to publicKey
+            "publicKey" to publicKeyPem
         )
 
         return HttpHandlerClass.getInstance().retrofitBuilder.register(body).enqueue(object : Callback<ApiResponse<User>> {

@@ -46,8 +46,14 @@ class RegisterActivity : AppCompatActivity() {
             if (!isValid)
                 return@setOnClickListener
 
+            val publicKey = crypto.getPubKey()
+            if (publicKey == null) {
+                Toast.makeText(this, "Error generating keys", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val auth = AuthManager()
-            auth.register(this.baseContext, name.text.toString(), email.text.toString(), nif.text.toString(), password.text.toString(), crypto.getPublicKey(), object :
+            auth.register(this.baseContext, name.text.toString(), email.text.toString(), nif.text.toString(), password.text.toString(), crypto.pubKeyToPem(publicKey), object :
                 AuthManager.RegistrationCallback {
 
                 override fun onRegistrationSuccess() {

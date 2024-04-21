@@ -31,6 +31,7 @@ android {
         buildConfigField("String", "API_BASE_URL", "\"$apiUrl\"")
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -64,9 +65,16 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    androidTestImplementation(libs.androidx.espresso.core)
+    testImplementation ("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:5.11.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
+
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.compose.material:material:1.6.3")
     implementation("androidx.core:core-ktx:1.12.0")
+
+    implementation ("org.bouncycastle:bcpkix-jdk15on:1.69")
 
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation("com.google.code.gson:gson:2.8.9")
