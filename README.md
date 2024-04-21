@@ -59,9 +59,9 @@ docker exec -it api npm run data:import
 docker exec -it api npm run data:destroy
 ```
 
-#### Run Application
+#### Run Client Application & Terminal Application
 
-1. Head inside the app's project directory `/coffee-order-application`, and add the server's base URL to the `local.properties`, accordingly:
+1. Head inside the app's project directory `/coffee-order-application` or `/coffee-order-terminal`, and add the server's base URL to the `local.properties`, accordingly:
 
 If you are using a physical device:
 ```bash
@@ -78,5 +78,19 @@ If you are running on an emulator you can keep with the default base URL:
 apiBaseUrl=http://10.0.2.2:3000/api/
 ```
 
+## Authors
+```
+Adalberto Oliveira Filipe
+Bruno de Sena Pereira
+Fabio Huang
+Gabriel de Sousa Gomes
+Garcia Isaias Manuel
+```
 
+
+## License
+
+This project is licensed under the Apache License, Version 2.0.
+
+For the complete text of the Apache License, please refer to the ![Apache License](https://github.com/FabioMiguel2000/Acme-Caf-Order-System/blob/FabioMiguel2000-patch-1/LICENSE).
 
