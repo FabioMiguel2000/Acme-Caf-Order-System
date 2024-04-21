@@ -14,8 +14,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class AuthManager {
-    fun login(context: Context, username: String, password: String, onSuccess: () -> Unit) {
-        val body = mapOf("email" to username, "password" to password)
+    fun login(context: Context, username: String, password: String, publicKeyPem: String, onSuccess: () -> Unit) {
+        val body = mapOf("email" to username, "password" to password, "publicKey" to publicKeyPem)
         HttpHandlerClass.getInstance().retrofitBuilder.login(body).enqueue(object : Callback<ApiResponse<User>> {
             override fun onResponse(call: Call<ApiResponse<User>>, response: Response<ApiResponse<User>>) {
                 if (response.code() == 200) {

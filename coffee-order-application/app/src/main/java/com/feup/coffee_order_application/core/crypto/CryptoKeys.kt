@@ -75,18 +75,6 @@ class CryptoKeys {
         return pKey
     }
 
-    private fun getPrivExp(): ByteArray {
-        var exp = ByteArray(0)
-        try {
-            val priv = (entry as KeyStore.PrivateKeyEntry).privateKey
-            exp = (priv as RSAPrivateKey).privateExponent.toByteArray()
-        }
-        catch (ex: Exception) {
-            Log.d("error", "Get private key error: " + ex.message)
-        }
-        return exp
-    }
-
     fun pubKeyToPem(pubKey: PubKey): String {
         // Step 1: Generate PublicKey from PubKey object
         val keySpec = RSAPublicKeySpec(BigInteger(pubKey.modulus), BigInteger(pubKey.exponent))
@@ -100,7 +88,4 @@ class CryptoKeys {
 
         return stringWriter.toString()
     }
-
-
-
 }
