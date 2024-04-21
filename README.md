@@ -1,8 +1,15 @@
 # Acme-Caf-Order-System
 
+<p align="center">
+  <img height="300" src="https://github.com/FabioMiguel2000/Acme-Caf-Order-System/assets/50105554/43adf4f2-69cf-4c31-b566-8962a2e98c79">
+
 A cafeteria – the Acme Café – intends to implement a more efficient ordering and delivery system, supplying an Android app to its customers and incentivizing them to use it, through a loyalty campaign.
 
 The idea is for the customers compose previously their orders in the app, choosing items from a menu and their quantities, and transmit them, together with possible vouchers and identification data, to a terminal inside the house. After that, the customers only need to collect the ordered items at the counter when they are ready.
+
+## Demonstration Video 
+
+https://github.com/FabioMiguel2000/Acme-Caf-Order-System/assets/50105554/dc386684-2fd6-40fc-ac47-e690bd5ef79e
 
 ## Installing the Software Dependencies
 
@@ -66,3 +73,6 @@ If you are running on an emulator you can keep with the default base URL:
 ```bash
 apiBaseUrl=http://10.0.2.2:3000/api/
 ```
+
+
+
