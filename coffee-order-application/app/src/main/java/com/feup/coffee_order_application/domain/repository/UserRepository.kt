@@ -15,7 +15,7 @@ class UserRepository(private val api: ApiInterface) {
             override fun onResponse(call: retrofit2.Call<ApiResponse<User>>, response: retrofit2.Response<ApiResponse<User>>) {
                 if (response.isSuccessful) {
                     val user = response.body()?.data
-                    Log.d("Response", response.body().toString())
+                    //Log.d("Response", response.body().toString())
                     callback(user)
                 }
                 else {
@@ -37,7 +37,7 @@ class UserRepository(private val api: ApiInterface) {
                 response: retrofit2.Response<ApiResponse<List<Voucher>>>
             ) {
                 if (response.isSuccessful) {
-                    Log.d("Response", response.body().toString())
+                    //Log.d("Response", response.body().toString())
                     val vouchers = response.body()?.data
                     callback(vouchers)
                 } else {
