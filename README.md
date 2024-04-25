@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 <p align="center">
-  <img height="300" src="https://github.com/FabioMiguel2000/Acme-Caf-Order-System/assets/50105554/43adf4f2-69cf-4c31-b566-8962a2e98c79">
+  <img height="300" src="https://github.com/FabioMiguel2000/Acme-Caf-Order-System/assets/50105554/c55c4376-231f-41ab-92e1-fb1267745408">
 
 ## Overview
 
